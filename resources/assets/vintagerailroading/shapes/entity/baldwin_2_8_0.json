@@ -1,0 +1,2675 @@
+{
+ "name": "train",
+ "textureWidth": 64,
+ "textureHeight": 64,
+ "textures": {
+  "iron": "game:block/metal/ingot/iron",
+  "dark": "game:block/stone/rock/basalt1",
+  "red": "game:block/metal/plate/copper",
+  "metal": "game:block/metal/plate/iron",
+  "glass": "game:block/glass/plain"
+ },
+ "elements": [
+  {
+   "name": "root_rotate",
+   "from": [
+    41,
+    0,
+    -51
+   ],
+   "to": [
+    41,
+    0,
+    -51
+   ],
+   "rotationOrigin": [
+    24,
+    0,
+    49
+   ],
+   "rotationY": 90,
+   "children": [
+    {
+     "#": "=== MAIN BOILER BODY ===",
+     "#dim": "Full length of loco: 96px long (6 blocks), 32px wide (2 blocks), 28px tall",
+     "#note": "Runs from Z=0 (front cowcatcher end) to Z=96 (rear of cab)",
+     "name": "boiler",
+     "from": [
+      8,
+      8,
+      0
+     ],
+     "to": [
+      40,
+      36,
+      78
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        32,
+        28
+       ]
+      },
+      "south": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        32,
+        28
+       ]
+      },
+      "east": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        72,
+        28
+       ]
+      },
+      "west": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        72,
+        28
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        32,
+        72
+       ]
+      },
+      "down": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        32,
+        72
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== SMOKEBOX / FRONT FACE (circular end cap look) ===",
+     "name": "smokebox",
+     "from": [
+      6,
+      6,
+      -1
+     ],
+     "to": [
+      42,
+      38,
+      10
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#metal",
+       "uv": [
+        0,
+        0,
+        36,
+        32
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        36,
+        32
+       ]
+      },
+      "east": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        10,
+        32
+       ]
+      },
+      "west": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        10,
+        32
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        36,
+        10
+       ]
+      },
+      "down": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        36,
+        10
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== SMOKESTACK ===",
+     "#dim": "4px wide, 14px tall, sits on top of boiler ~Z=12",
+     "name": "smokestack",
+     "from": [
+      18,
+      35,
+      12
+     ],
+     "to": [
+      30,
+      51,
+      22
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        12,
+        16
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        12,
+        16
+       ]
+      },
+      "east": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        10,
+        16
+       ]
+      },
+      "west": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        10,
+        16
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        12,
+        10
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        12,
+        10
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== SMOKESTACK FLARE (wider bell at top) ===",
+     "name": "smokestack_bell",
+     "from": [
+      16,
+      49,
+      10
+     ],
+     "to": [
+      32,
+      55,
+      24
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        16,
+        6
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        16,
+        6
+       ]
+      },
+      "east": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        14,
+        6
+       ]
+      },
+      "west": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        14,
+        6
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        16,
+        14
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        16,
+        14
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== STEAM DOME (mid-boiler) ===",
+     "name": "steam_dome",
+     "from": [
+      16,
+      35,
+      36
+     ],
+     "to": [
+      32,
+      49,
+      50
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        16,
+        14
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        16,
+        14
+       ]
+      },
+      "east": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        14,
+        14
+       ]
+      },
+      "west": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        14,
+        14
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        16,
+        14
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        16,
+        14
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== CAB BODY ===",
+     "#dim": "The engineer cab at the rear. 48px wide (3 blocks), 4 blocks tall.",
+     "#seat": "Seat will be inside here at Z=74-94, rider sits at Z~80",
+     "name": "cab_body",
+     "from": [
+      4,
+      0,
+      68
+     ],
+     "to": [
+      44,
+      64,
+      96
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        40,
+        64
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        40,
+        64
+       ]
+      },
+      "east": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        28,
+        64
+       ]
+      },
+      "west": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        28,
+        64
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        40,
+        28
+       ]
+      },
+      "down": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        40,
+        28
+       ]
+      }
+     },
+     "attachmentpoints": [
+      {
+       "#": "Rider mount point \u2014 1 block behind seat front, at seated height",
+       "code": "Seat-driver",
+       "posX": 24,
+       "posY": 44,
+       "posZ": 0,
+       "rotationX": 0,
+       "rotationY": 0,
+       "rotationZ": 0
+      },
+      {
+       "#": "Click target for mounting \u2014 slightly higher for easy selection",
+       "code": "SeatConfig-driver",
+       "posX": 24,
+       "posY": 44,
+       "posZ": 0,
+       "rotationX": 0,
+       "rotationY": 0,
+       "rotationZ": 0
+      }
+     ]
+    },
+    {
+     "#": "=== CAB ROOF ===",
+     "name": "cab_roof",
+     "from": [
+      2,
+      64,
+      66
+     ],
+     "to": [
+      46,
+      70,
+      98
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        44,
+        6
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        44,
+        6
+       ]
+      },
+      "east": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        32,
+        6
+       ]
+      },
+      "west": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        32,
+        6
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        44,
+        32
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        44,
+        32
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== CAB FRONT WINDOW (opening / firebox side) ===",
+     "name": "cab_window_front",
+     "from": [
+      10,
+      38,
+      66
+     ],
+     "to": [
+      38,
+      58,
+      69
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        28,
+        20
+       ]
+      },
+      "south": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        28,
+        20
+       ]
+      },
+      "east": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        3,
+        20
+       ]
+      },
+      "west": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        3,
+        20
+       ]
+      },
+      "up": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        28,
+        3
+       ]
+      },
+      "down": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        28,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== CAB SIDE WINDOWS ===",
+     "name": "cab_window_left",
+     "from": [
+      2,
+      38,
+      73
+     ],
+     "to": [
+      5,
+      58,
+      91
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        3,
+        20
+       ]
+      },
+      "south": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        3,
+        20
+       ]
+      },
+      "east": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        18,
+        20
+       ]
+      },
+      "west": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        18,
+        20
+       ]
+      },
+      "up": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        3,
+        18
+       ]
+      },
+      "down": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        3,
+        18
+       ]
+      }
+     }
+    },
+    {
+     "name": "cab_window_right",
+     "from": [
+      43,
+      38,
+      73
+     ],
+     "to": [
+      46,
+      58,
+      91
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        3,
+        20
+       ]
+      },
+      "south": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        3,
+        20
+       ]
+      },
+      "east": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        18,
+        20
+       ]
+      },
+      "west": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        18,
+        20
+       ]
+      },
+      "up": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        3,
+        18
+       ]
+      },
+      "down": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        3,
+        18
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== RUNNING BOARDS / WALKWAYS (sides of boiler) ===",
+     "name": "walkway_left",
+     "from": [
+      -2,
+      6,
+      8
+     ],
+     "to": [
+      5,
+      10,
+      68
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        8,
+        4
+       ]
+      },
+      "south": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        8,
+        4
+       ]
+      },
+      "east": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        60,
+        4
+       ]
+      },
+      "west": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        60,
+        4
+       ]
+      },
+      "up": {
+       "texture": "#metal",
+       "uv": [
+        0,
+        0,
+        8,
+        60
+       ]
+      },
+      "down": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        8,
+        60
+       ]
+      }
+     }
+    },
+    {
+     "name": "walkway_right",
+     "from": [
+      43,
+      6,
+      8
+     ],
+     "to": [
+      50,
+      10,
+      68
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        8,
+        4
+       ]
+      },
+      "south": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        8,
+        4
+       ]
+      },
+      "east": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        60,
+        4
+       ]
+      },
+      "west": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        60,
+        4
+       ]
+      },
+      "up": {
+       "texture": "#metal",
+       "uv": [
+        0,
+        0,
+        8,
+        60
+       ]
+      },
+      "down": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        8,
+        60
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== FRONT COWCATCHER / PILOT ===",
+     "#dim": "Angled v-shape at front. Two wedge boxes.",
+     "name": "cowcatcher_left",
+     "from": [
+      4,
+      0,
+      -2
+     ],
+     "to": [
+      24,
+      6,
+      9
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        20,
+        6
+       ]
+      },
+      "south": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        20,
+        6
+       ]
+      },
+      "east": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        10,
+        6
+       ]
+      },
+      "west": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        10,
+        6
+       ]
+      },
+      "up": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        20,
+        10
+       ]
+      },
+      "down": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        20,
+        10
+       ]
+      }
+     }
+    },
+    {
+     "name": "cowcatcher_right",
+     "from": [
+      24,
+      0,
+      -2
+     ],
+     "to": [
+      44,
+      6,
+      9
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        20,
+        6
+       ]
+      },
+      "south": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        20,
+        6
+       ]
+      },
+      "east": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        10,
+        6
+       ]
+      },
+      "west": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        10,
+        6
+       ]
+      },
+      "up": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        20,
+        10
+       ]
+      },
+      "down": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        20,
+        10
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== LARGE DRIVE WHEELS (left side, 3 pairs) ===",
+     "#dim": "Steam loco drive wheels are big \u2014 ~20px diameter. 3 axles along boiler.",
+     "name": "wheel_drive_L1",
+     "from": [
+      0,
+      0,
+      16
+     ],
+     "to": [
+      8,
+      20,
+      28
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        20
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        20
+       ]
+      },
+      "east": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        12,
+        20
+       ]
+      },
+      "west": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        12,
+        20
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      }
+     }
+    },
+    {
+     "name": "wheel_drive_L2",
+     "from": [
+      0,
+      0,
+      34
+     ],
+     "to": [
+      8,
+      20,
+      46
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        20
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        20
+       ]
+      },
+      "east": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        12,
+        20
+       ]
+      },
+      "west": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        12,
+        20
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      }
+     }
+    },
+    {
+     "name": "wheel_drive_L3",
+     "from": [
+      0,
+      0,
+      52
+     ],
+     "to": [
+      8,
+      20,
+      64
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        20
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        20
+       ]
+      },
+      "east": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        12,
+        20
+       ]
+      },
+      "west": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        12,
+        20
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== LARGE DRIVE WHEELS (right side) ===",
+     "name": "wheel_drive_R1",
+     "from": [
+      40,
+      0,
+      16
+     ],
+     "to": [
+      48,
+      20,
+      28
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        20
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        20
+       ]
+      },
+      "east": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        12,
+        20
+       ]
+      },
+      "west": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        12,
+        20
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      }
+     }
+    },
+    {
+     "name": "wheel_drive_R2",
+     "from": [
+      40,
+      0,
+      34
+     ],
+     "to": [
+      48,
+      20,
+      46
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        20
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        20
+       ]
+      },
+      "east": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        12,
+        20
+       ]
+      },
+      "west": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        12,
+        20
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      }
+     }
+    },
+    {
+     "name": "wheel_drive_R3",
+     "from": [
+      40,
+      0,
+      52
+     ],
+     "to": [
+      48,
+      20,
+      64
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        20
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        20
+       ]
+      },
+      "east": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        12,
+        20
+       ]
+      },
+      "west": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        12,
+        20
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== FRONT PONY WHEELS (smaller, under smokebox) ===",
+     "name": "wheel_pony_L",
+     "from": [
+      2,
+      0,
+      6
+     ],
+     "to": [
+      8,
+      12,
+      14
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        12
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        12
+       ]
+      },
+      "east": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      },
+      "west": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        8
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        8
+       ]
+      }
+     }
+    },
+    {
+     "name": "wheel_pony_R",
+     "from": [
+      40,
+      0,
+      6
+     ],
+     "to": [
+      46,
+      12,
+      14
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        12
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        12
+       ]
+      },
+      "east": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      },
+      "west": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        8,
+        12
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        8
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        8
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== REAR WHEELS (under cab) ===",
+     "name": "wheel_rear_L",
+     "from": [
+      2,
+      0,
+      76
+     ],
+     "to": [
+      8,
+      12,
+      88
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        12
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        12
+       ]
+      },
+      "east": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        12,
+        12
+       ]
+      },
+      "west": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        12,
+        12
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        12
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        12
+       ]
+      }
+     }
+    },
+    {
+     "name": "wheel_rear_R",
+     "from": [
+      40,
+      0,
+      76
+     ],
+     "to": [
+      46,
+      12,
+      88
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        12
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        12
+       ]
+      },
+      "east": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        12,
+        12
+       ]
+      },
+      "west": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        12,
+        12
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        12
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        12
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== CONNECTING ROD (left side, links drive wheels) ===",
+     "name": "connecting_rod_L",
+     "from": [
+      -3,
+      4,
+      16
+     ],
+     "to": [
+      0,
+      8,
+      64
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        3,
+        4
+       ]
+      },
+      "south": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        3,
+        4
+       ]
+      },
+      "east": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        48,
+        4
+       ]
+      },
+      "west": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        48,
+        4
+       ]
+      },
+      "up": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        3,
+        48
+       ]
+      },
+      "down": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        3,
+        48
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== CONNECTING ROD (right side) ===",
+     "name": "connecting_rod_R",
+     "from": [
+      48,
+      4,
+      16
+     ],
+     "to": [
+      51,
+      8,
+      64
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        3,
+        4
+       ]
+      },
+      "south": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        3,
+        4
+       ]
+      },
+      "east": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        48,
+        4
+       ]
+      },
+      "west": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        48,
+        4
+       ]
+      },
+      "up": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        3,
+        48
+       ]
+      },
+      "down": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        3,
+        48
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== STEAM CYLINDER / VALVE CHEST (front of boiler, both sides) ===",
+     "name": "cylinder_L",
+     "from": [
+      -4,
+      4,
+      -1
+     ],
+     "to": [
+      3,
+      14,
+      18
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        7,
+        10
+       ]
+      },
+      "south": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        7,
+        10
+       ]
+      },
+      "east": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        18,
+        10
+       ]
+      },
+      "west": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        18,
+        10
+       ]
+      },
+      "up": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        7,
+        18
+       ]
+      },
+      "down": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        7,
+        18
+       ]
+      }
+     }
+    },
+    {
+     "name": "cylinder_R",
+     "from": [
+      45,
+      4,
+      -1
+     ],
+     "to": [
+      52,
+      14,
+      18
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        7,
+        10
+       ]
+      },
+      "south": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        7,
+        10
+       ]
+      },
+      "east": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        18,
+        10
+       ]
+      },
+      "west": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        18,
+        10
+       ]
+      },
+      "up": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        7,
+        18
+       ]
+      },
+      "down": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        7,
+        18
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== HEADLAMP (front of smokebox) ===",
+     "name": "headlamp",
+     "from": [
+      18,
+      34,
+      -2
+     ],
+     "to": [
+      30,
+      42,
+      5
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#glass",
+       "uv": [
+        0,
+        0,
+        12,
+        8
+       ]
+      },
+      "south": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        12,
+        8
+       ]
+      },
+      "east": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        8
+       ]
+      },
+      "west": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        6,
+        8
+       ]
+      },
+      "up": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        12,
+        6
+       ]
+      },
+      "down": {
+       "texture": "#dark",
+       "uv": [
+        0,
+        0,
+        12,
+        6
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== HANDRAILS (left side of boiler walkway) ===",
+     "name": "handrail_L",
+     "from": [
+      -5,
+      12,
+      10
+     ],
+     "to": [
+      -3,
+      16,
+      68
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        2,
+        4
+       ]
+      },
+      "south": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        2,
+        4
+       ]
+      },
+      "east": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        58,
+        4
+       ]
+      },
+      "west": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        58,
+        4
+       ]
+      },
+      "up": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        2,
+        58
+       ]
+      },
+      "down": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        2,
+        58
+       ]
+      }
+     }
+    },
+    {
+     "name": "handrail_R",
+     "from": [
+      51,
+      12,
+      10
+     ],
+     "to": [
+      53,
+      16,
+      68
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        2,
+        4
+       ]
+      },
+      "south": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        2,
+        4
+       ]
+      },
+      "east": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        58,
+        4
+       ]
+      },
+      "west": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        58,
+        4
+       ]
+      },
+      "up": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        2,
+        58
+       ]
+      },
+      "down": {
+       "texture": "#red",
+       "uv": [
+        0,
+        0,
+        2,
+        58
+       ]
+      }
+     }
+    },
+    {
+     "#": "=== CAB STEPS (rear left & right, for boarding) ===",
+     "name": "step_L_bottom",
+     "from": [
+      1,
+      0,
+      91
+     ],
+     "to": [
+      7,
+      4,
+      97
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "south": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "east": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "west": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "up": {
+       "texture": "#metal",
+       "uv": [
+        0,
+        0,
+        6,
+        6
+       ]
+      },
+      "down": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        6
+       ]
+      }
+     }
+    },
+    {
+     "name": "step_R_bottom",
+     "from": [
+      41,
+      0,
+      91
+     ],
+     "to": [
+      47,
+      4,
+      97
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "south": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "east": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "west": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "up": {
+       "texture": "#metal",
+       "uv": [
+        0,
+        0,
+        6,
+        6
+       ]
+      },
+      "down": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        6
+       ]
+      }
+     }
+    },
+    {
+     "name": "step_L_top",
+     "from": [
+      1,
+      4,
+      91
+     ],
+     "to": [
+      7,
+      8,
+      97
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "south": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "east": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "west": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "up": {
+       "texture": "#metal",
+       "uv": [
+        0,
+        0,
+        6,
+        6
+       ]
+      },
+      "down": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        6
+       ]
+      }
+     }
+    },
+    {
+     "name": "step_R_top",
+     "from": [
+      41,
+      4,
+      91
+     ],
+     "to": [
+      47,
+      8,
+      97
+     ],
+     "rotationOrigin": [
+      24,
+      0,
+      48
+     ],
+     "faces": {
+      "north": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "south": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "east": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "west": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        4
+       ]
+      },
+      "up": {
+       "texture": "#metal",
+       "uv": [
+        0,
+        0,
+        6,
+        6
+       ]
+      },
+      "down": {
+       "texture": "#iron",
+       "uv": [
+        0,
+        0,
+        6,
+        6
+       ]
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

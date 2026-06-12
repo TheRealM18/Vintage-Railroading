@@ -1,0 +1,10 @@
+{
+	"ingredientPattern": "_P_,PIP,_P_",
+	"width": 3,
+	"height": 3,
+	"ingredients": {
+		"P": { "type": "item", "code": "game:ingot-iron" },
+		"I": { "type": "item", "code": "game:ingot-iron" }
+	},
+	"output": { "type": "item", "code": "vintagerailroading:ironwheelset", "quantity": 1 }
+}

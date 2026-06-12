@@ -1,0 +1,10 @@
+{
+	"ingredientPattern": "III,_S_,_S_",
+	"width": 3,
+	"height": 3,
+	"ingredients": {
+		"I": { "type": "item", "code": "game:ingot-iron" },
+		"S": { "type": "item", "code": "game:stick" }
+	},
+	"output": { "type": "item", "code": "vintagerailroading:tracklayer", "quantity": 1 }
+}

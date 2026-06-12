@@ -1,0 +1,6 @@
+{
+	"code": "firebox",
+	"maxstacksize": 4,
+	"creativeinventory": { "general": [ "*" ] },
+	"texture": { "base": "game:block/metal/plate/iron" }
+}

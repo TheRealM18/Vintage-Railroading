@@ -1,0 +1,6 @@
+{
+	"code": "cabframe",
+	"maxstacksize": 4,
+	"creativeinventory": { "general": [ "*" ] },
+	"texture": { "base": "game:block/glass/plain" }
+}

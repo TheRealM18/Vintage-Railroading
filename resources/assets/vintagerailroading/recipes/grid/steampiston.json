@@ -1,0 +1,10 @@
+{
+	"ingredientPattern": "III,SSS",
+	"width": 3,
+	"height": 2,
+	"ingredients": {
+		"I": { "type": "item", "code": "game:ingot-iron" },
+		"S": { "type": "item", "code": "game:stick" }
+	},
+	"output": { "type": "item", "code": "vintagerailroading:steampiston", "quantity": 2 }
+}

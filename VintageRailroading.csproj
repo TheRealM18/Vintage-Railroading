@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>VintageRailroading</AssemblyName>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <VintageStoryPath>C:\Users\rober\AppData\Roaming\Vintagestory</VintageStoryPath>
+  </PropertyGroup>
+
+  <Target Name="CheckVintageStory" BeforeTargets="ResolveReferences">
+    <Error Condition="!Exists('$(VintageStoryPath)\VintagestoryAPI.dll')" Text="VintagestoryAPI.dll not found at '$(VintageStoryPath)'. Edit the VintageStoryPath property in this .csproj to the folder that actually contains VintagestoryAPI.dll." />
+    <Error Condition="!Exists('$(VintageStoryPath)\Lib\protobuf-net.dll')" Text="protobuf-net.dll not found at '$(VintageStoryPath)\Lib'. Find it with: Get-ChildItem -Path '$(VintageStoryPath)' -Recurse -Filter protobuf-net.dll | Select FullName  — then fix the protobuf-net HintPath in this .csproj." />
+  </Target>
+
+  <ItemGroup>
+    <Reference Include="VintagestoryAPI">
+      <HintPath>$(VintageStoryPath)\VintagestoryAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="VintagestoryLib">
+      <HintPath>$(VintageStoryPath)\VintagestoryLib.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>$(VintageStoryPath)\Lib\protobuf-net.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="VSSurvivalMod">
+      <HintPath>$(VintageStoryPath)\Mods\VSSurvivalMod.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="VSEssentials">
+      <HintPath>$(VintageStoryPath)\Mods\VSEssentials.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="resources/**">
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

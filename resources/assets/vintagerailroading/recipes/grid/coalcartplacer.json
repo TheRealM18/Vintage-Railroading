@@ -1,0 +1,14 @@
+{
+  "ingredientPattern": "III,IWI,III",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "I": { "type": "item", "code": "game:ingot-iron",      "quantity": 1 },
+    "W": { "type": "block", "code": "game:log-oak-ud",      "quantity": 1 }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:coalcartplacer",
+    "quantity": 1
+  }
+}

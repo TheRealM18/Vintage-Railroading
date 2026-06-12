@@ -1,0 +1,10 @@
+{
+	"code": "trainplacer",
+	"class": "ItemTrainPlacer",
+	"maxstacksize": 1,
+	"attributes": {
+		"entityCode": "train"
+	},
+	"creativeinventory": { "general": [ "*" ] },
+	"texture": { "base": "game:item/resource/ingot/iron" }
+}

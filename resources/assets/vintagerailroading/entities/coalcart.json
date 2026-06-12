@@ -1,0 +1,125 @@
+{
+  "code": "coalcart",
+  "class": "EntityTrain",
+  "tags": [
+    "inanimate",
+    "vehicle"
+  ],
+  "attributes": {
+    "shouldSwivelFromMotion": false,
+    "speedMultiplier": 1,
+    "swimmingOffsetY": 0,
+    "mountAnimations": {
+      "idle": "sitflooridle",
+      "ready": "",
+      "forwards": "",
+      "backwards": ""
+    }
+  },
+  "hitboxSize": {
+    "x": 2.2,
+    "y": 2.8
+  },
+  "deadHitboxSize": {
+    "x": 2.2,
+    "y": 2.8
+  },
+  "eyeHeight": 2.0,
+  "canClimb": false,
+  "behaviorConfigs": {
+    "passivephysicsmultibox": {
+      "collisionBoxes": [
+        {
+          "x1": -0.9,
+          "y1": 0.0,
+          "z1": -1.2,
+          "x2": 0.9,
+          "y2": 2.2,
+          "z2": 1.2
+        }
+      ],
+      "groundDragFactor": 1,
+      "airDragFallingFactor": 0.5,
+      "gravityFactor": 0.0
+    },
+    "creaturecarrier": {
+      "seats": [
+        {
+          "apName": "Seat-driver",
+          "controllable": false,
+          "bodyYawLimit": null,
+          "eyeHeight": 1
+        }
+      ]
+    },
+    "selectionboxes": {
+      "selectionBoxes": [
+        "Seat-driver"
+      ]
+    }
+  },
+  "client": {
+    "renderer": "Shape",
+    "shape": {
+      "base": "vintagerailroading:entity/coalcart"
+    },
+    "textures": {
+      "iron": {
+        "base": "game:block/metal/plate/iron"
+      },
+      "dark": {
+        "base": "game:block/stone/rock/basalt1"
+      },
+      "metal": {
+        "base": "game:block/metal/ingot/iron"
+      },
+      "coal": {
+        "base": "game:block/stone/rock/basalt1"
+      },
+      "wood": {
+        "base": "game:block/stone/rock/basalt1"
+      }
+    },
+    "behaviors": [
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
+      {
+        "code": "interpolateposition"
+      },
+      {
+        "code": "selectionboxes"
+      },
+      {
+        "code": "creaturecarrier"
+      },
+      {
+        "code": "fuelstorage",
+        "quantitySlots": 16
+      }
+    ]
+  },
+  "server": {
+    "behaviors": [
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
+      {
+        "code": "selectionboxes"
+      },
+      {
+        "code": "creaturecarrier"
+      },
+      {
+        "code": "fuelstorage",
+        "quantitySlots": 16
+      }
+    ]
+  }
+}

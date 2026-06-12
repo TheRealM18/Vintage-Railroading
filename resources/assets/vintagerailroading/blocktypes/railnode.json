@@ -1,0 +1,24 @@
+{
+	"code": "railnode",
+	"class": "Block",
+	"entityClass": "VintageRailroadingRailNode",
+	"creativeinventory": { "general": [ "*" ] },
+	"blockmaterial": "Metal",
+	"shape": { "base": "block/basic/cube" },
+	"textures": {
+		"all": { "base": "vintagerailroading:block/rail" },
+		"rail": { "base": "vintagerailroading:block/rail" },
+		"tie": { "base": "vintagerailroading:block/tie" }
+	},
+	"sounds": {
+		"place": "block/anvil",
+		"break": "block/metal"
+	},
+	"resistance": 3.5,
+	"sideopaque": {
+		"all": false
+	},
+	"sidesolid": {
+		"all": false
+	}
+}

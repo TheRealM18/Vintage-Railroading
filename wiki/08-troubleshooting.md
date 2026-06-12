@@ -6,6 +6,11 @@ Common breakages when running or authoring, and how to spot the cause.
 
 ## A new cart won't spawn / crashes on spawn
 
+- **`attachmentPoints` at the top level of the shape file.** VS expects attachment points
+  on an **element** — a lowercase `attachmentpoints` array *inside* one of the elements
+  (e.g. the frame/body), not at the root of the shape JSON. A top-level `attachmentPoints`
+  causes `Failed deserializing <shape>.json: Exception thrown by the target of an
+  invocation` and the entity loads invisible. Move the `Seat-driver` AP into an element.
 - **Missing `Seat-driver` attachment point in the shape.** Seat creation runs at spawn for
   `EntityTrain`; without a valid `Seat-driver` AP it NREs. Open the shape and confirm an
   attachment point named exactly `Seat-driver` exists.

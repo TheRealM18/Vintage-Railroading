@@ -1,0 +1,6 @@
+{
+	"code": "ironwheelset",
+	"maxstacksize": 16,
+	"creativeinventory": { "general": [ "*" ] },
+	"texture": { "base": "game:item/resource/gear-temporal" }
+}

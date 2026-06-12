@@ -1,0 +1,20 @@
+{
+  "ingredientPattern": "PGP,P_P,PPP",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "P": {
+      "type": "item",
+      "code": "game:ingot-iron"
+    },
+    "G": {
+      "type": "block",
+      "code": "game:glass-plain"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:cabframe",
+    "quantity": 1
+  }
+}

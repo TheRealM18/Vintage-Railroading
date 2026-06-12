@@ -1,0 +1,10 @@
+{
+	"code": "coalcartplacer",
+	"class": "ItemTrainPlacer",
+	"maxstacksize": 1,
+	"attributes": {
+		"entityCode": "coalcart"
+	},
+	"creativeinventory": { "general": [ "*" ] },
+	"texture": { "base": "game:block/coal" }
+}

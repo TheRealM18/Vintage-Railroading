@@ -1,0 +1,13 @@
+{
+	"block-railnode": "Rail Node",
+	"item-trainplacer": "Baldwin 2-8-0 Locomotive",
+	"item-tracklayer": "Track Layer",
+	"item-ironwheelset": "Iron Wheel Set",
+	"item-boiler": "Locomotive Boiler",
+	"item-firebox": "Locomotive Firebox",
+	"item-steampiston": "Steam Piston",
+	"item-cabframe": "Cab Frame",
+	"entity-train": "Train",
+	"item-coalcartplacer": "Coal Cart",
+	"entity-coalcart": "Coal Cart"
+}
