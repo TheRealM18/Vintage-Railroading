@@ -65,6 +65,16 @@ namespace VintageRailroading.Entities
         private long _geomForSegId = -1;
         private float _diagAccum;
 
+        // CLIENT-SIDE DEAD RECKONING: the server advances Distance once per tick (~15 Hz);
+        // the client renders at frame rate (60+ Hz). To move smoothly between the sparse
+        // synced positions, the client keeps its OWN local distance and integrates it from
+        // the synced Speed every frame, softly correcting toward the authoritative synced
+        // Distance whenever a fresh server value arrives. _clientDist is that local value;
+        // _clientDistInit tracks whether we've seeded it yet.
+        private double _clientDist;
+        private long _clientSegId = -1;
+        private bool _clientInit;
+
         public override void Initialize(EntityProperties properties, ICoreAPI api, long inChunkIndex3d)
         {
             requirePosesOnServer = true;
@@ -221,18 +231,16 @@ namespace VintageRailroading.Entities
 
             bool coupled = false;
 
-            // SERVER ONLY: read throttle and advance Distance along the track.
+            // ============================ SERVER (authoritative) ============================
+            // Reads throttle / coupling, advances Distance along the network, and is the
+            // single source of truth that syncs (SegmentId, Distance, Speed) to clients.
             if (isServer)
             {
-                // COUPLED CAR: ignore throttle; glue to a point CouplingGap metres behind
-                // the leader along the path. The leader's own movement (below, for an
-                // uncoupled lead loco) walks the network; we mirror it from behind.
                 if (LeaderEntityId != 0 && _network != null)
                 {
                     var leader = World.GetEntityById(LeaderEntityId) as EntityTrain;
                     if (leader == null)
                     {
-                        // Leader gone (despawned/picked up) -> auto-uncouple and stop.
                         LeaderEntityId = 0;
                         Speed = 0;
                     }
@@ -241,12 +249,11 @@ namespace VintageRailroading.Entities
                         coupled = true;
                         var res = _network.Offset(
                             leader.SegmentId, leader.Distance, -CouplingGap,
-                            SegLength, out bool hitEnd);
+                            SegLength, out bool _);
                         SegmentId = res.segId;
                         Distance = res.distance;
                         _geomForSegId = -1;        // segment may have changed
                         Speed = leader.Speed;      // for pitch/animation only
-                        Log($"COUPLED behind {LeaderEntityId} gap={CouplingGap:0.0} seg={SegmentId} dist={Distance:0.0}");
                     }
                 }
 
@@ -259,146 +266,150 @@ namespace VintageRailroading.Entities
                         if (controls.Forward) target = MaxSpeed;
                         else if (controls.Backward) target = -MaxSpeed;
                     }
-                    Log($"throttle: controls={(controls != null ? "OK" : "NULL")} fwd={controls?.Forward} back={controls?.Backward} target={target:0.0} speed={Speed:0.00}");
                     Speed += (target - Speed) * Math.Min(1.0, dt * 2.0);
                     if (Math.Abs(Speed) < 0.05) Speed = 0;
                 }
-            }
 
-            EnsureGeometry();
-            if (_geom == null)
-            {
-                // Log on client too — if the CLIENT has no geometry, it can't draw the
-                // train moving (this is the likely display-sync culprit).
-                if (!isServer && logNow)
-                    World.Logger.Notification($"[vrr] CLI geom=NULL network={(_network != null ? "OK" : "NULL")} segId={SegmentId} dist={Distance:0.0} — cannot render movement");
+                EnsureGeometry();
+                if (_geom == null)
+                {
+                    Log($"SRV geom=NULL segId={SegmentId} — cannot advance this tick");
+                    return;
+                }
+
+                if (!coupled && Speed != 0)
+                {
+                    AdvanceServerDistance(dt, Log);
+                }
+
+                ApplyPoseFromDistance(Distance, Log);
+                CarryRiders(Log);
                 return;
             }
 
-            // Client-side: confirm it sees synced Distance and can compute position.
-            if (!isServer && logNow)
-                World.Logger.Notification($"[vrr] CLI geom=OK segId={SegmentId} dist={Distance:0.0} pos=({Pos.X:0.0},{Pos.Y:0.0},{Pos.Z:0.0})");
-
-            if (isServer && !coupled && Speed != 0)
+            // ============================ CLIENT (smooth render) ============================
+            // The server only updates Distance ~15x/sec; we render at frame rate. So the
+            // client keeps its OWN distance (_clientDist) and integrates it from the synced
+            // Speed EVERY frame, then softly corrects toward the authoritative synced
+            // Distance whenever it arrives. This removes the per-tick stepping.
+            EnsureGeometry();
+            if (_geom == null)
             {
-                double newDist = Distance + Speed * dt;
-
-                if (newDist >= _geom.Length)
-                {
-                    // Ran off the FAR end — try to continue onto the connected segment.
-                    double overshoot = newDist - _geom.Length;
-                    var next = _network?.NextSegment(SegmentId, leavingEnd: true);
-                    if (next.HasValue)
-                    {
-                        var info = next.Value;
-                        SegmentId = info.nextSegmentId;
-                        _geomForSegId = -1;
-                        EnsureGeometry();
-                        double nlen = _geom?.Length ?? 0;
-                        Distance = info.entryDistanceFraction < 0.5 ? overshoot : Math.Max(0, nlen - overshoot);
-                        Speed = Math.Abs(Speed) * info.dirSign;
-                        Log($"TRAVERSE end -> seg {SegmentId} dist={Distance:0.0} dir={info.dirSign}");
-                    }
-                    else
-                    {
-                        Distance = _geom.Length; Speed = 0;
-                        Log("endpoint (far) -> stop");
-                    }
-                }
-                else if (newDist <= 0)
-                {
-                    // Ran off the NEAR end.
-                    double overshoot = -newDist;
-                    var next = _network?.NextSegment(SegmentId, leavingEnd: false);
-                    if (next.HasValue)
-                    {
-                        var info = next.Value;
-                        SegmentId = info.nextSegmentId;
-                        _geomForSegId = -1;
-                        EnsureGeometry();
-                        double nlen = _geom?.Length ?? 0;
-                        Distance = info.entryDistanceFraction < 0.5 ? overshoot : Math.Max(0, nlen - overshoot);
-                        Speed = Math.Abs(Speed) * (info.entryDistanceFraction < 0.5 ? +1 : -1);
-                        Log($"TRAVERSE start -> seg {SegmentId} dist={Distance:0.0}");
-                    }
-                    else
-                    {
-                        Distance = 0; Speed = 0;
-                        Log("endpoint (near) -> stop");
-                    }
-                }
-                else
-                {
-                    Distance = newDist;
-                }
+                if (logNow)
+                    World.Logger.Notification($"[vrr] CLI geom=NULL segId={SegmentId} dist={Distance:0.0} — cannot render");
+                return;
             }
 
-            // Compute Pos from Distance.
-            var p = _geom.PositionAtDistance(Distance);
-            var h = _geom.HeadingAtDistance(Distance);
+            // (Re)seed local distance when uninitialised or when the server moved us to a
+            // different segment (traversal / coupling jump): snap, don't interpolate across.
+            if (!_clientInit || _clientSegId != SegmentId)
+            {
+                _clientDist = Distance;
+                _clientSegId = SegmentId;
+                _clientInit = true;
+            }
+            else
+            {
+                // Dead reckon this frame from the synced speed.
+                _clientDist += Speed * dt;
+
+                // Soft-correct toward the authoritative synced Distance so we never drift.
+                // Lerp factor scales with dt (~8/sec) for a smooth catch-up; snap if the
+                // gap is large (a teleport / desync) to avoid a long visible slide.
+                double err = Distance - _clientDist;
+                if (Math.Abs(err) > 4.0) _clientDist = Distance;
+                else _clientDist += err * Math.Min(1.0, dt * 8.0);
+
+                // Clamp to the current segment so we never sample off the curve; the
+                // server handles the actual segment-to-segment traversal.
+                if (_clientDist < 0) _clientDist = 0;
+                if (_clientDist > _geom.Length) _clientDist = _geom.Length;
+            }
+
+            if (logNow)
+                World.Logger.Notification($"[vrr] CLI render segId={SegmentId} cdist={_clientDist:0.0} sdist={Distance:0.0} spd={Speed:0.0}");
+
+            ApplyPoseFromDistance(_clientDist, Log);
+            CarryRiders(Log);
+        }
+
+        /// <summary>Server: advance Distance by Speed*dt, crossing node boundaries onto
+        /// connected segments (or stopping at a true endpoint).</summary>
+        private void AdvanceServerDistance(float dt, Action<string> Log)
+        {
+            double newDist = Distance + Speed * dt;
+
+            if (newDist >= _geom.Length)
+            {
+                double overshoot = newDist - _geom.Length;
+                var next = _network?.NextSegment(SegmentId, leavingEnd: true);
+                if (next.HasValue)
+                {
+                    var info = next.Value;
+                    SegmentId = info.nextSegmentId;
+                    _geomForSegId = -1;
+                    EnsureGeometry();
+                    double nlen = _geom?.Length ?? 0;
+                    Distance = info.entryDistanceFraction < 0.5 ? overshoot : Math.Max(0, nlen - overshoot);
+                    Speed = Math.Abs(Speed) * info.dirSign;
+                    Log($"TRAVERSE end -> seg {SegmentId} dist={Distance:0.0} dir={info.dirSign}");
+                }
+                else { Distance = _geom.Length; Speed = 0; Log("endpoint (far) -> stop"); }
+            }
+            else if (newDist <= 0)
+            {
+                double overshoot = -newDist;
+                var next = _network?.NextSegment(SegmentId, leavingEnd: false);
+                if (next.HasValue)
+                {
+                    var info = next.Value;
+                    SegmentId = info.nextSegmentId;
+                    _geomForSegId = -1;
+                    EnsureGeometry();
+                    double nlen = _geom?.Length ?? 0;
+                    Distance = info.entryDistanceFraction < 0.5 ? overshoot : Math.Max(0, nlen - overshoot);
+                    Speed = Math.Abs(Speed) * (info.entryDistanceFraction < 0.5 ? +1 : -1);
+                    Log($"TRAVERSE start -> seg {SegmentId} dist={Distance:0.0}");
+                }
+                else { Distance = 0; Speed = 0; Log("endpoint (near) -> stop"); }
+            }
+            else
+            {
+                Distance = newDist;
+            }
+        }
+
+        /// <summary>Project a track distance onto the current segment's curve and set
+        /// Pos (position, yaw, grade pitch). Zeroes motion so inherited boat physics
+        /// can't shove us off the spline.</summary>
+        private void ApplyPoseFromDistance(double dist, Action<string> Log)
+        {
+            if (_geom == null) return;
+            var p = _geom.PositionAtDistance(dist);
+            var h = _geom.HeadingAtDistance(dist);
             Pos.SetPos(p.X, p.Y, p.Z);
             Pos.Yaw = (float)Math.Atan2(h.X, h.Z);
             Pos.Pitch = PitchFromHeading(h);
             Pos.Motion.Set(0, 0, 0);
+        }
 
-            // === RIDER CARRY (UNCONDITIONAL) ===
-            // Runs BEFORE the geometry gate so it can never be skipped by an early
-            // return. This is what makes the player move with the train. Also dumps
-            // full mount/control diagnostics for any train that has a rider.
+        /// <summary>Carry any seated riders to their seat position. Runs on both sides,
+        /// unconditionally, so a rider is never left behind (see bug #7).</summary>
+        private void CarryRiders(Action<string> Log)
+        {
             foreach (var mountable in GetInterfaces<IMountable>())
             {
                 if (mountable == null || !mountable.AnyMounted()) continue;
-
-                Log($"MOUNTED segId={SegmentId} dist={Distance:0.00} speed={Speed:0.00} side={side}");
-                var cc0 = mountable.ControllingControls;
-                var ctrl0 = mountable.Controller;
-                Log($"  controls={(cc0 != null ? "OK" : "NULL")} ctrlFwd={cc0?.Forward} ctrlBack={cc0?.Backward} controller={(ctrl0 != null ? ctrl0.GetType().Name : "null")}");
-                if (ctrl0 is EntityAgent pAg && pAg.Controls != null)
-                {
-                    var c = pAg.Controls;
-                    Log($"  PLAYER keys: fwd={c.Forward} back={c.Backward} left={c.Left} right={c.Right} up={c.Up} down={c.Down} jump={c.Jump} sneak={c.Sneak} sprint={c.Sprint} mountedOn={(pAg.MountedOn != null ? "OK" : "NULL")}");
-                }
-                if (cc0 != null)
-                {
-                    Log($"  SEAT keys:   fwd={cc0.Forward} back={cc0.Backward} left={cc0.Left} right={cc0.Right} up={cc0.Up} down={cc0.Down} jump={cc0.Jump} sneak={cc0.Sneak} sprint={cc0.Sprint}");
-                }
                 foreach (var seat in mountable.Seats)
                 {
                     var passenger = seat?.Passenger;
                     var sp = seat?.SeatPosition;
-                    Log($"  seat passenger={(passenger != null ? passenger.GetType().Name : "none")} seatPos={(sp != null ? $"({sp.X:0.0},{sp.Y:0.0},{sp.Z:0.0})" : "NULL")}");
                     if (passenger != null && sp != null)
                     {
                         passenger.Pos.SetPos(sp.X, sp.Y, sp.Z);
-                        Log($"  -> carried passenger to ({sp.X:0.0},{sp.Y:0.0},{sp.Z:0.0})");
                     }
                 }
             }
-
-            // === POSITION ALONG SPLINE ===
-            EnsureGeometry();
-            if (_geom == null)
-            {
-                Log($"geom=NULL network={(_network != null ? "OK" : "NULL")} segId={SegmentId} dist={Distance:0.0} — cannot compute/render position this tick");
-                return;
-            }
-
-            Log($"geom=OK segId={SegmentId} dist={Distance:0.0} pos=({Pos.X:0.0},{Pos.Y:0.0},{Pos.Z:0.0})");
-
-            if (isServer && !coupled && Speed != 0)
-            {
-                double newDist = Distance + Speed * dt;
-                if (newDist >= _geom.Length) { newDist = _geom.Length; Speed = 0; }
-                if (newDist <= 0) { newDist = 0; Speed = 0; }
-                Distance = newDist;
-                Log($"advanced dist -> {Distance:0.00} (segLen={_geom.Length:0.0})");
-            }
-
-            Pos.SetPos(p.X, p.Y, p.Z);
-            Pos.Yaw = (float)Math.Atan2(h.X, h.Z);
-            Pos.Pitch = PitchFromHeading(h);
-            Pos.Motion.Set(0, 0, 0);
-            Log($"set pos=({p.X:0.0},{p.Y:0.0},{p.Z:0.0}) yaw={Pos.Yaw:0.00} pitch={Pos.Pitch:0.00}");
         }
 
         // Returns the controlling rider's controls, or null if nobody is driving.
