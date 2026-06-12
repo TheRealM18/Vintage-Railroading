@@ -5,13 +5,36 @@
 This is the page you want if you are **building new rolling stock**. It walks through the
 files you create and, critically, **what makes a vehicle work with the coupling system**.
 
-> **Key fact up front:** at the time of writing there is a single vehicle entity class,
-> **`EntityTrain`**, used by the one shipped locomotive. Coupling state lives on that
-> class. The most reliable way to add a new cart today is to **reuse `EntityTrain`** for
-> your cart's entity and give it a different shape/textures/box. A cart is, mechanically,
-> a train that you choose not to drive (you couple it behind a locomotive). Everything in
-> this guide assumes `class: EntityTrain`. Making a *separate* cart class is possible but
-> means re-implementing the network-follow + coupling logic, and is not covered here.
+> **Key fact up front:** there is a single vehicle entity class, **`EntityTrain`**, shared
+> by every train type. You make a NEW train type with **data, not code**: a new entity
+> JSON (with its own `code` and shape) that sets `"class": "EntityTrain"`, plus a placer
+> item that names it. No new C# class per car. A cart is mechanically a train you choose
+> not to drive (you couple it behind a locomotive). The shipped **Coal Cart**
+> (`entities/coalcart.json` + `itemtypes/coalcartplacer.json`) is a complete worked
+> example you can copy.
+
+## Multi-type system (how it works)
+
+Two data hooks make many types share one class:
+
+- **The placer is data-driven.** `ItemTrainPlacer` reads `attributes.entityCode` from the
+  *item's* JSON and spawns `vintagerailroading:<entityCode>`. Defaults to `train`. So one
+  placer class spawns any train type — you just point each placer itemtype at a different
+  entity.
+- **Per-type tuning via entity attributes.** `EntityTrain` reads `attributes.maxSpeed`
+  (m/s, default 6.0) from the *entity's* JSON, so a coal cart can be slower than the loco
+  without any code change. More per-type knobs can be added the same way.
+
+### To add a type "coalcart" you need exactly:
+1. `entities/coalcart.json` — copy `train.json`, set `"code": "coalcart"`, keep
+   `"class": "EntityTrain"`, point `shape.base` at your model, optionally set
+   `attributes.maxSpeed`.
+2. `shapes/entity/coalcart.json` — your model (must keep the `Seat-driver` AP).
+3. `itemtypes/coalcartplacer.json` — `"class": "ItemTrainPlacer"` with
+   `"attributes": { "entityCode": "coalcart" }`.
+4. `lang/en.json` — `"item-coalcartplacer"` and `"entity-coalcart"` display names.
+
+That's the whole recipe for a new car. No registration, no new class.
 
 ## The files you create
 
