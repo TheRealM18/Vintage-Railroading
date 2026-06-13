@@ -20,7 +20,7 @@ namespace VintageRailroading.Entities
     /// add EntityBoat's water physics behaviors, so no floating; our OnGameTick
     /// override drives position along the spline instead.
     /// </summary>
-    public class EntityTrain : EntityBoat
+    public class EntityTrain : EntityBoat, IRailVehicle
     {
         public long SegmentId
         {
@@ -238,7 +238,7 @@ namespace VintageRailroading.Entities
             {
                 if (LeaderEntityId != 0 && _network != null)
                 {
-                    var leader = World.GetEntityById(LeaderEntityId) as EntityTrain;
+                    var leader = World.GetEntityById(LeaderEntityId) as IRailVehicle;
                     if (leader == null)
                     {
                         LeaderEntityId = 0;

@@ -1,6 +1,6 @@
 {
   "code": "logcar",
-  "class": "EntityTrain",
+  "class": "EntityCargo",
   "tags": [
     "inanimate",
     "vehicle"
@@ -8,13 +8,7 @@
   "attributes": {
     "shouldSwivelFromMotion": false,
     "speedMultiplier": 1,
-    "swimmingOffsetY": 0,
-    "mountAnimations": {
-      "idle": "sitflooridle",
-      "ready": "",
-      "forwards": "",
-      "backwards": ""
-    }
+    "swimmingOffsetY": 0
   },
   "hitboxSize": {
     "x": 2.2,
@@ -41,21 +35,6 @@
       "groundDragFactor": 1,
       "airDragFallingFactor": 0.5,
       "gravityFactor": 0.0
-    },
-    "creaturecarrier": {
-      "seats": [
-        {
-          "apName": "Seat-driver",
-          "controllable": false,
-          "bodyYawLimit": null,
-          "eyeHeight": 1
-        }
-      ]
-    },
-    "selectionboxes": {
-      "selectionBoxes": [
-        "Seat-driver"
-      ]
     }
   },
   "client": {
@@ -70,42 +49,17 @@
       "bark":  { "base": "game:block/wood/bark/pine-h" }
     },
     "behaviors": [
-      {
-        "code": "repulseagents"
-      },
-      {
-        "code": "passivephysicsmultibox"
-      },
-      {
-        "code": "woodstorage",
-        "quantitySlots": 16
-      },
-      {
-        "code": "selectionboxes"
-      },
-      {
-        "code": "creaturecarrier"
-      }
+      { "code": "repulseagents" },
+      { "code": "passivephysicsmultibox" },
+      { "code": "interpolateposition" },
+      { "code": "woodstorage", "quantitySlots": 16 }
     ]
   },
   "server": {
     "behaviors": [
-      {
-        "code": "repulseagents"
-      },
-      {
-        "code": "passivephysicsmultibox"
-      },
-      {
-        "code": "woodstorage",
-        "quantitySlots": 16
-      },
-      {
-        "code": "selectionboxes"
-      },
-      {
-        "code": "creaturecarrier"
-      }
+      { "code": "repulseagents" },
+      { "code": "passivephysicsmultibox" },
+      { "code": "woodstorage", "quantitySlots": 16 }
     ]
   }
 }

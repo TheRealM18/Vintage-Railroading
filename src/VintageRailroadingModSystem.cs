@@ -38,7 +38,9 @@ namespace VintageRailroading
             // Register on both sides so client and server agree on the type.
             api.RegisterBlockEntityClass("VintageRailroadingRailNode", typeof(BlockEntityRailNode));
             api.RegisterEntity("EntityTrain", typeof(EntityTrain));
+            api.RegisterEntity("EntityCargo", typeof(EntityCargo));
             api.RegisterEntityBehaviorClass("fuelstorage", typeof(VintageRailroading.Entities.EntityBehaviorFuelStorage));
+            api.RegisterEntityBehaviorClass("woodstorage", typeof(VintageRailroading.Entities.EntityBehaviorWoodStorage));
             api.RegisterItemClass("ItemTrainPlacer", typeof(VintageRailroading.Items.ItemTrainPlacer));
             api.RegisterItemClass("ItemTrackLayer", typeof(VintageRailroading.Items.ItemTrackLayer));
         }
@@ -93,33 +95,36 @@ namespace VintageRailroading
             var plr = args.Caller.Entity as EntityPlayer;
             if (plr == null) return TextCommandResult.Error("No player entity.");
 
-            // Find the two nearest train entities to the player.
+            // Find the two nearest rail vehicles (trains OR cargo cars) to the player.
             var found = api.World.GetEntitiesAround(plr.Pos.XYZ, 12f, 12f,
-                e => e is VintageRailroading.Entities.EntityTrain && e.Alive);
+                e => e is VintageRailroading.Entities.IRailVehicle && e.Alive);
             if (found == null || found.Length < 2)
-                return TextCommandResult.Success("Need two trains within 12 blocks to couple. Found " + (found?.Length ?? 0) + ".");
+                return TextCommandResult.Success("Need two rail vehicles within 12 blocks to couple. Found " + (found?.Length ?? 0) + ".");
 
             // Sort by distance to player; nearest two.
             System.Array.Sort(found, (a, b) =>
                 a.Pos.XYZ.SquareDistanceTo(plr.Pos.XYZ).CompareTo(b.Pos.XYZ.SquareDistanceTo(plr.Pos.XYZ)));
-            var t0 = found[0] as VintageRailroading.Entities.EntityTrain;
-            var t1 = found[1] as VintageRailroading.Entities.EntityTrain;
-            if (t0 == null || t1 == null) return TextCommandResult.Success("Could not resolve two trains.");
+            // Keep the Entity refs (for EntityId / Pos) and the IRailVehicle view (for the
+            // coupling fields). Every IRailVehicle is an Entity, so both are the same object.
+            var e0 = found[0]; var e1 = found[1];
+            var t0 = e0 as VintageRailroading.Entities.IRailVehicle;
+            var t1 = e1 as VintageRailroading.Entities.IRailVehicle;
+            if (t0 == null || t1 == null) return TextCommandResult.Success("Could not resolve two rail vehicles.");
 
             // Decide leader/follower: the one further ALONG the track (greater combined
             // seg+dist ordering is ambiguous across segments), so we use a simple rule —
             // the train the OTHER is behind becomes leader. Here we just make the nearer
             // train the follower of the farther one; the player can re-run if reversed.
-            var leader = t1;
-            var follower = t0;
-            follower.LeaderEntityId = leader.EntityId;
+            var leader = t1; var leaderEnt = e1;
+            var follower = t0; var followerEnt = e0;
+            follower.LeaderEntityId = leaderEnt.EntityId;
             // Set the gap from their current spacing so they don't jump on couple.
-            double gap = follower.Pos.XYZ.DistanceTo(leader.Pos.XYZ);
+            double gap = followerEnt.Pos.XYZ.DistanceTo(leaderEnt.Pos.XYZ);
             if (gap < 1.0 || gap > 20.0) gap = 6.0;
             follower.CouplingGap = gap;
 
             return TextCommandResult.Success(
-                $"Coupled train #{follower.EntityId} behind #{leader.EntityId} at gap {gap:0.0}m. " +
+                $"Coupled #{followerEnt.EntityId} behind #{leaderEnt.EntityId} at gap {gap:0.0}m. " +
                 "Drive the leader and the follower will trail it. /vrruncouple to detach.");
         }
 
@@ -129,19 +134,20 @@ namespace VintageRailroading
             if (plr == null) return TextCommandResult.Error("No player entity.");
 
             var found = api.World.GetEntitiesAround(plr.Pos.XYZ, 12f, 12f,
-                e => e is VintageRailroading.Entities.EntityTrain && e.Alive
-                     && ((VintageRailroading.Entities.EntityTrain)e).LeaderEntityId != 0);
+                e => e is VintageRailroading.Entities.IRailVehicle && e.Alive
+                     && ((VintageRailroading.Entities.IRailVehicle)e).LeaderEntityId != 0);
             if (found == null || found.Length == 0)
-                return TextCommandResult.Success("No coupled train within 12 blocks.");
+                return TextCommandResult.Success("No coupled rail vehicle within 12 blocks.");
 
             System.Array.Sort(found, (a, b) =>
                 a.Pos.XYZ.SquareDistanceTo(plr.Pos.XYZ).CompareTo(b.Pos.XYZ.SquareDistanceTo(plr.Pos.XYZ)));
-            var t = found[0] as VintageRailroading.Entities.EntityTrain;
-            if (t == null) return TextCommandResult.Success("Could not resolve a train.");
+            var tEnt = found[0];
+            var t = tEnt as VintageRailroading.Entities.IRailVehicle;
+            if (t == null) return TextCommandResult.Success("Could not resolve a rail vehicle.");
             long was = t.LeaderEntityId;
             t.LeaderEntityId = 0;
             t.Speed = 0;
-            return TextCommandResult.Success($"Uncoupled train #{t.EntityId} from leader #{was}.");
+            return TextCommandResult.Success($"Uncoupled #{tEnt.EntityId} from leader #{was}.");
         }
 
         private TextCommandResult OnVrrSnap(TextCommandCallingArgs args)

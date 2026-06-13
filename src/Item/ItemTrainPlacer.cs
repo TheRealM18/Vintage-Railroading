@@ -88,20 +88,23 @@ namespace VintageRailroading.Items
             if (etype == null) { SendMsg(byEntity, $"entity type '{entityCode}' missing — check entities/{entityCode}.json and its code."); return; }
 
             var entity = sapi.ClassRegistry.CreateEntity(etype);
-            var train = entity as EntityTrain;
-            if (train == null) { SendMsg(byEntity, $"'{entityCode}' is not an EntityTrain (needs class: EntityTrain to ride rails)."); return; }
+            // Accept any rail vehicle — a locomotive (EntityTrain) or a seatless cargo car
+            // (EntityCargo). Both implement IRailVehicle and ride the network identically.
+            var rail = entity as VintageRailroading.Entities.IRailVehicle;
+            if (rail == null) { SendMsg(byEntity, $"'{entityCode}' is not a rail vehicle (needs class: EntityTrain or EntityCargo to ride rails)."); return; }
 
-            // Set a position before spawn, then place on the network segment.
+            // Set a position before spawn, then place on the network segment. `entity` is
+            // the Entity (for Pos / SpawnEntity); `rail` is the same object as IRailVehicle.
             var startGeom = network.BuildGeometry(bestSeg);
             if (startGeom != null)
             {
                 var sp = startGeom.PositionAtDistance(bestDist);
-                train.Pos.SetPos(sp.X, sp.Y, sp.Z);
+                entity.Pos.SetPos(sp.X, sp.Y, sp.Z);
             }
-            sapi.World.SpawnEntity(train);
-            train.PlaceOnSegment(network, bestSeg, bestDist);
+            sapi.World.SpawnEntity(entity);
+            rail.PlaceOnSegment(network, bestSeg, bestDist);
 
-            SendMsg(byEntity, $"Placed '{entityCode}' on segment #{bestSeg} at {bestDist:0.0}m. Sit in it (right-click) and drive with W/S, or /vrrcouple it behind a loco.");
+            SendMsg(byEntity, $"Placed '{entityCode}' on segment #{bestSeg} at {bestDist:0.0}m. Right-click to ride/load, or /vrrcouple it behind a loco.");
         }
 
         private void SendMsg(EntityAgent byEntity, string msg)
