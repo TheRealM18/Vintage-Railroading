@@ -9,7 +9,7 @@
     },
     "G": {
       "type": "item",
-      "code": "vinteng:metalgear-iron"
+      "code": "vinteng:metalgear-tinbronze"
     },
     "H": {
       "type": "item",
@@ -17,7 +17,7 @@
     },
     "P": {
       "type": "item",
-      "code": "game:metalplate-iron"
+      "code": "game:metalplate-tinbronze"
     }
   },
   "output": {
