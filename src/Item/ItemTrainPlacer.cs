@@ -104,6 +104,12 @@ namespace VintageRailroading.Items
             sapi.World.SpawnEntity(entity);
             rail.PlaceOnSegment(network, bestSeg, bestDist);
 
+            // Remember WHICH placer item created this vehicle, so wrench-pickup can return
+            // the correct item (not always the train placer). Store the full item code path
+            // (e.g. "coalcartplacer") in a synced attribute the entity reads back on pickup.
+            entity.WatchedAttributes.SetString("vrrPlacerCode", this.Code?.Path ?? "trainplacer");
+            entity.WatchedAttributes.MarkPathDirty("vrrPlacerCode");
+
             SendMsg(byEntity, $"Placed '{entityCode}' on segment #{bestSeg} at {bestDist:0.0}m. Right-click to ride/load, or use a Coupler tool to link it behind a loco.");
         }
 

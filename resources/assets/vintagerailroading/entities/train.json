@@ -1,118 +1,119 @@
 {
-	"code": "train",
-	"class": "EntityTrain",
-	"_comment": "EntityTrain extends EntityBoat; needs boat attributes (mountAnimations etc.) that EntityBoat.Initialize reads",
-	"tags": [
-		"inanimate",
-		"vehicle"
-	],
-	"attributes": {
-		"shouldSwivelFromMotion": false,
-		"speedMultiplier": 1,
-		"swimmingOffsetY": 0,
-		"mountAnimations": {
-			"idle": "sitflooridle",
-			"ready": "",
-			"forwards": "",
-			"backwards": ""
-		}
-	},
-	"hitboxSize": {
-		"x": 3.0,
-		"y": 4.5
-	},
-	"deadHitboxSize": {
-		"x": 3.0,
-		"y": 4.5
-	},
-	"eyeHeight": 2.5,
-	"canClimb": false,
-	"behaviorConfigs": {
-		"passivephysicsmultibox": {
-			"collisionBoxes": [
-				{
-					"x1": -1.0,
-					"y1": 0,
-					"z1": -1.5,
-					"x2": 1.0,
-					"y2": 2.5,
-					"z2": 1.5
-				}
-			],
-			"groundDragFactor": 1,
-			"airDragFallingFactor": 0.5,
-			"gravityFactor": 0.0
-		},
-		"creaturecarrier": {
-			"seats": [
-				{
-					"apName": "Seat-driver",
-					"controllable": true,
-					"bodyYawLimit": null,
-					"eyeHeight": 1
-				}
-			]
-		},
-		"selectionboxes": {
-			"selectionBoxes": [
-				"Seat-driver"
-			]
-		}
-	},
-	"client": {
-		"renderer": "Shape",
-		"shape": {
-			"base": "vintagerailroading:entity/baldwin_2_8_0"
-		},
-		"textures": {
-			"iron": {
-				"base": "game:block/metal/ingot/iron"
-			},
-			"dark": {
-				"base": "game:block/stone/rock/basalt1"
-			},
-			"red": {
-				"base": "game:block/metal/plate/copper"
-			},
-			"metal": {
-				"base": "game:block/metal/plate/iron"
-			},
-			"glass": {
-				"base": "game:block/glass/plain"
-			}
-		},
-		"behaviors": [
-			{
-				"code": "repulseagents"
-			},
-			{
-				"code": "passivephysicsmultibox"
-			},
-			{
-				"code": "interpolateposition"
-			},
-			{
-				"code": "selectionboxes"
-			},
-			{
-				"code": "creaturecarrier"
-			}
-		]
-	},
-	"server": {
-		"behaviors": [
-			{
-				"code": "repulseagents"
-			},
-			{
-				"code": "passivephysicsmultibox"
-			},
-			{
-				"code": "selectionboxes"
-			},
-			{
-				"code": "creaturecarrier"
-			}
-		]
-	}
+  "code": "train",
+  "class": "EntityTrain",
+  "_comment": "EntityTrain extends EntityBoat; needs boat attributes (mountAnimations etc.) that EntityBoat.Initialize reads",
+  "tags": [
+    "inanimate",
+    "vehicle"
+  ],
+  "attributes": {
+    "shouldSwivelFromMotion": false,
+    "speedMultiplier": 1,
+    "swimmingOffsetY": 0,
+    "mountAnimations": {
+      "idle": "sitflooridle",
+      "ready": "",
+      "forwards": "",
+      "backwards": ""
+    },
+    "maxSpeed": 6.0
+  },
+  "hitboxSize": {
+    "x": 3.0,
+    "y": 4.5
+  },
+  "deadHitboxSize": {
+    "x": 3.0,
+    "y": 4.5
+  },
+  "eyeHeight": 2.5,
+  "canClimb": false,
+  "behaviorConfigs": {
+    "passivephysicsmultibox": {
+      "collisionBoxes": [
+        {
+          "x1": -1.0,
+          "y1": 0,
+          "z1": -1.5,
+          "x2": 1.0,
+          "y2": 2.5,
+          "z2": 1.5
+        }
+      ],
+      "groundDragFactor": 1,
+      "airDragFallingFactor": 0.5,
+      "gravityFactor": 0.0
+    },
+    "creaturecarrier": {
+      "seats": [
+        {
+          "apName": "Seat-driver",
+          "controllable": true,
+          "bodyYawLimit": null,
+          "eyeHeight": 1
+        }
+      ]
+    },
+    "selectionboxes": {
+      "selectionBoxes": [
+        "Seat-driver"
+      ]
+    }
+  },
+  "client": {
+    "renderer": "Shape",
+    "shape": {
+      "base": "vintagerailroading:entity/baldwin_2_8_0"
+    },
+    "textures": {
+      "iron": {
+        "base": "game:block/metal/ingot/iron"
+      },
+      "dark": {
+        "base": "game:block/stone/rock/basalt1"
+      },
+      "red": {
+        "base": "game:block/metal/plate/copper"
+      },
+      "metal": {
+        "base": "game:block/metal/plate/iron"
+      },
+      "glass": {
+        "base": "game:block/glass/plain"
+      }
+    },
+    "behaviors": [
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
+      {
+        "code": "interpolateposition"
+      },
+      {
+        "code": "selectionboxes"
+      },
+      {
+        "code": "creaturecarrier"
+      }
+    ]
+  },
+  "server": {
+    "behaviors": [
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
+      {
+        "code": "selectionboxes"
+      },
+      {
+        "code": "creaturecarrier"
+      }
+    ]
+  }
 }
