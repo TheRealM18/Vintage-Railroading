@@ -11,5 +11,7 @@
 	"item-coalcartplacer": "Coal Cart",
 	"entity-coalcart": "Coal Cart",
 	"item-logcarplacer": "Logging Flatcar",
-    "entity-logcar": "Logging Flatcar"
+    "entity-logcar": "Logging Flatcar",
+    "item-tankcarplacer": "Tank Car",
+    "entity-tankcar": "Tank Car"
 }
