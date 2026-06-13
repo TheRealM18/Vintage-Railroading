@@ -42,6 +42,18 @@ build did not include the latest mod system. Likewise each storage behavior code
 - **Duplicate entity `code`.** Two entity JSONs sharing one `code` collide and one silently
   overrides the other. Give every vehicle a unique `code`.
 
+## The Coupler tool doesn't couple anything
+
+- **You only clicked one vehicle.** Coupling takes two clicks: right-click the **leader**
+  (you'll see "selected … as leader"), then right-click the **follower**. One click only
+  selects.
+- **You clicked the same vehicle twice.** The second click must be a *different* vehicle.
+- **You clicked air/a block between vehicles.** That **clears** the selection by design —
+  aim directly at each vehicle's body.
+- **The tool broke.** Couplers have limited durability (copper 80 → steel 640 actions);
+  check it isn't worn out, and remember each couple *and* uncouple costs 1.
+- **To uncouple:** sneak + right-click the coupled vehicle. A plain click won't uncouple.
+
 ## A cart spawns but won't couple / won't follow
 
 - **Not a rail-vehicle class.** Only `EntityTrain` and `EntityCargo` carry the follow +
@@ -49,10 +61,11 @@ build did not include the latest mod system. Likewise each storage behavior code
 - **Not placed on the network.** The follower offsets along the track from the leader's
   segment; a vehicle that isn't on a segment (`vrrSegId` unset) has nothing to follow
   along. Spawn it onto a rail.
-- **Leader/follower reversed.** `/vrrcouple` makes the *nearer* vehicle follow the
-  *farther* one. If the wrong one is leading, reposition and re-couple.
-- **Too far apart.** `/vrrcouple` only considers vehicles within 12 blocks. Bring them
-  closer.
+- **Leader/follower reversed.** The Coupler makes the *first-clicked* vehicle the leader
+  and the *second-clicked* its follower. If that's backwards, clear the selection
+  (right-click air) and redo in the right order.
+- **Out of reach.** The Coupler acts on the vehicle you actually right-click, so aim
+  directly at each car.
 - **A cargo car parks and never moves on its own.** That is correct — a cargo car has no
   throttle. It only moves when coupled behind a leader you actually drive.
 
@@ -86,9 +99,11 @@ save/load. Re-couple after loading. A persistent consist id is planned.
 
 ## A vehicle tilts the wrong way on hills
 
-- The grade pitch sign is a known "verify in game" item, shared by both classes
-  (`PitchFromHeading`). If models nose the wrong way on slopes, that is a one-line sign
-  flip. It does not affect coupling.
+- The grade-pitch sign was corrected so vehicles nose **up** going uphill and **down**
+  going downhill (`PitchFromHeading` negates the vertical heading component, since VS pitch
+  is positive-nose-down). Both classes share the same convention. If a future model still
+  looks inverted, it's a one-line sign flip in `PitchFromHeading` — it does not affect
+  coupling or movement, only the visual tilt.
 
 ## Track won't join / two segments won't connect
 
@@ -106,6 +121,13 @@ save/load. Re-couple after loading. A persistent consist id is planned.
   locomotive set is `dark`, `glass`, `iron`, `metal`, `red`; the cargo cars use keys like
   `iron`, `dark`, `metal`, `wood`, `log`, `bark`. Reuse the keys, or update both sides
   together. The shipped cargo cars use placeholder textures until dedicated art is added.
+
+## How to get more diagnostic detail
+
+Run `/vrrdebug` to toggle verbose logging. With it on, the mod prints `[vrr]`-prefixed
+lines for entity init, per-tick movement state, client render projection, and interaction
+results to the server/client log — useful when a vehicle won't move, won't render, or
+won't couple. It's off by default so normal play stays quiet; turn it off again when done.
 
 ---
 

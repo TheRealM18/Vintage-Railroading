@@ -13,11 +13,21 @@ attribute change will not load placed track or trains.
 ## The items
 
 Everything you need is craftable (see [Authoring](06-authoring-rolling-stock.md) for the
-recipe tree) and also available in the creative inventory while you experiment:
+recipe tree) and also available in the creative inventory while you experiment. The mod
+adds four creative tabs so things are easy to find:
+
+- **VRR All** — every item and block the mod adds, in one place.
+- **VRR Trains** — driveable locomotives (the Baldwin 2-8-0).
+- **VRR Cargo** — cargo cars (Coal Cart, Logging Flatcar, Tank Car).
+- **VRR Other** — the Track Layer and Coupler tools, the Rail Node block, and all
+  crafting intermediates (boiler, firebox, cab frame, piston, wheel set).
+
+Items also stay in the default survival creative search.
 
 | Item | What it does |
 |------|--------------|
 | **Track Layer** | The tool you use to lay track by clicking point-to-point. |
+| **Coupler** (copper / tin-bronze / iron / steel) | Durability tool to link and unlink rail vehicles. Higher tiers last longer. |
 | **Baldwin 2-8-0 Locomotive** (the "train placer") | Right-click rail to spawn a drivable locomotive (`EntityTrain`). |
 | **Cargo car placers** (Log Car, Coal Cart, Fluid Tanker) | Right-click rail to spawn a seatless cargo car (`EntityCargo`) you couple behind a loco. |
 | **Locomotive Boiler / Firebox / Cab Frame / Steam Piston / Iron Wheel Set** | Intermediate crafting parts that combine into the locomotive. |
@@ -34,7 +44,7 @@ recipe tree) and also available in the creative inventory while you experiment:
 4. **Add a cargo car.** Spawn a log car, coal cart, or fluid tanker on the **same track**,
    a few blocks behind the loco. These are seatless — right-clicking one opens its
    **cargo storage**, not a seat. See [Cargo Cars & Storage](05-cargo-and-storage.md).
-5. **Couple up.** Stand between the loco and the car and run `/vrrcouple`. Now drive the
+5. **Couple up.** Hold a Coupler tool, right-click the loco (selects it as leader), then right-click the car to link it. Now drive the
    loco and the car trails it. See [Coupling](04-coupling.md).
 
 ## Locomotives vs. cargo cars (the one thing to internalise)

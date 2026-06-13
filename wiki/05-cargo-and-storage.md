@@ -117,7 +117,7 @@ a one-method change).
 | `fluidcar` | `EntityCargo` | `fluidstorage` (200 L)     | Tanker for any liquid. |
 
 Each has a matching placer item (e.g. the Log Car item) that spawns it onto a rail. Spawn
-one behind a locomotive and `/vrrcouple`.
+one behind a locomotive and link it with a Coupler tool.
 
 > Textures on the shipped cargo cars currently reuse placeholder maps (the log car/coal
 > cart use stand-in textures such as basalt for dark surfaces, and the fluid car reuses

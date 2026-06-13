@@ -33,20 +33,33 @@ cornering and hill-climbing for free — there is no separate physics to tune. A
 has **no** movement of its own at all: with no leader, its speed is forced to zero and it
 parks where it sits.
 
-## Coupling two vehicles (current method)
+## Coupling two vehicles (the Coupler tool)
 
-Coupling is currently driven by a command (interaction-based coupling is planned):
+Coupling is done with a **Coupler** — a durability tool that comes in four metal tiers
+(copper, tin-bronze, iron, steel) that differ only in how many couplings they last before
+wearing out. Craft one (see [Authoring → crafting tree](06-authoring-rolling-stock.md))
+or grab one from the **VRR Other** creative tab.
+
+To couple:
 
 1. Spawn two vehicles on the **same track**, near each other (any mix of loco and cargo).
-2. Stand between them.
-3. Run **`/vrrcouple`** — the two nearest rail vehicles within 12 blocks are linked. The
-   nearer one becomes the **follower** of the farther one.
-4. Drive the **leader** (it must be a locomotive if you want the consist to actually move);
-   the follower trails it at the gap it had when you coupled.
+2. Hold a Coupler and **right-click the vehicle you want to be the leader** — it is
+   *selected* (you'll see "selected #… as leader").
+3. **Right-click the second vehicle** — it becomes the **follower** of the first, at the
+   gap they're currently spaced. This costs **1 durability** and clears the selection.
+4. Drive the **leader** (a locomotive if you want the consist to move); the follower
+   trails it.
 
-To detach:
+To uncouple:
 
-- **`/vrruncouple`** — detaches the nearest coupled vehicle from its leader.
+- **Sneak + right-click** a coupled vehicle with the Coupler — it detaches from its leader
+  (also costs 1 durability).
+
+Right-clicking empty air or a block with the Coupler **clears** a pending selection, so
+it's easy to start over if you picked the wrong leader.
+
+> The old `/vrrcouple` and `/vrruncouple` chat commands have been **removed** — the Coupler
+> tool replaces them. Coupling is now a survival action with a material cost.
 
 The coupling **gap** is taken from the two vehicles' spacing at the moment you couple
 (clamped to a sane range), so they do not jump together on coupling.
@@ -69,20 +82,20 @@ identically through `IRailVehicle`.
 The follow math already supports a **follower-of-a-follower**: car C follows car B, which
 follows locomotive A, and each simply trails the one ahead. `EntityCargo`'s leader lookup
 explicitly accepts either an `EntityTrain` or another `EntityCargo` as its leader, so
-chains of cargo cars work. However, the current `/vrrcouple` command only links the two
-nearest vehicles as a **pair**. To build a longer consist by hand you couple A+B, then
-position C and couple B+C. A proper consist identifier and chain-aware linking are planned
-so that picking up or uncoupling a mid-train car behaves cleanly.
+chains of cargo cars work. To build a longer consist by hand you couple A→B (select A,
+click B), then select B and click C, and so on — each Coupler click links one follower to
+one leader. A proper consist identifier and chain-aware linking are planned so that
+picking up or uncoupling a mid-train car behaves cleanly.
 
 ## Current limitations (be aware)
 
 These are known and on the roadmap; design your test setups around them:
 
-- **Pairs only via command.** Interaction-based (right-click car-to-car) coupling is not
-  in yet; use `/vrrcouple`.
-- **Leader/follower choice is positional.** `/vrrcouple` makes the *nearer* vehicle the
-  follower of the *farther* one. If that is backwards for your layout, reposition and
-  re-couple.
+- **One link per click pair.** The Coupler links one selected leader to one clicked
+  follower. Longer consists are built link by link.
+- **Leader/follower is chosen by click order.** The **first** vehicle you click is the
+  leader; the **second** becomes its follower. If you pick them in the wrong order, clear
+  the selection (right-click air) and redo.
 - **Couplings do not persist across a reload.** The leader is stored as an entity id,
   which is not stable across save/load, so consists drop apart when the world reloads.
   Re-couple after loading. (A persistent consist id is planned.)

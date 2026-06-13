@@ -35,6 +35,11 @@ follows the switch setting or the smoothest branch (see
 
 On grades the locomotive noses up and down to match the slope.
 
+The Baldwin's top speed is **6 m/s**, set by `attributes.maxSpeed` in `train.json`. The
+movement code itself has no hard ceiling, so a custom locomotive can set a higher
+`maxSpeed` (the design headroom goes up to ~18 m/s before the dead-reckoning smoothing
+starts to feel loose); tune per vehicle type in its entity JSON.
+
 ## Picking a train back up
 
 Hold any **wrench** (Vintage Engineering's wrench, or any modded item whose code contains

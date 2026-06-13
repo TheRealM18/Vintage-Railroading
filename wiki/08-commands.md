@@ -10,13 +10,13 @@ All commands require the chat privilege and a player.
 | `/vrrnode` | Place track via command: run once to set point A, move and run again to lay a segment A→B. (The Track Layer item is the preferred, survival-friendly way — see [Laying Track](02-laying-track.md).) |
 | `/vrrsnap` | Toggle endpoint snapping on/off. Off = lay track close together without auto-joining. |
 | `/vrrswitch` | Stand within 4 blocks of a junction node and cycle its through-route to the next branch. |
-| `/vrrcouple` | Couple the two nearest **rail vehicles** (locomotive or cargo car) within 12 blocks; the nearer becomes the follower of the farther. |
-| `/vrruncouple` | Detach the nearest coupled rail vehicle from its leader. |
+| `/vrrdebug` | Toggle verbose `[vrr]` debug logging to the server/client log. Off by default; turn on only when diagnosing something. |
 | `/vrrtrain` | Legacy train spawn (superseded by the placer items). |
 
-> `/vrrcouple` and `/vrruncouple` operate on the `IRailVehicle` interface, so they see and
-> link **any** mix of locomotives and cargo cars — there is no separate "couple cargo"
-> command.
+> **Coupling is no longer a command.** The old `/vrrcouple` and `/vrruncouple` were removed
+> in favour of the **Coupler tool** — see [Coupling & Consists](04-coupling.md). Hold a
+> Coupler, right-click a leader then a follower to link them; sneak + right-click to
+> detach.
 
 ## Typical mixed-consist session
 
@@ -25,12 +25,20 @@ All commands require the chat privilege and a player.
 /vrrgauge            # (optional) pick a gauge before laying track
 # spawn a loco with the Baldwin placer on the rail
 # spawn a log car (or coal cart / fluid tanker) a few blocks behind it
-# stand between the loco and the car:
-/vrrcouple           # links them; nearer one follows the farther
-# (repeat: place another car behind, stand between car+newcar, /vrrcouple again for a chain)
+# hold a Coupler tool:
+#   right-click the loco  -> selects it as leader
+#   right-click the car   -> couples it behind the loco (costs 1 durability)
+# (repeat with more cars to build a chain: select leader, click next car)
 # sit in the loco, drive with W/S; the cars trail it
-/vrruncouple         # when you want to separate the nearest pair
+#   sneak + right-click a car with the Coupler -> uncouples it
 ```
+
+## Debugging
+
+`/vrrdebug` toggles verbose logging. It's **off** by default so the logs stay clean in
+normal play; turn it on, reproduce the issue, and the mod prints `[vrr]`-prefixed
+diagnostic lines (entity init, tick/advance state, render projection, interaction
+results) to the server or client log. Turn it back off when you're done.
 
 ## Loading cargo
 

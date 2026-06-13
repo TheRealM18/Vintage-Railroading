@@ -22,7 +22,7 @@ the vehicle is *driven*:
   is to carry cargo, which it does via a **storage behavior** with a GUI.
 
 Both implement a shared interface, **`IRailVehicle`**, so everything that operates on
-rolling stock — the placer, `/vrrcouple`, `/vrruncouple` — accepts **either** class.
+rolling stock — the placer, the Coupler tool, the coupling system — accepts **either** class.
 A locomotive and any number of cargo cars couple together into one consist.
 
 ## Pages

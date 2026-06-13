@@ -234,7 +234,7 @@ automatically. You only add a registration if you write a brand-new C# class or 
   `attributes.entityCode`, using `"class": "ItemTrainPlacer"`. Right-click rail to spawn.
 - Or spawn via the game's creative entity tools for quick tests.
 
-Then, for a cargo car, spawn it behind a locomotive and `/vrrcouple`
+Then, for a cargo car, spawn it behind a locomotive and link it with a Coupler tool
 (see [Coupling](04-coupling.md)).
 
 ## Lang entries
@@ -245,6 +245,57 @@ Then, for a cargo car, spawn it behind a locomotive and `/vrrcouple`
   "entity-flatcar": "Flatcar"
 }
 ```
+
+## The crafting tree
+
+> Recipes use **Vintage Engineering** for mechanical parts — gears are
+> `vinteng:metalgear-iron` — plus vanilla metal (`game:metalplate-iron`, `ingot-*`,
+> `stick`, `plank-*`, `glass-*`, `charcoal`). VE is the intended industrial backbone, so
+> it is a load-bearing dependency for crafting (the vehicles still *work* without it; you
+> just can't craft them without the gears).
+
+Components (3×3 unless noted) consume gears + plates + ingots:
+
+| Component | Key ingredients |
+|-----------|-----------------|
+| **Boiler** | iron plates, VE iron gears, copper ingot |
+| **Firebox** | iron plates, steel ingots, gear, charcoal |
+| **Cab Frame** | iron plates, glass, planks |
+| **Steam Piston** | iron plates, copper, gears, stick |
+| **Iron Wheel Set** | gears, iron plates, iron ingot |
+
+Final vehicles combine the components with extra wheel sets and gears:
+
+| Vehicle | Key ingredients |
+|---------|-----------------|
+| **Baldwin 2-8-0** | cab frame, boiler, firebox, steam pistons, wheel sets, gear |
+| **Coal Cart** | iron plates, steel, wheel set, gear |
+| **Logging Flatcar** | planks, iron plates, gear, wheel set |
+| **Tank Car** | iron plates, copper, wheel set, gear |
+
+Tools:
+
+| Tool | Pattern | Key ingredients |
+|------|---------|-----------------|
+| **Track Layer** | tool layout | steel, iron plate, gear, stick |
+| **Coupler** (×4 tiers) | `MM_ / MGH / P__` | metal ingot ×3 (copper/tin-bronze/iron/steel), VE iron gear, stick, iron plate |
+
+### The Coupler tool tiers
+
+The Coupler is a durability tool with four metal variants that differ only in how many
+coupling actions they perform before breaking:
+
+| Tier | Durability (coupling actions) |
+|------|-------------------------------|
+| Copper | 80 |
+| Tin-bronze | 160 |
+| Iron | 320 |
+| Steel | 640 |
+
+Each couple **or** uncouple costs 1 durability. The variants share one itemtype
+(`couplingtool` with a `metal` variantgroup) and one item class (`ItemCouplingTool`); the
+durability and texture are set per-variant in the JSON. See
+[Coupling](04-coupling.md) for how the tool is used in play.
 
 ---
 
