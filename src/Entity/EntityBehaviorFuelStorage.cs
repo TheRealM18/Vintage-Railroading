@@ -81,6 +81,7 @@ namespace VintageRailroading.Entities
         private void OnSlotModified(int slotId)
         {
             if (entity.Api.Side != EnumAppSide.Server) return;
+            VrrDebug.Log(entity.Api, "FuelStorage.OnSlotModified slot={0} -> writing tree (entity {1})", slotId, entity.EntityId);
             var tree = new TreeAttribute();
             _inv.ToTreeAttributes(tree);
             entity.WatchedAttributes["vrrfuelinv"] = tree;
@@ -96,7 +97,10 @@ namespace VintageRailroading.Entities
             // Server: register the player as having the inventory open so slot edits sync.
             if (entity.Api.Side == EnumAppSide.Server)
             {
-                _inv.Open(player);
+                // Register THIS inventory object in the player's open-inventory network so
+                // the engine's standard slot-move packets operate on _inv server-side.
+                // (_inv.Open alone does not wire up that packet routing for an entity.)
+                player.InventoryManager.OpenInventory(_inv);
                 return true;
             }
 
