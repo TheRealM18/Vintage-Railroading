@@ -64,8 +64,7 @@ namespace VintageRailroading.Entities
         {
             if (entity.Api.Side != EnumAppSide.Server) return;
 
-            // Drain only when actually trying to move (idle doesn't burn here; tweak if you
-            // want a standing-idle burn for steam upkeep later).
+            // Drain only when actually trying to move (idle doesn't burn).
             if (wantsToMove && _buffer > 0)
             {
                 _buffer -= dt * _burnRate;
@@ -76,10 +75,15 @@ namespace VintageRailroading.Entities
             // unit of fuel from any available source.
             if (wantsToMove && _buffer <= dt * _burnRate)
             {
-                foreach (var src in GatherSources())
+                var srcs = GatherSources();
+                VrrDebug.Log(entity.Api, "FuelConsumer: wantsToMove buffer={0:0.00} sources={1}", _buffer, srcs.Count);
+                foreach (var src in srcs)
                 {
-                    if (!src.HasFuel) continue;
+                    bool hf = src.HasFuel;
+                    VrrDebug.Log(entity.Api, "FuelConsumer: source hasFuel={0}", hf);
+                    if (!hf) continue;
                     double secs = src.DrawBurnSeconds();
+                    VrrDebug.Log(entity.Api, "FuelConsumer: drew {0:0.0}s of burn", secs);
                     if (secs > 0) { _buffer += secs; break; } // one unit per top-up
                 }
             }

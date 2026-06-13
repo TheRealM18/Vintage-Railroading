@@ -134,6 +134,12 @@ namespace VintageRailroading.Entities
 
                     var fuel = GetBehavior<EntityBehaviorFuelStorage>();
                     if (fuel != null && fuel.OpenFor(plr)) return;
+
+                    var fluid = GetBehavior<EntityBehaviorFluidStorage>();
+                    if (fluid != null && fluid.OpenFor(plr)) return;
+
+                    var generic = GetBehavior<EntityBehaviorGenericStorage>();
+                    if (generic != null && generic.OpenFor(plr)) return;
                 }
             }
 
@@ -159,6 +165,14 @@ namespace VintageRailroading.Entities
                 return false;
             }
 
+            // Drop any stored contents FIRST (before despawn) so cargo is never voided.
+            // Cover every storage behavior a cargo car might carry.
+            VrrDebug.Log(World, "Cargo pickup: dropping contents before despawn (entity {0})", EntityId);
+            GetBehavior<EntityBehaviorWoodStorage>()?.DropContents();
+            GetBehavior<EntityBehaviorFuelStorage>()?.DropContents();
+            GetBehavior<EntityBehaviorFluidStorage>()?.DropContents();
+            GetBehavior<EntityBehaviorGenericStorage>()?.DropContents();
+
             var stack = new ItemStack(placer);
             bool gave = false;
             if (byEntity is EntityPlayer ep && ep.Player is IServerPlayer sp)
@@ -171,9 +185,6 @@ namespace VintageRailroading.Entities
             }
 
             Msg(byEntity, "Cargo car picked up.");
-            // Drop any stored contents so cargo isn't lost on pickup.
-            GetBehavior<EntityBehaviorWoodStorage>()?.DropContents();
-            GetBehavior<EntityBehaviorFuelStorage>()?.DropContents();
 
             Die(EnumDespawnReason.Removed);
             return true;

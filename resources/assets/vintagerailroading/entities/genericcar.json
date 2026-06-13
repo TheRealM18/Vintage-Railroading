@@ -1,0 +1,95 @@
+{
+  "code": "genericcar",
+  "class": "EntityCargo",
+  "tags": [
+    "inanimate",
+    "vehicle"
+  ],
+  "attributes": {
+    "shouldSwivelFromMotion": false,
+    "speedMultiplier": 1,
+    "swimmingOffsetY": 0
+  },
+  "hitboxSize": {
+    "x": 2.2,
+    "y": 2.8
+  },
+  "deadHitboxSize": {
+    "x": 2.2,
+    "y": 2.8
+  },
+  "eyeHeight": 2.0,
+  "canClimb": false,
+  "behaviorConfigs": {
+    "passivephysicsmultibox": {
+      "collisionBoxes": [
+        {
+          "x1": -0.9,
+          "y1": 0.0,
+          "z1": -1.2,
+          "x2": 0.9,
+          "y2": 2.2,
+          "z2": 1.2
+        }
+      ],
+      "groundDragFactor": 1,
+      "airDragFallingFactor": 0.5,
+      "gravityFactor": 0.0
+    }
+  },
+  "client": {
+    "renderer": "Shape",
+    "shape": {
+      "base": "vintagerailroading:entity/logcar"
+    },
+    "textures": {
+      "iron": {
+        "base": "game:block/metal/plate/iron"
+      },
+      "dark": {
+        "base": "game:block/stone/rock/basalt1"
+      },
+      "metal": {
+        "base": "game:block/metal/plate/iron"
+      },
+      "wood": {
+        "base": "game:block/wood/planks/pine1"
+      },
+      "log": {
+        "base": "game:block/wood/bark/pine-h"
+      },
+      "bark": {
+        "base": "game:block/wood/bark/pine-h"
+      }
+    },
+    "behaviors": [
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
+      {
+        "code": "interpolateposition"
+      },
+      {
+        "code": "genericstorage",
+        "quantitySlots": 8
+      }
+    ]
+  },
+  "server": {
+    "behaviors": [
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
+      {
+        "code": "genericstorage",
+        "quantitySlots": 8
+      }
+    ]
+  }
+}

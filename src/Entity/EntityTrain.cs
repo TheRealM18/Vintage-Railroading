@@ -270,6 +270,8 @@ namespace VintageRailroading.Entities
                         fuel.TickConsume(dt, wantsToMove);
                         hasPower = fuel.HasPower;
                     }
+                    VrrDebug.Log(World, "TRAIN gate: wantsToMove={0} hasPower={1} fuelBehavior={2} firebox={3:0.0}",
+                        wantsToMove, hasPower, fuel != null, fuel != null ? fuel.FireboxSeconds : 0);
 
                     double target = 0;
                     if (wantsToMove && hasPower)

@@ -42,10 +42,16 @@ namespace VintageRailroading.Entities
             {
                 var inv = _storage?.Inventory;
                 if (inv == null) return false;
+                var api = inv.Api;
                 foreach (var slot in inv)
                 {
-                    if (slot?.Itemstack != null && ItemSlotFuelOnly.IsFuel(slot.Itemstack))
-                        return true;
+                    var st = slot?.Itemstack;
+                    if (st == null) continue;
+                    var cp = st.Collectible?.CombustibleProps;
+                    bool isFuel = ItemSlotFuelOnly.IsFuel(st);
+                    VrrDebug.Log(api, "SolidFuelSource: slot item={0} combustibleProps={1} burnDuration={2} isFuel={3}",
+                        st.Collectible?.Code, cp != null, cp != null ? cp.BurnDuration : 0f, isFuel);
+                    if (isFuel) return true;
                 }
                 return false;
             }

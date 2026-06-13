@@ -56,9 +56,12 @@ namespace VintageRailroading.Entities
         {
             base.Initialize(properties, attributes);
 
+            int slots = attributes?["quantitySlots"].AsInt(DefaultSlots) ?? DefaultSlots;
+            if (slots <= 0) slots = DefaultSlots;
+
             // Build the inventory with plain ItemSlots (accepts everything).
             _inv = new InventoryGeneric(
-                DefaultSlots,
+                slots,
                 InvKey + "-" + entity.EntityId,
                 entity.Api,
                 (id, inv) => new ItemSlot(inv)   // no filter — any item accepted
@@ -138,7 +141,19 @@ namespace VintageRailroading.Entities
         public void DropContents()
         {
             if (entity.Api.Side != EnumAppSide.Server || _inv == null) return;
-            _inv.DropAll(entity.ServerPos.XYZ);
+            // Drop slot-by-slot so we can log and so a stuck DropAll can't silently void
+            // cargo. Spawn each stack at the entity position.
+            int dropped = 0;
+            var pos = entity.ServerPos.XYZ;
+            foreach (var slot in _inv)
+            {
+                if (slot?.Itemstack == null) continue;
+                entity.World.SpawnItemEntity(slot.Itemstack.Clone(), pos);
+                dropped += slot.Itemstack.StackSize;
+                slot.Itemstack = null;
+                slot.MarkDirty();
+            }
+            VrrDebug.Log(entity.Api, "DropContents: dropped {0} item(s) from {1}", dropped, GetType().Name);
         }
     }
 }

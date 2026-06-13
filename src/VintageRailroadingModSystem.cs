@@ -43,7 +43,7 @@ namespace VintageRailroading
             api.RegisterEntityBehaviorClass("woodstorage", typeof(VintageRailroading.Entities.EntityBehaviorWoodStorage));
             api.RegisterEntityBehaviorClass("fluidstorage", typeof(VintageRailroading.Entities.EntityBehaviorFluidStorage));
             api.RegisterEntityBehaviorClass("fuelconsumer", typeof(VintageRailroading.Entities.EntityBehaviorFuelConsumer));
-            api.RegisterEntityBehaviorClass("generalstorage", typeof(VintageRailroading.Entities.EntityBehaviorGenericStorage));
+            api.RegisterEntityBehaviorClass("genericstorage", typeof(VintageRailroading.Entities.EntityBehaviorGenericStorage));
             api.RegisterItemClass("ItemTrainPlacer", typeof(VintageRailroading.Items.ItemTrainPlacer));
             api.RegisterItemClass("ItemTrackLayer", typeof(VintageRailroading.Items.ItemTrackLayer));
             api.RegisterItemClass("ItemCouplingTool", typeof(VintageRailroading.Items.ItemCouplingTool));

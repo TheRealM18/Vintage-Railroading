@@ -1,0 +1,22 @@
+{
+  "code": "genericcarplacer",
+  "class": "ItemTrainPlacer",
+  "maxstacksize": 1,
+  "attributes": {
+    "entityCode": "genericcar"
+  },
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrcargo": [
+      "*"
+    ]
+  },
+  "texture": {
+    "base": "vintagerailroading:item/genericcar"
+  }
+}

@@ -55,6 +55,7 @@ namespace VintageRailroading.Entities
                 case "coalcart": return "coalcartplacer";
                 case "logcar":   return "logcarplacer";
                 case "tankcar":  return "tankcarplacer";
+                case "genericcar":    return "genericcarplacer";
                 case "train":    return "trainplacer";
                 default:         return "trainplacer";
             }
