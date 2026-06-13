@@ -3,7 +3,7 @@
   "modid": "vintagerailroading",
   "name": "Vintage Railroading",
   "authors": [ "you" ],
-  "description": "Free-form, multi-gauge railroads for Vintage Story. (Layer 0 geometry test build.)",
+  "description": "Free-form, multi-gauge railroads for Vintage Story.",
   "version": "0.0.1",
   "dependencies": {
     "game": ""

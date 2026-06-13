@@ -86,6 +86,13 @@ namespace VintageRailroading.Entities
     /// Inventory: an InventoryGeneric whose slots are ItemSlotWoodOnly, persisted in the
     /// entity's WatchedAttributes tree ("vrrwoodinv") so cargo survives save/reload.
     ///
+    /// Interaction: this behavior overrides OnInteract and, on an empty-handed
+    /// (non-sneak) right click, opens the storage and sets
+    /// handled = EnumHandling.PreventSubsequent. Because this behavior is listed BEFORE
+    /// creaturecarrier in the entity JSON, that stops creaturecarrier from running on the
+    /// same interaction, so the player opens the inventory instead of sitting down.
+    /// Sneak + empty hand falls through, allowing the seat to mount as normal.
+    ///
     /// GUI: opened via the vanilla GuiDialogBlockEntityInventory using the verified ctor
     ///   (string title, InventoryBase inv, BlockPos pos, int cols, ICoreClientAPI capi).
     /// The inventory is Open()'d for the player on both sides so slot moves sync through
@@ -93,6 +100,7 @@ namespace VintageRailroading.Entities
     ///
     /// JSON: add to the entity's client AND server behaviors as
     ///   { "code": "woodstorage", "quantitySlots": 16 }
+    /// and place it BEFORE the creaturecarrier behavior.
     /// </summary>
     public class EntityBehaviorWoodStorage : EntityBehavior
     {
@@ -129,8 +137,7 @@ namespace VintageRailroading.Entities
             entity.WatchedAttributes.MarkPathDirty("vrrwoodinv");
         }
 
-        /// <summary>Open the wood storage for a player (called from EntityTrain.OnInteract).
-        /// Returns true if handled.</summary>
+        /// <summary>Open the wood storage for a player. Returns true if handled.</summary>
         public bool OpenFor(IPlayer player)
         {
             if (player == null || _inv == null) return false;

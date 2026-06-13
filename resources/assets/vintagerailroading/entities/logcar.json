@@ -1,24 +1,42 @@
 {
   "code": "logcar",
   "class": "EntityTrain",
-  "tags": [ "inanimate", "vehicle" ],
-
+  "tags": [
+    "inanimate",
+    "vehicle"
+  ],
   "attributes": {
     "shouldSwivelFromMotion": false,
     "speedMultiplier": 1,
     "swimmingOffsetY": 0,
-    "mountAnimations": { "idle": "sitflooridle", "ready": "", "forwards": "", "backwards": "" }
+    "mountAnimations": {
+      "idle": "sitflooridle",
+      "ready": "",
+      "forwards": "",
+      "backwards": ""
+    }
   },
-
-  "hitboxSize":    { "x": 3.5, "y": 2.5 },
-  "deadHitboxSize":{ "x": 3.5, "y": 2.5 },
-  "eyeHeight": 1.2,
+  "hitboxSize": {
+    "x": 2.2,
+    "y": 2.8
+  },
+  "deadHitboxSize": {
+    "x": 2.2,
+    "y": 2.8
+  },
+  "eyeHeight": 2.0,
   "canClimb": false,
-
   "behaviorConfigs": {
     "passivephysicsmultibox": {
       "collisionBoxes": [
-        { "x1": -1.5, "y1": 0.0, "z1": -2.0, "x2": 1.5, "y2": 0.6, "z2": 2.0 }
+        {
+          "x1": -0.9,
+          "y1": 0.0,
+          "z1": -1.2,
+          "x2": 0.9,
+          "y2": 2.2,
+          "z2": 1.2
+        }
       ],
       "groundDragFactor": 1,
       "airDragFallingFactor": 0.5,
@@ -30,20 +48,21 @@
           "apName": "Seat-driver",
           "controllable": false,
           "bodyYawLimit": null,
-          "eyeHeight": 1.0
+          "eyeHeight": 1
         }
       ]
     },
     "selectionboxes": {
-      "selectionBoxes": [ "Seat-driver" ]
+      "selectionBoxes": [
+        "Seat-driver"
+      ]
     }
   },
-
   "client": {
     "renderer": "Shape",
     "shape": { "base": "vintagerailroading:entity/logcar" },
     "textures": {
-      "iron":  { "base": "game:block/metal/ingot/iron" },
+      "iron":  { "base": "game:block/metal/plate/iron" },
       "dark":  { "base": "game:block/stone/rock/basalt1" },
       "metal": { "base": "game:block/metal/plate/iron" },
       "wood":  { "base": "game:block/wood/planks/pine1" },
@@ -51,31 +70,41 @@
       "bark":  { "base": "game:block/wood/bark/pine-h" }
     },
     "behaviors": [
-      { "code": "repulseagents" },
-      { "code": "passivephysicsmultibox" },
-      { "code": "interpolateposition" },
-      { "code": "selectionboxes" },
-			{
-				"code": "creaturecarrier"
-			},
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
       {
         "code": "woodstorage",
         "quantitySlots": 16
+      },
+      {
+        "code": "selectionboxes"
+      },
+      {
+        "code": "creaturecarrier"
       }
     ]
   },
-
   "server": {
     "behaviors": [
-      { "code": "repulseagents" },
-      { "code": "passivephysicsmultibox" },
-      { "code": "selectionboxes" },
-			{
-				"code": "creaturecarrier"
-			},
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
       {
         "code": "woodstorage",
         "quantitySlots": 16
+      },
+      {
+        "code": "selectionboxes"
+      },
+      {
+        "code": "creaturecarrier"
       }
     ]
   }
