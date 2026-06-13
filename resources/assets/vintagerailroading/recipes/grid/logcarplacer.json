@@ -4,11 +4,11 @@
   "height": 3,
   "ingredients": {
     "I": { "type": "item", "code": "game:ingot-iron",      "quantity": 1 },
-    "W": { "type": "item", "code": "game:charcoal",      "quantity": 1 }
+    "W": { "type": "block", "code": "game:log-placed-oak-ud",      "quantity": 1 }
   },
   "output": {
     "type": "item",
-    "code": "vintagerailroading:coalcartplacer",
+    "code": "vintagerailroading:logcarplacer",
     "quantity": 1
   }
 }

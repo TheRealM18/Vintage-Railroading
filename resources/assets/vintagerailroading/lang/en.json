@@ -9,5 +9,7 @@
 	"item-cabframe": "Cab Frame",
 	"entity-train": "Train",
 	"item-coalcartplacer": "Coal Cart",
-	"entity-coalcart": "Coal Cart"
+	"entity-coalcart": "Coal Cart",
+	"item-logcarplacer": "Logging Flatcar",
+    "entity-logcar": "Logging Flatcar"
 }
