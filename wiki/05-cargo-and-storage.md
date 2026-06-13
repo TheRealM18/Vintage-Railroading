@@ -69,7 +69,9 @@ JSON (client **and** server behavior lists):
 A 16-slot inventory that accepts **anything burnable** — the slot tests for
 `CombustibleProps.BurnDuration > 0`, so coal, charcoal, coke, firewood, peat, and modded
 fuels all qualify, while non-fuels are rejected. This is what the shipped **Coal Cart**
-uses.
+uses. Beyond storing fuel, a coal cart **acts as a tender**: when coupled behind a
+locomotive it supplies the loco's firebox, so the train can only accelerate while a loaded
+coal cart is in its consist (see [Driving → Fuel](03-driving.md#fuel)).
 
 ```jsonc
 { "code": "fuelstorage", "quantitySlots": 16 }

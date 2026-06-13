@@ -40,6 +40,28 @@ movement code itself has no hard ceiling, so a custom locomotive can set a highe
 `maxSpeed` (the design headroom goes up to ~18 m/s before the dead-reckoning smoothing
 starts to feel loose); tune per vehicle type in its entity JSON.
 
+## Fuel
+
+The locomotive **burns fuel to accelerate**. Fuel is drawn **only from a coupled coal
+cart** — a lone locomotive has no tender and cannot build power, so it will sit even with
+the throttle held. To get moving:
+
+1. Couple a **Coal Cart** behind the loco with a Coupler tool (see
+   [Coupling](04-coupling.md)).
+2. Load the coal cart with any burnable (coal, charcoal, coke, etc.) — empty-hand
+   right-click the cart to open its storage.
+3. Sit in the loco and drive. The firebox draws coal from the coupled cart as needed.
+
+When fuel runs out **you keep your current momentum and coast**, but you cannot
+accelerate again until more fuel is available — load the cart (or couple a fresh one) and
+the throttle responds again. The firebox keeps a small buffer of burn-time, so a single
+lump of coal carries you a little way past the moment the cart empties.
+
+Fuel burn is its own behavior (`fuelconsumer`) separate from fuel *storage*, and the
+amount of real-time per unit of fuel is tuned by `burnRatePerSecond` in the loco's JSON.
+The system is built source-agnostic, so liquid fuel (from a tank car) can be added later
+without changing how the locomotive consumes it.
+
 ## Picking a train back up
 
 Hold any **wrench** (Vintage Engineering's wrench, or any modded item whose code contains
