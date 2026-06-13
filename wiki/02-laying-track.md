@@ -39,7 +39,8 @@ the segment becomes a smooth grade. The slope is spread evenly across the whole 
 so there is no mid-curve hump or dip. Grades are clamped to ±100% (45°). The chat reply
 reports the grade percentage and rise when you lay a sloped segment.
 
-Both the rails/ties and the locomotive itself tilt to follow the grade.
+Both the rails/ties and the vehicles themselves tilt to follow the grade — locomotives
+and cargo cars alike, since both compute pitch from the same track heading.
 
 ## Junctions & switches
 
@@ -51,7 +52,10 @@ keeps it going "straight through." To choose a different branch:
   junction's through-route to the next branch. Trains traversing that node will then take
   the selected branch.
 
-See [Commands](07-commands.md) for the full list.
+A coupled cargo car follows its leader through whichever branch the leader took, because
+it walks the same path — you do not switch cars individually.
+
+See [Commands](08-commands.md) for the full list.
 
 ---
 

@@ -12,16 +12,17 @@ attribute change will not load placed track or trains.
 
 ## The items
 
-Everything you need is craftable (see [Authoring](05-authoring-rolling-stock.md) for the
+Everything you need is craftable (see [Authoring](06-authoring-rolling-stock.md) for the
 recipe tree) and also available in the creative inventory while you experiment:
 
 | Item | What it does |
 |------|--------------|
 | **Track Layer** | The tool you use to lay track by clicking point-to-point. |
-| **Baldwin 2-8-0 Locomotive** (the "train placer") | Right-click rail to spawn a drivable locomotive. |
+| **Baldwin 2-8-0 Locomotive** (the "train placer") | Right-click rail to spawn a drivable locomotive (`EntityTrain`). |
+| **Cargo car placers** (Log Car, Coal Cart, Fluid Tanker) | Right-click rail to spawn a seatless cargo car (`EntityCargo`) you couple behind a loco. |
 | **Locomotive Boiler / Firebox / Cab Frame / Steam Piston / Iron Wheel Set** | Intermediate crafting parts that combine into the locomotive. |
 
-## Your first train in four steps
+## Your first train in five steps
 
 1. **Lay some track.** Hold the Track Layer, right-click a block to set the start, then
    right-click farther away to lay a segment. Keep clicking to extend it. See
@@ -30,8 +31,20 @@ recipe tree) and also available in the creative inventory while you experiment:
    rail you just laid. A locomotive appears on the track.
 3. **Drive it.** Right-click the locomotive to sit in the cab, then hold **W** to go
    forward and **S** to reverse. Release to coast to a stop. See [Driving](03-driving.md).
-4. **(Optional) Add cars.** Spawn a second vehicle on the same track, stand between the
-   two, and run `/vrrcouple`. See [Coupling](04-coupling.md).
+4. **Add a cargo car.** Spawn a log car, coal cart, or fluid tanker on the **same track**,
+   a few blocks behind the loco. These are seatless — right-clicking one opens its
+   **cargo storage**, not a seat. See [Cargo Cars & Storage](05-cargo-and-storage.md).
+5. **Couple up.** Stand between the loco and the car and run `/vrrcouple`. Now drive the
+   loco and the car trails it. See [Coupling](04-coupling.md).
+
+## Locomotives vs. cargo cars (the one thing to internalise)
+
+- A **locomotive** (`EntityTrain`) is the only thing you **sit in and drive**.
+- A **cargo car** (`EntityCargo`) has **no seat**. Right-clicking it **opens its storage
+  GUI**. It does not move on its own — it must be coupled behind a leader.
+
+If you right-click a vehicle expecting to sit and instead a storage window opens, that
+vehicle is a cargo car, working as intended.
 
 ## A note on gauges
 

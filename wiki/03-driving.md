@@ -2,6 +2,9 @@
 
 [← Laying Track](02-laying-track.md) · [Wiki home](README.md) · [Next: Coupling →](04-coupling.md)
 
+This page is about **locomotives** (`EntityTrain`) — the vehicles you sit in and drive.
+For seatless cargo cars, see [Cargo Cars & Storage](05-cargo-and-storage.md).
+
 ## Spawning
 
 Hold the **Baldwin 2-8-0 Locomotive** placer item and **right-click directly on a rail**.
@@ -9,6 +12,10 @@ The locomotive spawns at that point on the track, rotated and centred on the rai
 
 You must aim reasonably close to a rail (within ~3 blocks of an actual rail point) or the
 placer will tell you the nearest rail is too far away.
+
+The same placer item type also spawns cargo cars — each cargo car has its **own** placer
+item that points at its entity code. The placer accepts any rail vehicle, locomotive or
+cargo, so the spawning step is identical; only what you get differs.
 
 ## Driving
 
@@ -18,8 +25,8 @@ placer will tell you the nearest rail is too far away.
 3. **Release** the key and the train coasts smoothly to a stop (the throttle ramps speed
    toward zero).
 
-Driving is **seated-only** — you must be in the cab. (An older `/vrrgo` command was
-removed; if a spawn message still mentions it, ignore that line.)
+Driving is **seated-only** and only locomotives have a seat. (An older `/vrrgo` command
+was removed; if a spawn message still mentions it, ignore that line.)
 
 The train rides the network: when it reaches the end of a segment it continues onto the
 connected segment, carrying its speed. At a true dead-end it stops. At a junction it
@@ -39,6 +46,10 @@ item returns to your inventory.
 - If your inventory is **full**, the placer drops as an item entity at the train so it is
   never lost.
 - Left-click (attack) does **not** pick it up — only right-click with a wrench.
+
+Cargo cars are picked up the same way (wrench + right-click), and **their stored cargo is
+dropped into the world** so it is not lost — see
+[Cargo Cars & Storage](05-cargo-and-storage.md#picking-up-a-loaded-cargo-car).
 
 > Note: picking up a vehicle that is part of a consist currently drops it out of the
 > consist; cars behind it will auto-uncouple rather than re-link. See
