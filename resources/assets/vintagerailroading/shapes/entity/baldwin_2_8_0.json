@@ -13,14 +13,14 @@
     {
       "name": "root_rotate",
       "from": [
-        38.45,
+        38.025,
         0.0,
-        -36.0
+        -33.5
       ],
       "to": [
-        38.45,
+        38.025,
         0.0,
-        -36.0
+        -33.5
       ],
       "rotationOrigin": [
         24.0,
@@ -35,19 +35,19 @@
           "#note": "Runs from Z=0 (front cowcatcher end) to Z=96 (rear of cab)",
           "name": "boiler",
           "from": [
-            10.4,
-            6.8,
-            7.35
+            10.8,
+            6.6,
+            8.575
           ],
           "to": [
-            37.6,
-            30.6,
-            73.65
+            37.2,
+            29.7,
+            72.925
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -110,19 +110,19 @@
           "#": "=== SMOKEBOX / FRONT FACE (circular end cap look) ===",
           "name": "smokebox",
           "from": [
-            8.7,
-            5.1,
-            6.5
+            9.15,
+            4.95,
+            7.75
           ],
           "to": [
-            39.3,
-            32.3,
-            15.85
+            38.85,
+            31.35,
+            16.825
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -186,19 +186,19 @@
           "#dim": "4px wide, 14px tall, sits on top of boiler ~Z=12",
           "name": "smokestack",
           "from": [
-            18.9,
-            29.75,
-            17.55
+            19.05,
+            28.875,
+            18.475
           ],
           "to": [
-            29.1,
-            43.35,
-            26.05
+            28.95,
+            42.075,
+            26.725
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -261,19 +261,19 @@
           "#": "=== SMOKESTACK FLARE (wider bell at top) ===",
           "name": "smokestack_bell",
           "from": [
-            17.2,
-            41.65,
-            15.85
+            17.4,
+            40.425,
+            16.825
           ],
           "to": [
-            30.8,
-            46.75,
-            27.75
+            30.6,
+            45.375,
+            28.375
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -336,19 +336,19 @@
           "#": "=== STEAM DOME (mid-boiler) ===",
           "name": "steam_dome",
           "from": [
-            17.2,
-            29.75,
-            37.95
+            17.4,
+            28.875,
+            38.275
           ],
           "to": [
-            30.8,
-            41.65,
-            49.85
+            30.6,
+            40.425,
+            49.825
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -413,19 +413,19 @@
           "#seat": "Seat will be inside here at Z=74-94, rider sits at Z~80",
           "name": "cab_body",
           "from": [
-            7.0,
+            7.5,
             0.0,
-            65.15
+            64.675
           ],
           "to": [
-            41.0,
-            54.4,
-            88.95
+            40.5,
+            52.8,
+            87.775
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -488,8 +488,8 @@
               "#": "Rider mount point \u2014 1 block behind seat front, at seated height",
               "code": "Seat-driver",
               "posX": 24.0,
-              "posY": 37.4,
-              "posZ": 7.35,
+              "posY": 36.3,
+              "posZ": 8.575,
               "rotationX": 0,
               "rotationY": 0,
               "rotationZ": 0
@@ -498,8 +498,8 @@
               "#": "Click target for mounting \u2014 slightly higher for easy selection",
               "code": "SeatConfig-driver",
               "posX": 24.0,
-              "posY": 37.4,
-              "posZ": 7.35,
+              "posY": 36.3,
+              "posZ": 8.575,
               "rotationX": 0,
               "rotationY": 0,
               "rotationZ": 0
@@ -510,19 +510,19 @@
           "#": "=== CAB ROOF ===",
           "name": "cab_roof",
           "from": [
-            5.3,
-            54.4,
-            63.45
+            5.85,
+            52.8,
+            63.025
           ],
           "to": [
-            42.7,
-            59.5,
-            90.65
+            42.15,
+            57.75,
+            89.425
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -585,19 +585,19 @@
           "#": "=== CAB FRONT WINDOW (opening / firebox side) ===",
           "name": "cab_window_front",
           "from": [
-            12.1,
-            32.3,
-            63.45
+            12.45,
+            31.35,
+            63.025
           ],
           "to": [
-            35.9,
-            49.3,
-            66.0
+            35.55,
+            47.85,
+            65.5
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -660,19 +660,19 @@
           "#": "=== CAB SIDE WINDOWS ===",
           "name": "cab_window_left",
           "from": [
-            5.3,
-            32.3,
-            69.4
+            5.85,
+            31.35,
+            68.8
           ],
           "to": [
-            7.85,
-            49.3,
-            84.7
+            8.325,
+            47.85,
+            83.65
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -734,19 +734,19 @@
         {
           "name": "cab_window_right",
           "from": [
-            40.15,
-            32.3,
-            69.4
+            39.675,
+            31.35,
+            68.8
           ],
           "to": [
-            42.7,
-            49.3,
-            84.7
+            42.15,
+            47.85,
+            83.65
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -809,19 +809,19 @@
           "#": "=== RUNNING BOARDS / WALKWAYS (sides of boiler) ===",
           "name": "walkway_left",
           "from": [
-            1.9,
-            5.1,
-            14.15
+            2.55,
+            4.95,
+            15.175
           ],
           "to": [
-            7.85,
-            8.5,
-            65.15
+            8.325,
+            8.25,
+            64.675
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -883,19 +883,19 @@
         {
           "name": "walkway_right",
           "from": [
-            40.15,
-            5.1,
-            14.15
+            39.675,
+            4.95,
+            15.175
           ],
           "to": [
-            46.1,
-            8.5,
-            65.15
+            45.45,
+            8.25,
+            64.675
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -959,19 +959,19 @@
           "#dim": "Angled v-shape at front. Two wedge boxes.",
           "name": "cowcatcher_left",
           "from": [
-            7.0,
+            7.5,
             0.0,
-            5.65
+            6.925
           ],
           "to": [
             24.0,
-            5.1,
-            15.0
+            4.95,
+            16.0
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -1035,17 +1035,17 @@
           "from": [
             24.0,
             0.0,
-            5.65
+            6.925
           ],
           "to": [
-            41.0,
-            5.1,
-            15.0
+            40.5,
+            4.95,
+            16.0
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -1109,19 +1109,19 @@
           "#dim": "Steam loco drive wheels are big \u2014 ~20px diameter. 3 axles along boiler.",
           "name": "wheel_drive_L1",
           "from": [
-            3.6,
+            4.2,
             0.0,
-            20.95
+            21.775
           ],
           "to": [
-            10.4,
-            17.0,
-            31.15
+            10.8,
+            16.5,
+            31.675
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -1183,19 +1183,19 @@
         {
           "name": "wheel_drive_L2",
           "from": [
-            3.6,
+            4.2,
             0.0,
-            36.25
+            36.625
           ],
           "to": [
-            10.4,
-            17.0,
-            46.45
+            10.8,
+            16.5,
+            46.525
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -1257,19 +1257,19 @@
         {
           "name": "wheel_drive_L3",
           "from": [
-            3.6,
+            4.2,
             0.0,
-            51.55
+            51.475
           ],
           "to": [
-            10.4,
-            17.0,
-            61.75
+            10.8,
+            16.5,
+            61.375
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -1332,19 +1332,19 @@
           "#": "=== LARGE DRIVE WHEELS (right side) ===",
           "name": "wheel_drive_R1",
           "from": [
-            37.6,
+            37.2,
             0.0,
-            20.95
+            21.775
           ],
           "to": [
-            44.4,
-            17.0,
-            31.15
+            43.8,
+            16.5,
+            31.675
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -1406,19 +1406,19 @@
         {
           "name": "wheel_drive_R2",
           "from": [
-            37.6,
+            37.2,
             0.0,
-            36.25
+            36.625
           ],
           "to": [
-            44.4,
-            17.0,
-            46.45
+            43.8,
+            16.5,
+            46.525
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -1480,19 +1480,19 @@
         {
           "name": "wheel_drive_R3",
           "from": [
-            37.6,
+            37.2,
             0.0,
-            51.55
+            51.475
           ],
           "to": [
-            44.4,
-            17.0,
-            61.75
+            43.8,
+            16.5,
+            61.375
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -1555,19 +1555,19 @@
           "#": "=== FRONT PONY WHEELS (smaller, under smokebox) ===",
           "name": "wheel_pony_L",
           "from": [
-            5.3,
+            5.85,
             0.0,
-            12.45
+            13.525
           ],
           "to": [
-            10.4,
-            10.2,
-            19.25
+            10.8,
+            9.9,
+            20.125
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -1629,19 +1629,19 @@
         {
           "name": "wheel_pony_R",
           "from": [
-            37.6,
+            37.2,
             0.0,
-            12.45
+            13.525
           ],
           "to": [
-            42.7,
-            10.2,
-            19.25
+            42.15,
+            9.9,
+            20.125
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -1704,19 +1704,19 @@
           "#": "=== REAR WHEELS (under cab) ===",
           "name": "wheel_rear_L",
           "from": [
-            5.3,
+            5.85,
             0.0,
-            71.95
+            71.275
           ],
           "to": [
-            10.4,
-            10.2,
-            82.15
+            10.8,
+            9.9,
+            81.175
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -1778,19 +1778,19 @@
         {
           "name": "wheel_rear_R",
           "from": [
-            37.6,
+            37.2,
             0.0,
-            71.95
+            71.275
           ],
           "to": [
-            42.7,
-            10.2,
-            82.15
+            42.15,
+            9.9,
+            81.175
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -1853,19 +1853,19 @@
           "#": "=== CONNECTING ROD (left side, links drive wheels) ===",
           "name": "connecting_rod_L",
           "from": [
-            1.05,
-            3.4,
-            20.95
+            1.725,
+            3.3,
+            21.775
           ],
           "to": [
-            3.6,
-            6.8,
-            61.75
+            4.2,
+            6.6,
+            61.375
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -1928,19 +1928,19 @@
           "#": "=== CONNECTING ROD (right side) ===",
           "name": "connecting_rod_R",
           "from": [
-            44.4,
-            3.4,
-            20.95
+            43.8,
+            3.3,
+            21.775
           ],
           "to": [
-            46.95,
-            6.8,
-            61.75
+            46.275,
+            6.6,
+            61.375
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -2003,19 +2003,19 @@
           "#": "=== STEAM CYLINDER / VALVE CHEST (front of boiler, both sides) ===",
           "name": "cylinder_L",
           "from": [
-            0.2,
-            3.4,
-            6.5
+            0.9,
+            3.3,
+            7.75
           ],
           "to": [
-            6.15,
-            11.9,
-            22.65
+            6.675,
+            11.55,
+            23.425
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -2077,19 +2077,19 @@
         {
           "name": "cylinder_R",
           "from": [
-            41.85,
-            3.4,
-            6.5
+            41.325,
+            3.3,
+            7.75
           ],
           "to": [
-            47.8,
-            11.9,
-            22.65
+            47.1,
+            11.55,
+            23.425
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -2152,19 +2152,19 @@
           "#": "=== HEADLAMP (front of smokebox) ===",
           "name": "headlamp",
           "from": [
-            18.9,
-            28.9,
-            5.65
+            19.05,
+            28.05,
+            6.925
           ],
           "to": [
-            29.1,
-            35.7,
-            11.6
+            28.95,
+            34.65,
+            12.7
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -2227,19 +2227,19 @@
           "#": "=== HANDRAILS (left side of boiler walkway) ===",
           "name": "handrail_L",
           "from": [
-            -0.65,
-            10.2,
-            15.85
+            0.075,
+            9.9,
+            16.825
           ],
           "to": [
-            1.05,
-            13.6,
-            65.15
+            1.725,
+            13.2,
+            64.675
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -2301,19 +2301,19 @@
         {
           "name": "handrail_R",
           "from": [
-            46.95,
-            10.2,
-            15.85
+            46.275,
+            9.9,
+            16.825
           ],
           "to": [
-            48.65,
-            13.6,
-            65.15
+            47.925,
+            13.2,
+            64.675
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -2376,19 +2376,19 @@
           "#": "=== CAB STEPS (rear left & right, for boarding) ===",
           "name": "step_L_bottom",
           "from": [
-            4.45,
+            5.025,
             0.0,
-            84.7
+            83.65
           ],
           "to": [
-            9.55,
-            3.4,
-            89.8
+            9.975,
+            3.3,
+            88.6
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -2450,19 +2450,19 @@
         {
           "name": "step_R_bottom",
           "from": [
-            38.45,
+            38.025,
             0.0,
-            84.7
+            83.65
           ],
           "to": [
-            43.55,
-            3.4,
-            89.8
+            42.975,
+            3.3,
+            88.6
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -2524,19 +2524,19 @@
         {
           "name": "step_L_top",
           "from": [
-            4.45,
-            3.4,
-            84.7
+            5.025,
+            3.3,
+            83.65
           ],
           "to": [
-            9.55,
-            6.8,
-            89.8
+            9.975,
+            6.6,
+            88.6
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
@@ -2598,19 +2598,19 @@
         {
           "name": "step_R_top",
           "from": [
-            38.45,
-            3.4,
-            84.7
+            38.025,
+            3.3,
+            83.65
           ],
           "to": [
-            43.55,
-            6.8,
-            89.8
+            42.975,
+            6.6,
+            88.6
           ],
           "rotationOrigin": [
             24.0,
             0.0,
-            48.15
+            48.175
           ],
           "faces": {
             "north": {
