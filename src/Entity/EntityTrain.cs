@@ -258,8 +258,21 @@ namespace VintageRailroading.Entities
                 if (!coupled)
                 {
                     var controls = GetControllingControls();
+                    bool wantsToMove = controls != null && (controls.Forward || controls.Backward);
+
+                    // FUEL: if this loco has a fuel consumer, tick it and gate acceleration.
+                    // No power (empty firebox / no coupled coal cart) => target stays toward
+                    // 0, so the train coasts to a stop but cannot speed up.
+                    var fuel = GetBehavior<VintageRailroading.Entities.EntityBehaviorFuelConsumer>();
+                    bool hasPower = true;
+                    if (fuel != null)
+                    {
+                        fuel.TickConsume(dt, wantsToMove);
+                        hasPower = fuel.HasPower;
+                    }
+
                     double target = 0;
-                    if (controls != null)
+                    if (wantsToMove && hasPower)
                     {
                         if (controls.Forward) target = MaxSpeed;
                         else if (controls.Backward) target = -MaxSpeed;

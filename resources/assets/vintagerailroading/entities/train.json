@@ -97,6 +97,11 @@
       },
       {
         "code": "creaturecarrier"
+      },
+      {
+        "code": "fuelconsumer",
+        "burnRatePerSecond": 1.0,
+        "fireboxSeconds": 0
       }
     ]
   },
@@ -113,6 +118,11 @@
       },
       {
         "code": "creaturecarrier"
+      },
+      {
+        "code": "fuelconsumer",
+        "burnRatePerSecond": 1.0,
+        "fireboxSeconds": 0
       }
     ]
   }
