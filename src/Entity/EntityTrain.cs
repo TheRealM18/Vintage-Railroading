@@ -96,20 +96,20 @@ namespace VintageRailroading.Entities
                 {
                     foreach (var b in bcfg) { sb.Append(b["code"].AsString("?")); sb.Append(' '); }
                 }
-                api.Logger.Notification("[vintagerailroading] Initialize start. server behaviors: {0}", sb.ToString());
+                VrrDebug.Log(api, "Initialize start. server behaviors: {0}", sb.ToString());
             }
             catch (System.Exception ex)
             {
-                api.Logger.Notification("[vintagerailroading] behavior dump failed: {0} {1}", ex.GetType().Name, ex.Message);
+                VrrDebug.Log(api, "behavior dump failed: {0} {1}", ex.GetType().Name, ex.Message);
             }
 
-            api.Logger.Notification("[vintagerailroading] calling base.Initialize (EntityBoat)...");
+            VrrDebug.Log(api, "calling base.Initialize (EntityBoat)...");
             base.Initialize(properties, api, inChunkIndex3d);
-            api.Logger.Notification("[vintagerailroading] base.Initialize returned OK.");
+            VrrDebug.Log(api, "base.Initialize returned OK.");
 
             var mgr = api.ModLoader.GetModSystem<TrackNetworkManager>();
             _network = mgr?.Network;
-            api.Logger.Notification("[vintagerailroading] Initialize complete. network={0}", _network != null ? "OK" : "NULL");
+            VrrDebug.Log(api, "Initialize complete. network={0}", _network != null ? "OK" : "NULL");
         }
 
         public override void OnInteract(EntityAgent byEntity, ItemSlot itemslot, Vintagestory.API.MathTools.Vec3d hitPosition, EnumInteractMode mode)
@@ -142,13 +142,11 @@ namespace VintageRailroading.Entities
                 }
             }
 
-            World.Logger.Notification("[vrr] {0} OnInteract by={1} mode={2} hitY={3:0.0}",
-                World.Side, byEntity?.GetType().Name, mode, hitPosition?.Y);
+            VrrDebug.Log(World, "{0} OnInteract by={1} mode={2} hitY={3:0.0}", World.Side, byEntity?.GetType().Name, mode, hitPosition?.Y);
             base.OnInteract(byEntity, itemslot, hitPosition, mode);
             // Report mount state right after base handled it.
             var mnt = GetInterface<IMountable>();
-            World.Logger.Notification("[vrr] {0} OnInteract post: anyMounted={1}",
-                World.Side, mnt != null && mnt.AnyMounted());
+            VrrDebug.Log(World, "{0} OnInteract post: anyMounted={1}", World.Side, mnt != null && mnt.AnyMounted());
         }
 
         private static bool IsWrench(ItemSlot slot)
@@ -226,7 +224,7 @@ namespace VintageRailroading.Entities
 
             void Log(string msg)
             {
-                if (logNow) World.Logger.Notification("[vrr] " + side + " " + msg);
+                if (logNow) VrrDebug.Log(World, side + " " + msg);
             }
 
             bool coupled = false;
@@ -296,7 +294,7 @@ namespace VintageRailroading.Entities
             if (_geom == null)
             {
                 if (logNow)
-                    World.Logger.Notification($"[vrr] CLI geom=NULL segId={SegmentId} dist={Distance:0.0} — cannot render");
+                    VrrDebug.Log(World, $"CLI geom=NULL segId={SegmentId} dist={Distance:0.0} — cannot render");
                 return;
             }
 
@@ -327,7 +325,7 @@ namespace VintageRailroading.Entities
             }
 
             if (logNow)
-                World.Logger.Notification($"[vrr] CLI render segId={SegmentId} cdist={_clientDist:0.0} sdist={Distance:0.0} spd={Speed:0.0}");
+                VrrDebug.Log(World, $"CLI render segId={SegmentId} cdist={_clientDist:0.0} sdist={Distance:0.0} spd={Speed:0.0}");
 
             ApplyPoseFromDistance(_clientDist, Log);
             CarryRiders(Log);
@@ -496,7 +494,9 @@ namespace VintageRailroading.Entities
         private static float PitchFromHeading(VintageRailroading.Track.Vec3d h)
         {
             double horiz = Math.Sqrt(h.X * h.X + h.Z * h.Z);
-            return (float)Math.Atan2(h.Y, horiz);
+            // NOTE: negated h.Y — VS pitch is positive-nose-DOWN, so an upward track
+            // heading (h.Y > 0) must map to a NEGATIVE pitch to nose UP. (Was inverted.)
+            return (float)Math.Atan2(-h.Y, horiz);
         }
     }
 }

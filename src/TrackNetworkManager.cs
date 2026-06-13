@@ -110,7 +110,7 @@ namespace VintageRailroading
             {
                 Network = SerializerUtil.Deserialize<TrackNetwork>(pkt.Data) ?? new TrackNetwork();
                 Network.BuildIndex();
-                _capi.Logger.Notification("[vintagerailroading] received track network from server (nodes/segments synced).");
+                VrrDebug.Log(_capi, "received track network from server (nodes/segments synced).");
             }
             catch (Exception e)
             {

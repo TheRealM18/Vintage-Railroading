@@ -23,7 +23,7 @@ namespace VintageRailroading.Entities
     /// projected onto the segment's Hermite curve each tick — but a cargo car only ever
     /// MOVES by following a leader through the coupling system. With no leader it simply
     /// sits still on its segment (it has no throttle of its own). Couple it behind a
-    /// locomotive with /vrrcouple and it tracks CouplingGap metres behind, around curves,
+    /// locomotive with a Coupler tool and it tracks CouplingGap metres behind, around curves,
     /// grades, and junctions, exactly like a coupled EntityTrain does.
     ///
     /// Storage: add a wood/fuel storage behavior in the JSON (e.g.
@@ -90,7 +90,7 @@ namespace VintageRailroading.Entities
 
             var mgr = api.ModLoader.GetModSystem<TrackNetworkManager>();
             _network = mgr?.Network;
-            api.Logger.Notification("[vintagerailroading] EntityCargo init. network={0}",
+            VrrDebug.Log(api, "EntityCargo init. network={0}",
                 _network != null ? "OK" : "NULL");
 
             // CLIENT: drive the on-curve pose every RENDER frame (not just every game
@@ -198,7 +198,7 @@ namespace VintageRailroading.Entities
 
             void Log(string msg)
             {
-                if (logNow) World.Logger.Notification("[vrr] " + side + " CARGO " + msg);
+                if (logNow) VrrDebug.Log(World, side + " CARGO " + msg);
             }
 
             // ============================ SERVER (authoritative) ============================
@@ -263,7 +263,7 @@ namespace VintageRailroading.Entities
             if (_geom == null)
             {
                 if (logNow)
-                    World.Logger.Notification($"[vrr] CLI CARGO geom=NULL segId={SegmentId} dist={Distance:0.0}");
+                    VrrDebug.Log(World, $"CLI CARGO geom=NULL segId={SegmentId} dist={Distance:0.0}");
                 return;
             }
 
@@ -366,7 +366,9 @@ namespace VintageRailroading.Entities
         private static float PitchFromHeading(VintageRailroading.Track.Vec3d h)
         {
             double horiz = Math.Sqrt(h.X * h.X + h.Z * h.Z);
-            return (float)Math.Atan2(h.Y, horiz);
+            // NOTE: negated h.Y — VS pitch is positive-nose-DOWN, so an upward track
+            // heading (h.Y > 0) must map to a NEGATIVE pitch to nose UP. (Was inverted.)
+            return (float)Math.Atan2(-h.Y, horiz);
         }
 
         // The render updater is unregistered when the entity leaves the world. The

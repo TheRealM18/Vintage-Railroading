@@ -104,7 +104,7 @@ namespace VintageRailroading.Items
             sapi.World.SpawnEntity(entity);
             rail.PlaceOnSegment(network, bestSeg, bestDist);
 
-            SendMsg(byEntity, $"Placed '{entityCode}' on segment #{bestSeg} at {bestDist:0.0}m. Right-click to ride/load, or /vrrcouple it behind a loco.");
+            SendMsg(byEntity, $"Placed '{entityCode}' on segment #{bestSeg} at {bestDist:0.0}m. Right-click to ride/load, or use a Coupler tool to link it behind a loco.");
         }
 
         private void SendMsg(EntityAgent byEntity, string msg)
