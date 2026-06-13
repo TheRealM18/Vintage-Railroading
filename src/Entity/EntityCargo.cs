@@ -152,10 +152,10 @@ namespace VintageRailroading.Entities
         /// stored cargo, give back a placer item, despawn.</summary>
         private bool TryPickup(EntityAgent byEntity)
         {
-            var placer = VintageRailroading.Entities.RailVehicleHelper.ResolvePlacerItem(this);
+            var placer = World.GetItem(new AssetLocation("vintagerailroading:trainplacer"));
             if (placer == null)
             {
-                Msg(byEntity, "placer item missing — cannot pick up.");
+                Msg(byEntity, "trainplacer item missing — cannot pick up.");
                 return false;
             }
 

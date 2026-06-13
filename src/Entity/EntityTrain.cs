@@ -158,7 +158,7 @@ namespace VintageRailroading.Entities
 
         /// <summary>Pick the train up into the player's inventory: first EJECT any
         /// riders (so nobody is left stuck in a seat on a despawned entity), then give
-        /// back the matching placer item and despawn the vehicle. Returns true if handled.</summary>
+        /// back a 'trainplacer' item and despawn the train. Returns true if handled.</summary>
         private bool TryPickup(EntityAgent byEntity)
         {
             // ORDER MATTERS: unmount every passenger BEFORE Die(). If we despawn while a
@@ -178,10 +178,10 @@ namespace VintageRailroading.Entities
                 }
             }
 
-            var placer = VintageRailroading.Entities.RailVehicleHelper.ResolvePlacerItem(this);
+            var placer = World.GetItem(new AssetLocation("vintagerailroading:trainplacer"));
             if (placer == null)
             {
-                Msg(byEntity, "placer item missing — cannot pick up.");
+                Msg(byEntity, "trainplacer item missing — cannot pick up.");
                 return false;
             }
 

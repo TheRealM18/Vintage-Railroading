@@ -1,4 +1,3 @@
-using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using VintageRailroading.Track;
 
@@ -38,54 +37,5 @@ namespace VintageRailroading.Entities
 
         /// <summary>Place the vehicle onto a network segment at the given distance.</summary>
         void PlaceOnSegment(TrackNetwork network, long segmentId, double distance);
-    }
-
-    /// <summary>
-    /// Helpers shared by the rail-vehicle entity classes.
-    /// </summary>
-    public static class RailVehicleHelper
-    {
-        // Fallback map: entity code -> placer item code, used only when an entity has no
-        // stamped "vrrPlacerCode" (e.g. spawned via creative or before the stamp existed).
-        // Keep in sync with the placer itemtypes' attributes.entityCode.
-        private static string PlacerForEntityCode(string entityCode)
-        {
-            switch (entityCode)
-            {
-                case "coalcart": return "coalcartplacer";
-                case "logcar":   return "logcarplacer";
-                case "tankcar":  return "tankcarplacer";
-                case "train":    return "trainplacer";
-                default:         return "trainplacer";
-            }
-        }
-
-        /// <summary>
-        /// Resolve the placer item that should be returned when this vehicle is picked up.
-        /// Prefers the exact "vrrPlacerCode" stamped at placement; otherwise derives it from
-        /// the entity's own code; finally falls back to the train placer. Returns null only
-        /// if even the train placer item is missing from the registry.
-        /// </summary>
-        public static Item ResolvePlacerItem(Vintagestory.API.Common.Entities.Entity entity)
-        {
-            var world = entity?.World;
-            if (world == null) return null;
-
-            // 1) exact stamp from when it was placed
-            string code = entity.WatchedAttributes?.GetString("vrrPlacerCode", null);
-
-            // 2) derive from the entity's code (e.g. "coalcart" -> "coalcartplacer")
-            if (string.IsNullOrEmpty(code))
-            {
-                string entityCode = entity.Code?.Path ?? "train";
-                code = PlacerForEntityCode(entityCode);
-            }
-
-            var item = world.GetItem(new AssetLocation("vintagerailroading:" + code));
-            // 3) last resort: the train placer, so pickup never silently fails
-            if (item == null)
-                item = world.GetItem(new AssetLocation("vintagerailroading:trainplacer"));
-            return item;
-        }
     }
 }
