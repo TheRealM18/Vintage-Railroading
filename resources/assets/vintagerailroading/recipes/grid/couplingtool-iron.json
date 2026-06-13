@@ -1,0 +1,28 @@
+{
+  "ingredientPattern": "MM_,MGH,P__",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "M": {
+      "type": "item",
+      "code": "game:ingot-iron"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    },
+    "H": {
+      "type": "item",
+      "code": "game:stick"
+    },
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:couplingtool-iron",
+    "quantity": 1
+  }
+}

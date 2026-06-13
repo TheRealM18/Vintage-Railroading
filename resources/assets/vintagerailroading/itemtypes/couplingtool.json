@@ -1,0 +1,48 @@
+{
+  "code": "couplingtool",
+  "class": "ItemCouplingTool",
+  "variantgroups": [
+    {
+      "code": "metal",
+      "states": [
+        "copper",
+        "tinbronze",
+        "iron",
+        "steel"
+      ]
+    }
+  ],
+  "maxstacksize": 1,
+  "durabilitybytype": {
+    "*-copper": 80,
+    "*-tinbronze": 160,
+    "*-iron": 320,
+    "*-steel": 640
+  },
+  "tooltier": 0,
+  "texturebytype": {
+    "*-copper": {
+      "base": "vintagerailroading:item/couplingtool-copper"
+    },
+    "*-tinbronze": {
+      "base": "vintagerailroading:item/couplingtool-tinbronze"
+    },
+    "*-iron": {
+      "base": "vintagerailroading:item/couplingtool-iron"
+    },
+    "*-steel": {
+      "base": "vintagerailroading:item/couplingtool-steel"
+    }
+  },
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrother": [
+      "*"
+    ]
+  }
+}
