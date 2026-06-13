@@ -4,9 +4,9 @@
   "name": "Vintage Railroading",
   "authors": [ "you" ],
   "description": "Free-form, multi-gauge railroads for Vintage Story.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "dependencies": {
     "game": "",
-    "vinteng": ""
+    "vintageengineering": ""
   }
 }
