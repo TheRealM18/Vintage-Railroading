@@ -1,10 +1,28 @@
 {
-	"ingredientPattern": "III,SSS",
-	"width": 3,
-	"height": 2,
-	"ingredients": {
-		"I": { "type": "item", "code": "game:ingot-iron" },
-		"S": { "type": "item", "code": "game:stick" }
-	},
-	"output": { "type": "item", "code": "vintagerailroading:steampiston", "quantity": 2 }
+  "ingredientPattern": "PCP,GSG",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron"
+    },
+    "C": {
+      "type": "item",
+      "code": "game:ingot-copper"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    },
+    "S": {
+      "type": "item",
+      "code": "game:stick"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:steampiston",
+    "quantity": 1
+  }
 }

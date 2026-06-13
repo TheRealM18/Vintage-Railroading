@@ -1,15 +1,19 @@
 {
-  "ingredientPattern": "PGP,P_P,PPP",
+  "ingredientPattern": "PGP,P_P,WWW",
   "width": 3,
   "height": 3,
   "ingredients": {
     "P": {
       "type": "item",
-      "code": "game:ingot-iron"
+      "code": "game:metalplate-iron"
     },
     "G": {
       "type": "block",
-      "code": "game:glass-plain"
+      "code": "game:glass-*"
+    },
+    "W": {
+      "type": "item",
+      "code": "game:plank-*"
     }
   },
   "output": {

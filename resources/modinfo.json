@@ -6,6 +6,7 @@
   "description": "Free-form, multi-gauge railroads for Vintage Story.",
   "version": "0.0.1",
   "dependencies": {
-    "game": ""
+    "game": "",
+    "vinteng": ""
   }
 }

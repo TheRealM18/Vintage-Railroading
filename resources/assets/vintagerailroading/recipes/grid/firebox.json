@@ -1,10 +1,24 @@
 {
-	"ingredientPattern": "P_P,PIP,PPP",
-	"width": 3,
-	"height": 3,
-	"ingredients": {
-		"P": { "type": "item", "code": "game:ingot-iron" },
-		"I": { "type": "item", "code": "game:ingot-iron" }
-	},
-	"output": { "type": "item", "code": "vintagerailroading:firebox", "quantity": 1 }
+  "ingredientPattern": "PSP,PGP,PSP",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron"
+    },
+    "S": {
+      "type": "item",
+      "code": "game:ingot-steel"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:firebox",
+    "quantity": 1
+  }
 }

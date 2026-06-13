@@ -5,8 +5,18 @@
   "attributes": {
     "entityCode": "logcar"
   },
-	"creativeinventory": { "general": [ "*" ] },
-  "textures": {
-    "0": { "base": "game:block/coal" }
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrcargo": [
+      "*"
+    ]
+  },
+  "texture": {
+    "base": "vintagerailroading:item/logcar"
   }
 }

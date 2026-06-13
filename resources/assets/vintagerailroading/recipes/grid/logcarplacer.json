@@ -1,10 +1,24 @@
 {
-  "ingredientPattern": "III,IWI,III",
+  "ingredientPattern": "WWW,PGP,WSW",
   "width": 3,
   "height": 3,
   "ingredients": {
-    "I": { "type": "item", "code": "game:ingot-iron",      "quantity": 1 },
-    "W": { "type": "block", "code": "game:log-placed-oak-ud",      "quantity": 1 }
+    "W": {
+      "type": "item",
+      "code": "game:plank-*"
+    },
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    },
+    "S": {
+      "type": "item",
+      "code": "vintagerailroading:ironwheelset"
+    }
   },
   "output": {
     "type": "item",

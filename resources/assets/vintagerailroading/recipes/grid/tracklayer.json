@@ -1,10 +1,28 @@
 {
-	"ingredientPattern": "III,_S_,_S_",
-	"width": 3,
-	"height": 3,
-	"ingredients": {
-		"I": { "type": "item", "code": "game:ingot-iron" },
-		"S": { "type": "item", "code": "game:stick" }
-	},
-	"output": { "type": "item", "code": "vintagerailroading:tracklayer", "quantity": 1 }
+  "ingredientPattern": "SP_,GS_,H__",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "S": {
+      "type": "item",
+      "code": "game:ingot-steel"
+    },
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    },
+    "H": {
+      "type": "item",
+      "code": "game:stick"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:tracklayer",
+    "quantity": 1
+  }
 }

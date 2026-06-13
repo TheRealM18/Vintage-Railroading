@@ -1,58 +1,98 @@
 {
   "code": "tankcar",
   "class": "EntityCargo",
-  "tags": [ "inanimate", "vehicle" ],
-
+  "tags": [
+    "inanimate",
+    "vehicle"
+  ],
   "attributes": {
     "shouldSwivelFromMotion": false,
     "speedMultiplier": 1,
     "swimmingOffsetY": 0,
     "mountAnimations": {
-      "idle":      "sitflooridle",
-      "ready":     "",
-      "forwards":  "",
+      "idle": "sitflooridle",
+      "ready": "",
+      "forwards": "",
       "backwards": ""
     }
   },
-
-  "hitboxSize":     { "x": 3.5, "y": 3.0 },
-  "deadHitboxSize": { "x": 3.5, "y": 3.0 },
+  "hitboxSize": {
+    "x": 3.5,
+    "y": 3.0
+  },
+  "deadHitboxSize": {
+    "x": 3.5,
+    "y": 3.0
+  },
   "eyeHeight": 2.0,
   "canClimb": false,
-
   "behaviorConfigs": {
     "passivephysicsmultibox": {
       "collisionBoxes": [
-        { "x1": -1.5, "y1": 0.0, "z1": -1.75, "x2": 1.5, "y2": 2.5, "z2": 1.75 }
+        {
+          "x1": -1.5,
+          "y1": 0.0,
+          "z1": -1.75,
+          "x2": 1.5,
+          "y2": 2.5,
+          "z2": 1.75
+        }
       ],
-      "groundDragFactor":    1,
+      "groundDragFactor": 1,
       "airDragFallingFactor": 0.5,
-      "gravityFactor":       0.0
+      "gravityFactor": 0.0
     }
   },
-
   "client": {
     "renderer": "Shape",
-    "shape": { "base": "vintagerailroading:entity/tankcar" },
+    "shape": {
+      "base": "vintagerailroading:entity/tankcar"
+    },
     "textures": {
-      "yellow":   { "base": "game:block/metal/plate/gold" },
-      "dark":     { "base": "game:block/stone/rock/basalt1" },
-      "metal":    { "base": "game:block/metal/plate/iron" },
-      "red":      { "base": "game:block/metal/plate/copper" },
-      "iron":     { "base": "game:item/metal/ingot/iron" }
+      "yellow": {
+        "base": "game:block/metal/plate/gold"
+      },
+      "dark": {
+        "base": "game:block/stone/rock/basalt1"
+      },
+      "metal": {
+        "base": "game:block/metal/plate/iron"
+      },
+      "red": {
+        "base": "game:block/metal/plate/copper"
+      },
+      "iron": {
+        "base": "game:item/metal/ingot/iron"
+      }
     },
     "behaviors": [
-      { "code": "repulseagents" },
-      { "code": "passivephysicsmultibox" },
-      { "code": "interpolateposition" },
-      { "code": "woodstorage", "quantitySlots": 16 }
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
+      {
+        "code": "interpolateposition"
+      },
+      {
+        "code": "fluidstorage",
+        "capacityLitres": 200
+      }
     ]
   },
   "server": {
     "behaviors": [
-      { "code": "repulseagents" },
-      { "code": "passivephysicsmultibox" },
-      { "code": "woodstorage", "quantitySlots": 16 }
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
+      {
+        "code": "fluidstorage",
+        "capacityLitres": 200
+      }
     ]
   }
 }

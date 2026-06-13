@@ -1,6 +1,18 @@
 {
-	"code": "ironwheelset",
-	"maxstacksize": 16,
-	"creativeinventory": { "general": [ "*" ] },
-	"texture": { "base": "game:item/resource/gear-temporal" }
+  "code": "ironwheelset",
+  "maxstacksize": 16,
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrother": [
+      "*"
+    ]
+  },
+  "texture": {
+    "base": "vintagerailroading:item/ironwheelset"
+  }
 }

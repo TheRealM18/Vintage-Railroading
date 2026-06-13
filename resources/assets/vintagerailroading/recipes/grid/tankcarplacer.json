@@ -1,10 +1,28 @@
 {
-  "ingredientPattern": "III,ICI,III",
-  "ingredients": {
-    "I": { "type": "item", "code": "game:ingot-iron",   "quantity": 1 },
-    "C": { "type": "item", "code": "game:ingot-copper",  "quantity": 1 }
-  },
-  "width":  3,
+  "ingredientPattern": "PPP,PCP,WGW",
+  "width": 3,
   "height": 3,
-  "output": { "type": "item", "code": "vintagerailroading:tankcarplacer", "quantity": 1 }
+  "ingredients": {
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron"
+    },
+    "C": {
+      "type": "item",
+      "code": "game:ingot-copper"
+    },
+    "W": {
+      "type": "item",
+      "code": "vintagerailroading:ironwheelset"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:tankcarplacer",
+    "quantity": 1
+  }
 }

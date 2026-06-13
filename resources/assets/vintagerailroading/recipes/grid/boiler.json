@@ -1,10 +1,24 @@
 {
-	"ingredientPattern": "PPP,PCP,PPP",
-	"width": 3,
-	"height": 3,
-	"ingredients": {
-		"P": { "type": "item", "code": "game:ingot-iron" },
-		"C": { "type": "item", "code": "game:ingot-copper" }
-	},
-	"output": { "type": "item", "code": "vintagerailroading:boiler", "quantity": 1 }
+  "ingredientPattern": "PPP,GCG,PPP",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    },
+    "C": {
+      "type": "item",
+      "code": "game:ingot-copper"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:boiler",
+    "quantity": 1
+  }
 }

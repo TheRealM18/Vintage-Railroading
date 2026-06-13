@@ -1,6 +1,18 @@
 {
-	"code": "steampiston",
-	"maxstacksize": 8,
-	"creativeinventory": { "general": [ "*" ] },
-	"texture": { "base": "game:item/resource/metalbit/iron" }
+  "code": "steampiston",
+  "maxstacksize": 8,
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrother": [
+      "*"
+    ]
+  },
+  "texture": {
+    "base": "vintagerailroading:item/steampiston"
+  }
 }

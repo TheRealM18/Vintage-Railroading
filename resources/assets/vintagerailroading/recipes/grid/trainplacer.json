@@ -1,13 +1,36 @@
 {
-	"ingredientPattern": "CBF,PWW",
-	"width": 3,
-	"height": 2,
-	"ingredients": {
-		"C": { "type": "item", "code": "vintagerailroading:cabframe" },
-		"B": { "type": "item", "code": "vintagerailroading:boiler" },
-		"F": { "type": "item", "code": "vintagerailroading:firebox" },
-		"P": { "type": "item", "code": "vintagerailroading:steampiston" },
-		"W": { "type": "item", "code": "vintagerailroading:ironwheelset" }
-	},
-	"output": { "type": "item", "code": "vintagerailroading:trainplacer", "quantity": 1 }
+  "ingredientPattern": "CBF,PWP,WGW",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "C": {
+      "type": "item",
+      "code": "vintagerailroading:cabframe"
+    },
+    "B": {
+      "type": "item",
+      "code": "vintagerailroading:boiler"
+    },
+    "F": {
+      "type": "item",
+      "code": "vintagerailroading:firebox"
+    },
+    "P": {
+      "type": "item",
+      "code": "vintagerailroading:steampiston"
+    },
+    "W": {
+      "type": "item",
+      "code": "vintagerailroading:ironwheelset"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:trainplacer",
+    "quantity": 1
+  }
 }

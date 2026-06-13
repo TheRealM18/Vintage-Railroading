@@ -1,10 +1,24 @@
 {
-  "ingredientPattern": "III,IWI,III",
+  "ingredientPattern": "P_P,PSP,WGW",
   "width": 3,
   "height": 3,
   "ingredients": {
-    "I": { "type": "item", "code": "game:ingot-iron",      "quantity": 1 },
-    "W": { "type": "item", "code": "game:charcoal",      "quantity": 1 }
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron"
+    },
+    "S": {
+      "type": "item",
+      "code": "game:charcoal"
+    },
+    "W": {
+      "type": "item",
+      "code": "vintagerailroading:ironwheelset"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    }
   },
   "output": {
     "type": "item",

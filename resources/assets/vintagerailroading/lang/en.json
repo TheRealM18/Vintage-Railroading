@@ -1,17 +1,34 @@
 {
-	"block-railnode": "Rail Node",
-	"item-trainplacer": "Baldwin 2-8-0 Locomotive",
-	"item-tracklayer": "Track Layer",
-	"item-ironwheelset": "Iron Wheel Set",
-	"item-boiler": "Locomotive Boiler",
-	"item-firebox": "Locomotive Firebox",
-	"item-steampiston": "Steam Piston",
-	"item-cabframe": "Cab Frame",
-	"entity-train": "Train",
-	"item-coalcartplacer": "Coal Cart",
-	"entity-coalcart": "Coal Cart",
-	"item-logcarplacer": "Logging Flatcar",
-    "entity-logcar": "Logging Flatcar",
-    "item-tankcarplacer": "Tank Car",
-    "entity-tankcar": "Tank Car"
+  "-comment Blocks": "",
+  "vintagerailroading:block-railnode": "Rail Node",
+
+  "-comment Items": "",
+  "vintagerailroading:item-tracklayer": "Track Layer",
+  "vintagerailroading:item-ironwheelset": "Iron Wheel Set",
+  "vintagerailroading:item-boiler": "Locomotive Boiler",
+  "vintagerailroading:item-firebox": "Locomotive Firebox",
+  "vintagerailroading:item-steampiston": "Steam Piston",
+  "vintagerailroading:item-cabframe": "Cab Frame",
+  
+  "-comment Trains": "",
+  "vintagerailroading:item-trainplacer": "Baldwin 2-8-0 Locomotive",
+  
+  "_comment Train Entities": "",
+  "vintagerailroading:item-creature-train": "Baldwin 2-8-0 Locomotive",
+  
+  "-comment Cargo": "",
+  "vintagerailroading:item-coalcartplacer": "Coal Cart",
+  "vintagerailroading:item-logcarplacer": "Logging Flatcar",
+  "vintagerailroading:item-tankcarplacer": "Tank Car",
+  
+  "_comment Cargo Entities": "",
+  "vintagerailroading:item-creature-coalcart": "Coal Cart",
+  "vintagerailroading:item-creature-logcar": "Logging Flatcar",
+  "vintagerailroading:item-creature-tankcar": "Tank Car",
+  
+  "-comment Creative Tabs": "",
+  "game:tabname-vrrall": "VRR All",
+  "game:tabname-vrrcargo": "VRR Cargo",
+  "game:tabname-vrrtrains": "VRR Trains",
+  "game:tabname-vrrother": "VRR Other"
 }

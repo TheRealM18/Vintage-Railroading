@@ -1,6 +1,18 @@
 {
-	"code": "cabframe",
-	"maxstacksize": 4,
-	"creativeinventory": { "general": [ "*" ] },
-	"texture": { "base": "game:block/glass/plain" }
+  "code": "cabframe",
+  "maxstacksize": 4,
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrother": [
+      "*"
+    ]
+  },
+  "texture": {
+    "base": "vintagerailroading:item/cabframe"
+  }
 }

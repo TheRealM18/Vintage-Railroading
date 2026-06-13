@@ -1,10 +1,22 @@
 {
-	"code": "coalcartplacer",
-	"class": "ItemTrainPlacer",
-	"maxstacksize": 1,
-	"attributes": {
-		"entityCode": "coalcart"
-	},
-	"creativeinventory": { "general": [ "*" ] },
-	"texture": { "base": "game:block/coal" }
+  "code": "coalcartplacer",
+  "class": "ItemTrainPlacer",
+  "maxstacksize": 1,
+  "attributes": {
+    "entityCode": "coalcart"
+  },
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrcargo": [
+      "*"
+    ]
+  },
+  "texture": {
+    "base": "vintagerailroading:item/coalcart"
+  }
 }

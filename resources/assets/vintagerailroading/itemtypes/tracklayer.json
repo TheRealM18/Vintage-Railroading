@@ -1,7 +1,19 @@
 {
-	"code": "tracklayer",
-	"class": "ItemTrackLayer",
-	"maxstacksize": 1,
-	"creativeinventory": { "general": [ "*" ] },
-	"texture": { "base": "game:item/tool/hammer/iron" }
+  "code": "tracklayer",
+  "class": "ItemTrackLayer",
+  "maxstacksize": 1,
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrother": [
+      "*"
+    ]
+  },
+  "texture": {
+    "base": "vintagerailroading:item/tracklayer"
+  }
 }
