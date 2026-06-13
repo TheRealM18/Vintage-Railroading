@@ -57,7 +57,7 @@ namespace VintageRailroading.Entities
         // Per-type top speed (m/s), read from the entity JSON's `attributes.maxSpeed`
         // so each train type (loco, coal cart, etc.) can differ WITHOUT a new class.
         // Defaults to 6.0 so the original locomotive is unchanged. Cached after init.
-        private double _maxSpeed = 6.0;
+        private double _maxSpeed = 18.0;
         private double MaxSpeed => _maxSpeed;
 
         private TrackNetwork _network;
