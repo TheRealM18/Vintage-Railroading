@@ -1,12 +1,8 @@
 {
-  "ingredientPattern": "WWW,PGP,WSW",
+  "ingredientPattern": "PPP,PGP,WSW",
   "width": 3,
   "height": 3,
   "ingredients": {
-    "W": {
-      "type": "item",
-      "code": "game:plank-*"
-    },
     "P": {
       "type": "item",
       "code": "game:metalplate-iron"
@@ -15,6 +11,10 @@
       "type": "item",
       "code": "vinteng:metalgear-iron"
     },
+    "W": {
+      "type": "item",
+      "code": "vintagerailroading:ironwheelset"
+    },
     "S": {
       "type": "item",
       "code": "vintagerailroading:ironwheelset"
@@ -22,7 +22,7 @@
   },
   "output": {
     "type": "item",
-    "code": "vintagerailroading:genericcarplacer",
+    "code": "vintagerailroading:freightercarplacer",
     "quantity": 1
   }
 }

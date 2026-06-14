@@ -1,5 +1,5 @@
 {
-  "code": "genericcar",
+  "code": "freightercar",
   "class": "EntityCargo",
   "tags": [
     "inanimate",
@@ -40,7 +40,7 @@
   "client": {
     "renderer": "Shape",
     "shape": {
-      "base": "vintagerailroading:entity/logcar"
+      "base": "vintagerailroading:entity/freightercar"
     },
     "textures": {
       "iron": {
@@ -55,11 +55,8 @@
       "wood": {
         "base": "game:block/wood/planks/pine1"
       },
-      "log": {
-        "base": "game:block/wood/bark/pine-h"
-      },
-      "bark": {
-        "base": "game:block/wood/bark/pine-h"
+      "red": {
+        "base": "game:block/clay/fired/red1"
       }
     },
     "behaviors": [
