@@ -40,24 +40,13 @@
   "client": {
     "renderer": "Shape",
     "shape": {
-      "base": "vintagerailroading:entity/freightercar"
-    },
+      "base": "vintagerailroading:entity/freightercar" },
     "textures": {
-      "iron": {
-        "base": "game:block/metal/plate/iron"
-      },
-      "dark": {
-        "base": "game:block/stone/rock/basalt1"
-      },
-      "metal": {
-        "base": "game:block/metal/plate/iron"
-      },
-      "wood": {
-        "base": "game:block/wood/planks/pine1"
-      },
-      "red": {
-        "base": "game:block/clay/fired/red1"
-      }
+      "iron":  { "base": "game:block/metal/plate/iron" },
+      "dark":  { "base": "game:block/stone/rock/basalt1" },
+      "metal": { "base": "game:block/metal/plate/iron" },
+      "wood":  { "base": "game:block/wood/planks/pine1" },
+      "red": { "base": "vintagerailroading:block/redpaint" }
     },
     "behaviors": [
       {

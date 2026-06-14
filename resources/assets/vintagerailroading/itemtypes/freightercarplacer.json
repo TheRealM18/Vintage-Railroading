@@ -1,9 +1,9 @@
 {
-  "code": "genericcarplacer",
+  "code": "freightercarplacer",
   "class": "ItemTrainPlacer",
   "maxstacksize": 1,
   "attributes": {
-    "entityCode": "genericcar"
+    "entityCode": "freightercar"
   },
   "creativeinventory": {
     "general": [
@@ -17,6 +17,6 @@
     ]
   },
   "texture": {
-    "base": "vintagerailroading:item/genericcar"
+    "base": "vintagerailroading:item/freightercar"
   }
 }

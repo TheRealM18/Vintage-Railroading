@@ -16,15 +16,15 @@
   "vintagerailroading:item-coalcartplacer": "Coal Cart",
   "vintagerailroading:item-logcarplacer": "Logging Flatcar",
   "vintagerailroading:item-tankcarplacer": "Tank Car",
+  "vintagerailroading:item-freightercarplacer": "Freight Car",
   "_comment Cargo Entities": "",
   "vintagerailroading:item-creature-coalcart": "Coal Cart",
   "vintagerailroading:item-creature-logcar": "Logging Flatcar",
   "vintagerailroading:item-creature-tankcar": "Tank Car",
+  "vintagerailroading:item-creature-freightercar": "Freight Car",
   "-comment Creative Tabs": "",
   "game:tabname-vrrall": "VRR All",
   "game:tabname-vrrcargo": "VRR Cargo",
   "game:tabname-vrrtrains": "VRR Trains",
-  "game:tabname-vrrother": "VRR Other",
-  "item-genericcarplacer": "Freight Car",
-  "entity-genericcar": "Freight Car"
+  "game:tabname-vrrother": "VRR Other"
 }
