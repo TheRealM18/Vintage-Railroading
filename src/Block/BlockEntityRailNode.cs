@@ -19,7 +19,8 @@ namespace VintageRailroading.Blocks
     /// replace the particles with a real mesh in OnTesselation.)
     ///
     /// Persisted fields: start xyz, start tangent xyz, end xyz, end tangent xyz,
-    /// and the gauge id. The HermiteCurve/TrackSegment are rebuilt from those.
+    /// bank angle, and the gauge id. The HermiteCurve/TrackSegment are rebuilt
+    /// from those.
     /// </summary>
     public class BlockEntityRailNode : BlockEntity
     {
@@ -28,6 +29,7 @@ namespace VintageRailroading.Blocks
         private double _tsx, _tsy, _tsz;  // start tangent
         private double _ex, _ey, _ez;     // end point
         private double _tex, _tey, _tez;  // end tangent
+        private double _bankAngle;        // superelevation, radians
         private string _gaugeId = "standard";
         private bool _hasCurve;
 
@@ -60,6 +62,17 @@ namespace VintageRailroading.Blocks
             MarkDirty(true);
         }
 
+        /// <summary>Sets superelevation (rail cross-section tilt) for this segment,
+        /// in radians. Can be called before or after SetCurve — both rebuild the
+        /// segment and mark dirty. Positive = left rail raised, right rail lowered,
+        /// per TrackSegment.RailPointsAtDistance.</summary>
+        public void SetBankAngle(double bankAngle)
+        {
+            _bankAngle = bankAngle;
+            RebuildSegment();
+            MarkDirty(true);
+        }
+
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
@@ -78,7 +91,7 @@ namespace VintageRailroading.Blocks
                 new GVec(_tsx, _tsy, _tsz),
                 new GVec(_ex, _ey, _ez),
                 new GVec(_tex, _tey, _tez));
-            _segment = new TrackSegment(1, gauge, curve);
+            _segment = new TrackSegment(1, gauge, curve, _bankAngle);
 
             // Freeze station arrays for the tesselation thread.
             _railStations = RailMeshBuilder.BuildStations(_segment, RailMeshBuilder.RailStep);
@@ -194,6 +207,7 @@ namespace VintageRailroading.Blocks
             tree.SetDouble("vrr_tsx", _tsx); tree.SetDouble("vrr_tsy", _tsy); tree.SetDouble("vrr_tsz", _tsz);
             tree.SetDouble("vrr_ex", _ex); tree.SetDouble("vrr_ey", _ey); tree.SetDouble("vrr_ez", _ez);
             tree.SetDouble("vrr_tex", _tex); tree.SetDouble("vrr_tey", _tey); tree.SetDouble("vrr_tez", _tez);
+            tree.SetDouble("vrr_bank", _bankAngle);
             tree.SetString("vrr_gauge", _gaugeId ?? "standard");
         }
 
@@ -207,6 +221,7 @@ namespace VintageRailroading.Blocks
             _tsx = tree.GetDouble("vrr_tsx"); _tsy = tree.GetDouble("vrr_tsy"); _tsz = tree.GetDouble("vrr_tsz");
             _ex = tree.GetDouble("vrr_ex"); _ey = tree.GetDouble("vrr_ey"); _ez = tree.GetDouble("vrr_ez");
             _tex = tree.GetDouble("vrr_tex"); _tey = tree.GetDouble("vrr_tey"); _tez = tree.GetDouble("vrr_tez");
+            _bankAngle = tree.GetDouble("vrr_bank", 0.0);
             _gaugeId = tree.GetString("vrr_gauge", "standard");
 
             // Rebuild the segment + stations from the freshly synced data. Safe

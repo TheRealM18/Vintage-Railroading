@@ -196,24 +196,69 @@ namespace VintageRailroading
             if (horiz < 0.5)
                 return LaySegmentResult.Fail("Points too close horizontally — move apart and retry.");
 
-            // Grade as a fraction (rise/run). Clamp absurd slopes so the track stays
-            // ride-able; railroads rarely exceed ~4%, but we allow up to 100% (45°).
+            // HORIZONTAL (yaw/left-right) turn-rate limit: how sharply the track can
+            // bend in the XZ-plane, in radians of heading change per horizontal meter.
+            const double MaxYawRate = 0.03; // radians per meter (~1.7°/m)
+            double deltaYaw = AngleDiff(yawA, yawB);
+            double minHorizForThisTurn = Math.Abs(deltaYaw) / MaxYawRate;
+            if (horiz < minHorizForThisTurn)
+                return LaySegmentResult.Fail(
+                    $"Curve too sharp for this distance — need at least {minHorizForThisTurn:0.0}m horizontal " +
+                    $"for a {deltaYaw * 180.0 / Math.PI:0.#}° turn (max yaw rate {MaxYawRate} rad/m).");
+
+            // HARD CAP on total heading change for a single segment, regardless of
+            // distance. Prevents U-turn/hairpin reversals even if the player is
+            // willing to place the segment over a very long distance — those should
+            // be built as multiple segments with intermediate nodes instead.
+            const double MaxTotalTurn = Math.PI * 0.75; // 135°
+            if (Math.Abs(deltaYaw) > MaxTotalTurn)
+                return LaySegmentResult.Fail(
+                    $"Turn too sharp overall — {deltaYaw * 180.0 / Math.PI:0.#}° exceeds the " +
+                    $"{MaxTotalTurn * 180.0 / Math.PI:0.#}° max per segment, regardless of distance. " +
+                    $"Break this into multiple segments with intermediate nodes.");
+
+            // chordYaw is the straight-line heading a -> b in the XZ-plane. Since
+            // every segment is now laid straight along its chord, chordYaw IS this
+            // segment's heading at both ends. It is used below for the junction
+            // smoothness check at snapped joints.
+            double chordYaw = Math.Atan2(dx, dz);
+
+            // VERTICAL (incline/decline) grade limit: rise/run, independent of yaw.
+            // NOTE: endpoints a and b are fixed where the player stands, so the actual
+            // slope is dy/horiz no matter what — this clamp is ADVISORY: it flags an
+            // over-steep placement in the result message ("[CLAMPED to 10%]") so the
+            // player knows to place the end at a gentler height. It does not bend the
+            // geometry (that would require moving an endpoint).
             double grade = dy / horiz;
-            const double MaxGrade = 1.0;
+            const double MaxGrade = 0.1;
             bool clamped = false;
             if (grade > MaxGrade) { grade = MaxGrade; clamped = true; }
             else if (grade < -MaxGrade) { grade = -MaxGrade; clamped = true; }
 
-            // Default tangents: horizontal direction from each end's look-yaw, with a
-            // vertical component matching the chord's grade so the slope is smooth and
-            // consistent across the whole segment (no mid-curve hump/dip).
-            double tanScale = chord * 0.4;
-            Vec3d dirA = new Vec3d(0,0,0).Ahead(1.0, 0, yawA);
-            Vec3d dirB = new Vec3d(0,0,0).Ahead(1.0, 0, yawB);
-            double hmA = Math.Sqrt(dirA.X * dirA.X + dirA.Z * dirA.Z);
-            double hmB = Math.Sqrt(dirB.X * dirB.X + dirB.Z * dirB.Z);
-            var m0 = new GVec(dirA.X*tanScale, grade*hmA*tanScale, dirA.Z*tanScale);
-            var m1 = new GVec(dirB.X*tanScale, grade*hmB*tanScale, dirB.Z*tanScale);
+            // STRAIGHT-SEGMENT TANGENTS: both endpoint tangents are set to the chord
+            // direction (a -> b). This makes the Hermite curve a straight line between
+            // the two points — no bow, no overshoot, no possibility of a loop, and no
+            // dependence on inherited-tangent sign conventions. Curves are produced by
+            // laying many short straight segments that each step the heading slightly
+            // (the per-meter yaw-rate limit above governs how sharply that can happen).
+            //
+            // Tangent magnitude for a Hermite straight line should equal the chord
+            // length so the parameterization stays even; using chord keeps arc-length
+            // sampling well-behaved.
+            double chordDirX = chord > 1e-9 ? dx / chord : 0.0;
+            double chordDirY = chord > 1e-9 ? dy / chord : 0.0;
+            double chordDirZ = chord > 1e-9 ? dz / chord : 0.0;
+            double tanScale = chord;
+            var m0 = new GVec(chordDirX * tanScale, chordDirY * tanScale, chordDirZ * tanScale);
+            var m1 = new GVec(chordDirX * tanScale, chordDirY * tanScale, chordDirZ * tanScale);
+
+            // BANKING / SUPERELEVATION: any yaw change tilts the rail cross-section
+            // toward the inside of the curve, proportional to how sharp the turn is
+            // relative to the max allowed yaw rate, capped at MaxBankAngle.
+            const double MaxBankAngle = 0.12; // radians (~6.9°), max rail tilt
+            double yawUsage = Math.Min(Math.Abs(deltaYaw) / horiz / MaxYawRate, 1.0); // 0..1
+            double bankFraction = yawUsage;
+            double bankAngle = Math.Sign(deltaYaw) * bankFraction * MaxBankAngle;
 
             // Effective snap radius: 0 when snapping is toggled off.
             double snap = _snapEnabled ? VintageRailroading.Track.TrackNetwork.SnapDistance : 0.0;
@@ -223,6 +268,21 @@ namespace VintageRailroading
             bool snappedStart = network.WasSnapped(a.X, a.Y, a.Z, snap);
             bool snappedEnd   = network.WasSnapped(b.X, b.Y, b.Z, snap);
 
+            // JUNCTION SMOOTHNESS: because every segment is laid straight along its
+            // chord (m0 = m1 = chord direction), this segment's heading at BOTH ends
+            // is simply chordYaw. At a snapped joint we compare the existing track's
+            // "continue forward" direction against chordYaw and reject if the kink is
+            // too sharp — this is purely a guard against starting a new straight piece
+            // that bends hard away from the track it joins. We do NOT rewrite m0/m1:
+            // the segment stays straight. Any curve is built by laying several short
+            // straight segments that each step the heading within the yaw-rate limit.
+            //
+            // InheritedTangentAt returns the "continue forward" direction pointing
+            // AWAY from the node, already normalized for which end of the existing
+            // segment this node was (see TrackNetwork.cs), so no negation is needed:
+            // Atan2(t.x, t.z) matches the chordYaw/Ahead convention.
+            const double MaxJunctionAngle = 0.3; // radians (~17°)
+
             if (snappedStart)
             {
                 var sn = network.FindOrCreateNode(a.X, a.Y, a.Z, snap);
@@ -231,7 +291,14 @@ namespace VintageRailroading
                 if (inh.HasValue)
                 {
                     var t = Normalize(inh.Value);
-                    m0 = new GVec(t.x * tanScale, t.y * tanScale, t.z * tanScale);
+                    double inheritedYaw = Math.Atan2(t.x, t.z);
+                    double junctionAngle = Math.Abs(AngleDiff(inheritedYaw, chordYaw));
+                    if (junctionAngle > MaxJunctionAngle)
+                        return LaySegmentResult.Fail(
+                            $"Sharp bend at start node — heading changes by {junctionAngle * 180.0 / Math.PI:0.#}° " +
+                            $"at the junction (max {MaxJunctionAngle * 180.0 / Math.PI:0.#}°). " +
+                            $"Aim closer to the existing track's direction before laying this segment.");
+                    // Accepted — segment stays straight, m0 already = chord direction.
                 }
             }
             if (snappedEnd)
@@ -242,7 +309,18 @@ namespace VintageRailroading
                 if (inh.HasValue)
                 {
                     var t = Normalize(inh.Value);
-                    m1 = new GVec(t.x * tanScale, t.y * tanScale, t.z * tanScale);
+                    double inheritedYaw = Math.Atan2(t.x, t.z);
+                    // At the END node we are arriving, so the existing track's
+                    // away-from-node direction is opposite our direction of travel;
+                    // compare against the reverse of chordYaw.
+                    double arrivalYaw = chordYaw + Math.PI;
+                    double junctionAngle = Math.Abs(AngleDiff(inheritedYaw, arrivalYaw));
+                    if (junctionAngle > MaxJunctionAngle)
+                        return LaySegmentResult.Fail(
+                            $"Sharp bend at end node — heading changes by {junctionAngle * 180.0 / Math.PI:0.#}° " +
+                            $"at the junction (max {MaxJunctionAngle * 180.0 / Math.PI:0.#}°). " +
+                            $"Aim closer to the existing track's direction before laying this segment.");
+                    // Accepted — segment stays straight, m1 already = chord direction.
                 }
             }
 
@@ -262,6 +340,7 @@ namespace VintageRailroading
                 return LaySegmentResult.Fail("Block entity did not attach — check entityClass registration.");
 
             be.SetCurve(a, m0, b, m1, _gauge.Id);
+            be.SetBankAngle(bankAngle);
             api.ModLoader.GetModSystem<TrackNetworkManager>()?.BroadcastNetwork();
 
             string snapInfo = (snappedStart || snappedEnd)
@@ -270,16 +349,28 @@ namespace VintageRailroading
             double gradePct = grade * 100.0;
             string gradeInfo = Math.Abs(dy) < 0.05
                 ? " grade=flat"
-                : $" grade={gradePct:+0.#;-0.#}% (rise {dy:+0.0;-0.0}m)" + (clamped ? " [CLAMPED to 100%]" : "");
+                : $" grade={gradePct:+0.#;-0.#}% (rise {dy:+0.0;-0.0}m)" + (clamped ? " [CLAMPED to 10%]" : "");
+            string bankInfo = Math.Abs(bankAngle) < 0.001
+                ? " bank=flat"
+                : $" bank={bankAngle * 180.0 / Math.PI:+0.0;-0.0}° ({(bankAngle > 0 ? "left" : "right")} side raised)";
 
             return new LaySegmentResult
             {
                 Ok = true,
                 SegmentId = segData.Id,
                 EndPos = b,
-                Message = $"Segment #{segData.Id} placed. gauge={_gauge.Id}, chord={chord:0.0}m,{gradeInfo}, " +
-                          $"nodes={network.Nodes.Count}, segments={network.Segments.Count}.{snapInfo}"
+                Message = $"Segment #{segData.Id} placed. gauge={_gauge.Id}, chord={chord:0.0}m,{gradeInfo},{bankInfo}, " +
+                        $"turn={deltaYaw * 180.0 / Math.PI:0.#}° over {horiz:0.0}m, " +
+                        $"nodes={network.Nodes.Count}, segments={network.Segments.Count}.{snapInfo}"
             };
+        }
+
+        private static double AngleDiff(double yawA, double yawB)
+        {
+            double diff = (yawB - yawA) % (2 * Math.PI);
+            if (diff > Math.PI) diff -= 2 * Math.PI;
+            else if (diff < -Math.PI) diff += 2 * Math.PI;
+            return diff;
         }
 
         private static (double x, double y, double z) Normalize((double x, double y, double z) v)

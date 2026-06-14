@@ -17,13 +17,19 @@ namespace VintageRailroading.Track
         public TrackGauge Gauge { get; }
         public HermiteCurve Curve { get; }
 
+        /// <summary>Superelevation: positive tilts the left rail up / right rail down
+        /// (as seen looking along the curve's heading), radians. Constant along the
+        /// whole segment. 0 = flat cross-section.</summary>
+        public double BankAngle { get; }
+
         public double Length => Curve.Length;
 
-        public TrackSegment(long id, TrackGauge gauge, HermiteCurve curve)
+        public TrackSegment(long id, TrackGauge gauge, HermiteCurve curve, double bankAngle = 0.0)
         {
             Gauge = gauge ?? throw new ArgumentNullException(nameof(gauge));
             Curve = curve ?? throw new ArgumentNullException(nameof(curve));
             Id = id;
+            BankAngle = bankAngle;
         }
 
         public Vec3d PositionAtDistance(double s) => Curve.PositionAtDistance(s);
@@ -31,7 +37,10 @@ namespace VintageRailroading.Track
 
         /// <summary>Centerline offset to the two running rails at distance s,
         /// in world space. Returns (leftRail, rightRail). Uses world-up to find
-        /// the lateral axis; superelevation (banking) is a later refinement.</summary>
+        /// the lateral axis, then applies superelevation by raising/lowering each
+        /// rail vertically based on BankAngle: the cross-section pivots about the
+        /// centerline, so one rail lifts by half * sin(BankAngle) while the other
+        /// drops by the same amount.</summary>
         public (Vec3d left, Vec3d right) RailPointsAtDistance(double s)
         {
             Vec3d center = PositionAtDistance(s);
@@ -39,7 +48,18 @@ namespace VintageRailroading.Track
             Vec3d up = new Vec3d(0, 1, 0);
             Vec3d lateral = heading.Cross(up).Normalized(); // points to one side
             double half = Gauge.WidthMeters * 0.5;
-            return (center + lateral * half, center - lateral * half);
+
+            Vec3d leftPoint = center + lateral * half;
+            Vec3d rightPoint = center - lateral * half;
+
+            if (BankAngle != 0.0)
+            {
+                double lift = Math.Sin(BankAngle) * half;
+                leftPoint = new Vec3d(leftPoint.X, leftPoint.Y + lift, leftPoint.Z);
+                rightPoint = new Vec3d(rightPoint.X, rightPoint.Y - lift, rightPoint.Z);
+            }
+
+            return (leftPoint, rightPoint);
         }
     }
 

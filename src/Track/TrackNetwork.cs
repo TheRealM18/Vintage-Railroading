@@ -155,8 +155,18 @@ namespace VintageRailroading.Track
             return seg;
         }
 
-        /// <summary>Heading of an existing segment AT the given node, so a new
-        /// segment can inherit it for a smooth join. Null if no connections.</summary>
+        /// <summary>Heading of an existing segment AT the given node, expressed as a
+        /// "continue forward" direction that points AWAY from the node (i.e. the
+        /// direction a new segment leaving this node should head to stay tangent).
+        /// Null if no connections.
+        ///
+        /// Both endpoint tangents are stored pointing along the segment's travel
+        /// direction (start->end). At the segment's END node that travel direction
+        /// already points away from the node, so it is returned as-is. At the
+        /// segment's START node the travel direction points INTO the segment (toward
+        /// the node's far end), so it is negated to face away from the node. This
+        /// makes the returned vector's meaning independent of which end the caller
+        /// snapped to — callers must NOT apply their own negation.</summary>
         public (double x, double y, double z)? InheritedTangentAt(long nodeId)
         {
             EnsureIndex();
@@ -164,7 +174,7 @@ namespace VintageRailroading.Track
                 return null;
             var c = node.Connections[0];
             if (!_segIdx.TryGetValue(c.SegmentId, out var seg)) return null;
-            if (c.IsStart) return (seg.TsX, seg.TsY, seg.TsZ);
+            if (c.IsStart) return (-seg.TsX, -seg.TsY, -seg.TsZ);
             return (seg.TeX, seg.TeY, seg.TeZ);
         }
 
