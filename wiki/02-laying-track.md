@@ -36,8 +36,18 @@ double main — toggle snapping off:
 
 Track is no longer forced flat. If your start and end clicks are at different heights,
 the segment becomes a smooth grade. The slope is spread evenly across the whole segment
-so there is no mid-curve hump or dip. Grades are clamped to ±100% (45°). The chat reply
-reports the grade percentage and rise when you lay a sloped segment.
+so there is no mid-curve hump or dip.
+
+Grades are **limited to 5%** and the limit is **enforced**, not clamped: if your two
+clicks are too far apart in height for the horizontal distance between them, the segment
+is **rejected** and the chat reply tells you the minimum horizontal run needed for that
+rise (e.g. *"for a 3.0m rise you need at least 60m of horizontal run"*). Move the end
+point farther away (or make it less steep) and click again. A successfully laid sloped
+segment reports its grade percentage and rise.
+
+> The 5% cap keeps slopes gentle enough to look right and to drive comfortably. If you
+> want a steeper-looking climb, build it as a longer, gentler grade rather than one short
+> steep jump.
 
 Both the rails/ties and the vehicles themselves tilt to follow the grade — locomotives
 and cargo cars alike, since both compute pitch from the same track heading.

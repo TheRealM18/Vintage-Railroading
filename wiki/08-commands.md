@@ -10,7 +10,7 @@ All commands require the chat privilege and a player.
 | `/vrrnode` | Place track via command: run once to set point A, move and run again to lay a segment A→B. (The Track Layer item is the preferred, survival-friendly way — see [Laying Track](02-laying-track.md).) |
 | `/vrrsnap` | Toggle endpoint snapping on/off. Off = lay track close together without auto-joining. |
 | `/vrrswitch` | Stand within 4 blocks of a junction node and cycle its through-route to the next branch. |
-| `/vrrdebug` | Toggle verbose `[vrr]` debug logging to the server/client log. Off by default; turn on only when diagnosing something. |
+| `/vrrdebug` | Toggle verbose `[vrr]` debug logging to a dedicated `vrr-debug.log` file in your VS Logs folder (never the console). Off by default; turn on only when diagnosing something. |
 | `/vrrtrain` | Legacy train spawn (superseded by the placer items). |
 
 > **Coupling is no longer a command.** The old `/vrrcouple` and `/vrruncouple` were removed
@@ -35,10 +35,14 @@ All commands require the chat privilege and a player.
 
 ## Debugging
 
-`/vrrdebug` toggles verbose logging. It's **off** by default so the logs stay clean in
-normal play; turn it on, reproduce the issue, and the mod prints `[vrr]`-prefixed
+`/vrrdebug` toggles verbose logging. It's **off** by default so things stay clean in
+normal play; turn it on, reproduce the issue, and the mod writes `[vrr]`-prefixed
 diagnostic lines (entity init, tick/advance state, render projection, interaction
-results) to the server or client log. Turn it back off when you're done.
+results) to a dedicated **`vrr-debug.log`** file in your Vintage Story Logs folder — the
+same directory as `server-main.log`. Lines are timestamped and tagged with the side
+(`SRV`/`CLI`) that wrote them, and the mod never writes to the console. Turn it back off
+when you're done. Genuine errors (failed network save/sync) are always written to that
+file regardless of the toggle.
 
 ## Loading cargo
 

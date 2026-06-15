@@ -10,8 +10,9 @@ The entity class is **not registered**. Both `EntityTrain` and `EntityCargo` mus
 registered in the mod system (`api.RegisterEntity("EntityCargo", typeof(EntityCargo))`).
 The shipped mod registers both; you hit this only if you stripped a registration or a
 build did not include the latest mod system. Likewise each storage behavior code
-(`woodstorage`, `fuelstorage`, `fluidstorage`) must be registered with
-`RegisterEntityBehaviorClass`, or an entity that lists it will fault on load.
+(`genericstorage`, `fuelstorage`, `fluidstorage`, the back-compat `woodstorage`) and the
+`freezer` power behavior must be registered with `RegisterEntityBehaviorClass`, or an
+entity that lists it will fault on load.
 
 ## A cargo car seats me instead of opening storage (or vice versa)
 
@@ -119,15 +120,18 @@ save/load. Re-couple after loading. A persistent consist id is planned.
 
 - The shape's texture **keys** must match the entity's `client.textures` keys. The shipped
   locomotive set is `dark`, `glass`, `iron`, `metal`, `red`; the cargo cars use keys like
-  `iron`, `dark`, `metal`, `wood`, `log`, `bark`. Reuse the keys, or update both sides
-  together. The shipped cargo cars use placeholder textures until dedicated art is added.
+  `iron`, `dark`, `metal`, `wood`, plus a load key per car (`coal`, `log`, `ore`, `dirt`,
+  `stone`, `food`). Reuse the keys, or update both sides together. The shipped cars each
+  have their own model and icon, sized to the tank car's track fit; the models are clean
+  blocky geometry that can be detailed further in Model Creator.
 
 ## How to get more diagnostic detail
 
-Run `/vrrdebug` to toggle verbose logging. With it on, the mod prints `[vrr]`-prefixed
+Run `/vrrdebug` to toggle verbose logging. With it on, the mod writes `[vrr]`-prefixed
 lines for entity init, per-tick movement state, client render projection, and interaction
-results to the server/client log — useful when a vehicle won't move, won't render, or
-won't couple. It's off by default so normal play stays quiet; turn it off again when done.
+results to a dedicated **`vrr-debug.log`** in your VS Logs folder (never the console) —
+useful when a vehicle won't move, won't render, or won't couple. It's off by default so
+normal play stays quiet; turn it off again when done.
 
 ---
 

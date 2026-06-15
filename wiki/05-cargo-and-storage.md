@@ -25,14 +25,17 @@ needs — no `creaturecarrier` behavior, no `Seat-driver` attachment point, no
 `mountAnimations`. That makes its entity JSON noticeably simpler (see
 [Authoring](06-authoring-rolling-stock.md)).
 
-## The three storage behaviors
+## The storage behaviors
 
-You make a car carry something by adding a **storage behavior** to its entity JSON. All
-three share the same shape — a persisted inventory opened by an **empty-hand right-click**
-— and differ only in **what they accept** and **how capacity is expressed**.
+You make a car carry something by adding a **storage behavior** to its entity JSON. The
+core behaviors share the same shape — a persisted inventory opened by an **empty-hand
+right-click** — and differ in **what they accept** and **how capacity is expressed**. The
+general-purpose `genericstorage` (with optional filters) handles most solid cargo; the
+two specialised behaviors below cover fuel and fluids, which have their own engine flags.
 
 | Behavior code | Carries | Capacity attribute | Default | Filter |
 |---------------|---------|--------------------|---------|--------|
+| `genericstorage` | anything, or a filtered category | `quantitySlots` (item slots) | `8` | optional `acceptCategories` / `acceptCodes`; `maxStackSize` for capacity |
 | `woodstorage`  | logs, planks, sticks, firewood, lumber, saplings… | `quantitySlots` (item slots) | `16` | code-token match (+ `isWood` override) |
 | `fuelstorage`  | anything burnable | `quantitySlots` (item slots) | `16` | `CombustibleProps.BurnDuration > 0` |
 | `fluidstorage` | any pourable liquid (water, oil, etc.) | `capacityLitres` (litres) | `200` | has `WaterTightContainableProps` |
@@ -47,6 +50,35 @@ All three:
 Each behavior must be registered in code (the mod already does this) **and** listed in the
 car's entity JSON. The registered codes are `woodstorage`, `fuelstorage`, and
 `fluidstorage`.
+
+> **Newer behaviors.** Alongside the three above, the mod now ships **`genericstorage`** —
+> a general-purpose item store that accepts everything by default but takes optional
+> `acceptCategories` / `acceptCodes` filters and a `maxStackSize` capacity override — and
+> **`freezer`**, a power behavior that pairs with `genericstorage` to keep perishables cold
+> by drawing fuel from a coupled coal car. Most cars (including the log car) now use
+> `genericstorage`; `woodstorage` remains only for back-compat. See
+> [Authoring](06-authoring-rolling-stock.md#standard-car-dimensions-fit-the-default-track)
+> for the full attribute list.
+
+### Shipped cars — capacity & fit
+
+Every shipped car uses the **same track-fit dimensions** (the tank car's), so mixed
+consists line up cleanly. The specialty cars all carry **16 slots**; the generalist
+freighter carries 8, the trade-off for accepting any item.
+
+| Car | Behavior | Capacity | Accepts |
+|-----|----------|----------|---------|
+| Freight Car | `genericstorage` | 8 slots | anything |
+| Coal Cart | `fuelstorage` | 16 slots | burnables |
+| Log Car | `genericstorage` (wood) | 16 slots | wood |
+| Ore Car | `genericstorage` (ore) | 16 slots | ore |
+| Dirt Car | `genericstorage` (dirt) | 16 slots | soil/dirt/gravel/sand |
+| Stone Car | `genericstorage` (stone) | 16 slots | stone/rock/cobble |
+| Organics Car | `genericstorage` (organic) | 16 slots | grain/veg/fruit/forage |
+| Freezer Car | `genericstorage` + `freezer` | 16 slots | food/perishables (kept cold when powered) |
+| Tank Car | `fluidstorage` | 200 L | liquids |
+| Livestock Car | seats (no inventory) | 4 animals | live animals |
+| Passenger Car | seats (no inventory) | 2 riders | players |
 
 ### Wood storage (`woodstorage`)
 
@@ -114,17 +146,26 @@ a one-method change).
 
 | Entity | Class | Storage | Notes |
 |--------|-------|---------|-------|
-| `logcar`   | `EntityCargo` | `woodstorage` (16 slots)   | Hauls logs/planks/etc. |
-| `coalcart` | `EntityCargo` | `fuelstorage` (16 slots)   | Hauls any fuel. |
-| `fluidcar` | `EntityCargo` | `fluidstorage` (200 L)     | Tanker for any liquid. |
+| `freightercar` | `EntityCargo` | `genericstorage` (8 slots) | Generalist — accepts anything. |
+| `logcar`    | `EntityCargo` | `genericstorage` + `wood` filter (16) | Hauls logs/planks/etc. |
+| `coalcart`  | `EntityCargo` | `fuelstorage` (16 slots)   | Hauls any fuel. |
+| `fluidcar`  | `EntityCargo` | `fluidstorage` (200 L)     | Tanker for any liquid. |
+| `orecar`    | `EntityCargo` | `genericstorage` + `ore` filter (16) | Bulk ore. |
+| `dirtcar`   | `EntityCargo` | `genericstorage` + `dirt` filter (16) | Soil/dirt/gravel/sand. |
+| `stonecar`  | `EntityCargo` | `genericstorage` + `stone` filter (16) | Stone/rock/cobble. |
+| `organicscar` | `EntityCargo` | `genericstorage` + `organic` filter (16) | Grain/veg/fruit/forage. |
+| `freezercar` | `EntityCargo` | `genericstorage` (food, 16) + `freezer` | Perishables; kept cold by a coupled coal car. |
+| `livestockcar` | `EntityTrain` | seats (4 animals) | Live-animal transport, boat-style; no inventory. Top speed 0 (coupled-only). |
+| `passengercar` | `EntityTrain` | seats (2 riders) | Carries players; no inventory. Top speed 0 (coupled-only). |
 
-Each has a matching placer item (e.g. the Log Car item) that spawns it onto a rail. Spawn
-one behind a locomotive and link it with a Coupler tool.
+The specialty cars all carry **16 slots**; the freighter carries 8, the trade-off for
+accepting any item. Each has a matching placer item that spawns it onto a rail. Spawn one
+behind a locomotive and link it with a Coupler tool.
 
-> Textures on the shipped cargo cars currently reuse placeholder maps (the log car/coal
-> cart use stand-in textures such as basalt for dark surfaces, and the fluid car reuses
-> the log-car shape) until dedicated models/textures are added. This does not affect
-> behavior.
+> All cars now share the **tank car's track-fit dimensions** so mixed consists line up
+> cleanly, and each has its own model and item icon. The models are clean blocky
+> geometry (correct sizing and fit) — good for play now and easy to refine in Model
+> Creator later.
 
 ---
 

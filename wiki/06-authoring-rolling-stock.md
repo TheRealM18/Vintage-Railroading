@@ -23,9 +23,13 @@ No new C# class per vehicle.
 The shipped examples to copy:
 
 - Locomotive → `entities/train.json`
-- Log car → `entities/logcar.json` (`woodstorage`)
+- Log car → `entities/logcar.json` (`genericstorage`, filtered to `wood`)
 - Coal cart → `entities/coalcart.json` (`fuelstorage`)
 - Fluid tanker → `entities/fluidcar.json` (`fluidstorage`)
+- Bulk gondola → `entities/orecar.json` (`genericstorage`, filtered + capacity)
+- Freezer → `entities/freezercar.json` (`genericstorage` + `freezer` power)
+- Livestock → `entities/livestockcar.json` (`EntityTrain` with animal seats, no inventory)
+- Passenger → `entities/passengercar.json` (`EntityTrain`, seats, `maxSpeed: 0`)
 
 ## Multi-type system (how it works)
 
@@ -49,6 +53,37 @@ Two data hooks make many types share two classes:
 
 That's the whole recipe. No registration, no new class.
 
+## Standard car dimensions (fit the default track)
+
+> **Use these numbers for any new car.** They are the **tank car's** dimensions, which are
+> the reference fit for the default-gauge track — every shipped car (coal, log, freighter,
+> tank, ore, dirt, stone, organics, freezer, livestock, passenger) now uses them, so a
+> consist of mixed car types lines up cleanly on the rail.
+
+| Property | Value | Notes |
+|----------|-------|-------|
+| `hitboxSize` | `{ "x": 3.5, "y": 3.0 }` | also set `deadHitboxSize` to the same |
+| `collisionBoxes[0]` | `{ "x1": -1.5, "y1": 0.0, "z1": -1.75, "x2": 1.5, "y2": 2.5, "z2": 1.75 }` | the box that actually decides track fit |
+| `eyeHeight` | `2.0` | (cargo) |
+| `gravityFactor` | `0.0` | the network drives position, not physics |
+
+**Model envelope (shape JSON), matching that collision box.** Build the body inside roughly:
+
+- **Length (along the track):** the chassis runs long on the model's **X** axis,
+  about `-42 … +42` for the underframe and `-39 … +39` for the body.
+- **Width (across the track):** about `-15 … +15` on **Z**.
+- **Floor height:** body sits on top of the underframe at **Y = 6**; keep wheels/trucks
+  below that (the tank's trucks sit around Y `-12 … 0`).
+
+The simplest way to get a correctly-fitting model is to **copy the tank car's chassis**
+(its `coupler_*`, `wheel_*`, `truck_front`, and `underframe` elements from
+`shapes/entity/tankcar.json`) and build your car's body on top. Every shipped car was made
+this way.
+
+> The body's long axis is **X**, not Z — the entity applies the track-facing rotation, so
+> matching the tank's element coordinates is what guarantees the fit. Don't eyeball new
+> wheel positions; reuse the tank's.
+
 ## Cargo car entity JSON (the common case)
 
 This is the **full** shape of a cargo car, annotated. It is deliberately simpler than a
@@ -67,14 +102,14 @@ locomotive — no seat, no mount animations.
     // NOTE: no mountAnimations — EntityCargo does not extend EntityBoat and has no seat.
   },
 
-  "hitboxSize":     { "x": 2.2, "y": 2.8 },
-  "deadHitboxSize": { "x": 2.2, "y": 2.8 },
+  "hitboxSize":     { "x": 3.5, "y": 3.0 },   // <- standard track-fit size (see table above)
+  "deadHitboxSize": { "x": 3.5, "y": 3.0 },
   "eyeHeight": 2.0,
   "canClimb": false,
 
   "behaviorConfigs": {
     "passivephysicsmultibox": {
-      "collisionBoxes": [ { "x1": -0.9, "y1": 0.0, "z1": -1.2, "x2": 0.9, "y2": 2.2, "z2": 1.2 } ],
+      "collisionBoxes": [ { "x1": -1.5, "y1": 0.0, "z1": -1.75, "x2": 1.5, "y2": 2.5, "z2": 1.75 } ],
       "groundDragFactor": 1, "airDragFallingFactor": 0.5,
       "gravityFactor": 0.0          // <- the network drives position, not physics
     }
@@ -94,7 +129,7 @@ locomotive — no seat, no mount animations.
       { "code": "repulseagents" },
       { "code": "passivephysicsmultibox" },
       { "code": "interpolateposition" },          // client-only; smooths position between ticks
-      { "code": "woodstorage", "quantitySlots": 16 }  // <- the cargo behavior (pick one)
+      { "code": "genericstorage", "quantitySlots": 16 }  // <- the cargo behavior (pick one)
     ]
   },
 
@@ -102,7 +137,7 @@ locomotive — no seat, no mount animations.
     "behaviors": [
       { "code": "repulseagents" },
       { "code": "passivephysicsmultibox" },
-      { "code": "woodstorage", "quantitySlots": 16 }  // <- same behavior, server side
+      { "code": "genericstorage", "quantitySlots": 16 }  // <- same behavior, server side
     ]
   }
 }
@@ -111,10 +146,30 @@ locomotive — no seat, no mount animations.
 Swap the storage line for the cargo you want:
 
 ```jsonc
-{ "code": "woodstorage",  "quantitySlots": 16 }   // logs/planks
+{ "code": "genericstorage", "quantitySlots": 16 }                          // accepts everything
+{ "code": "genericstorage", "quantitySlots": 16, "acceptCategories": ["ore"] }   // filtered
 { "code": "fuelstorage",  "quantitySlots": 16 }   // any burnable
 { "code": "fluidstorage", "capacityLitres": 200 } // any liquid (litres)
 ```
+
+> **`genericstorage` is the general-purpose behavior** and is what every solid-cargo car
+> now uses (the log car included). It accepts everything by default; add a filter and/or a
+> capacity override through optional attributes:
+>
+> | Attribute | Effect |
+> |-----------|--------|
+> | `acceptCategories` | whitelist by convenience group: `wood`, `ore`, `stone`, `dirt`, `organic`, `food`, `perishable` |
+> | `acceptCodes` | whitelist by exact code or wildcard, e.g. `["game:ore-*"]` |
+> | `maxStackSize` | per-slot capacity override (0 = item default) |
+>
+> With no filter attributes it behaves exactly like a plain accept-all store, so existing
+> cars are unaffected. `fuelstorage` (burnables) and `fluidstorage` (litres) remain
+> separate specialised behaviors. The older `woodstorage` behavior still exists for back-
+> compat but new cars should use `genericstorage` with `acceptCategories: ["wood"]`.
+>
+> **Freezer/food car:** pair `genericstorage` (filtered to `food`/`perishable`) with the
+> `freezer` behavior, which draws fuel from a coupled coal car to keep perishables cold.
+> See [Cargo & Storage](05-cargo-and-storage.md).
 
 > Put the storage behavior in **both** the `client` and `server` lists. The server holds
 > the authoritative inventory; the client opens the GUI. `interpolateposition` is
@@ -264,7 +319,8 @@ Components (3×3 unless noted) consume gears + plates + ingots:
 | **Steam Piston** | iron plates, copper, gears, stick |
 | **Iron Wheel Set** | gears, iron plates, iron ingot |
 
-Final vehicles combine the components with extra wheel sets and gears:
+Final vehicles combine the components with extra wheel sets and gears. Every car shares an
+iron-plate + VE-iron-gear + iron-wheelset chassis and adds one signature material:
 
 | Vehicle | Key ingredients |
 |---------|-----------------|
@@ -272,6 +328,17 @@ Final vehicles combine the components with extra wheel sets and gears:
 | **Coal Cart** | iron plates, steel, wheel set, gear |
 | **Logging Flatcar** | planks, iron plates, gear, wheel set |
 | **Tank Car** | iron plates, copper, wheel set, gear |
+| **Freight Car** | iron plates, gear, wheel sets |
+| **Ore Car** | steel ingots (reinforced) + chassis |
+| **Dirt Car** | fire bricks (cheapest) + chassis |
+| **Stone Car** | andesite stone + chassis |
+| **Organics Car** | planks (flatbed) + chassis |
+| **Freezer Car** | glass + copper (insulation/coils) + chassis |
+| **Livestock Car** | planks + stick (slatted pen) + chassis |
+| **Passenger Car** | glass + copper (windows/trim) + chassis |
+
+> All car recipes are checked to be **conflict-free**: no two share the same grid pattern
+> and ingredient mapping, so each is uniquely craftable.
 
 Tools:
 

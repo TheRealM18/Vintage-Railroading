@@ -18,7 +18,8 @@ adds four creative tabs so things are easy to find:
 
 - **VRR All** — every item and block the mod adds, in one place.
 - **VRR Trains** — driveable locomotives (the Baldwin 2-8-0).
-- **VRR Cargo** — cargo cars (Coal Cart, Logging Flatcar, Tank Car).
+- **VRR Cargo** — cargo cars: Coal Cart, Logging Flatcar, Tank Car, Freight Car, Ore Car,
+  Dirt Car, Stone Car, Organics Car, Freezer Car, Livestock Car, and Passenger Car.
 - **VRR Other** — the Track Layer and Coupler tools, the Rail Node block, and all
   crafting intermediates (boiler, firebox, cab frame, piston, wheel set).
 
@@ -29,7 +30,8 @@ Items also stay in the default survival creative search.
 | **Track Layer** | The tool you use to lay track by clicking point-to-point. |
 | **Coupler** (copper / tin-bronze / iron / steel) | Durability tool to link and unlink rail vehicles. Higher tiers last longer. |
 | **Baldwin 2-8-0 Locomotive** (the "train placer") | Right-click rail to spawn a drivable locomotive (`EntityTrain`). |
-| **Cargo car placers** (Log Car, Coal Cart, Fluid Tanker) | Right-click rail to spawn a seatless cargo car (`EntityCargo`) you couple behind a loco. |
+| **Cargo car placers** (Coal, Log, Tank, Freight, Ore, Dirt, Stone, Organics, Freezer) | Right-click rail to spawn a seatless cargo car (`EntityCargo`) you couple behind a loco. |
+| **Livestock & Passenger car placers** | Right-click rail to spawn a seat-based car (`EntityTrain`, top speed 0 — moves only when coupled). Livestock carries live animals; Passenger seats riders. |
 | **Locomotive Boiler / Firebox / Cab Frame / Steam Piston / Iron Wheel Set** | Intermediate crafting parts that combine into the locomotive. |
 
 ## Your first train in five steps

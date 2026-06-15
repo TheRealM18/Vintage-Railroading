@@ -32,7 +32,8 @@ A locomotive and any number of cargo cars couple together into one consist.
 3. [Spawning & Driving a Train](03-driving.md) — placing, mounting, controls, pickup.
 4. [Coupling & Consists](04-coupling.md) — how to couple cars and how following works.
 5. [Cargo Cars & Storage](05-cargo-and-storage.md) — the `EntityCargo` class and the
-   **wood / fuel / fluid** storage behaviors, with full JSON examples.
+   **generic / fuel / fluid** storage behaviors (plus the freezer power behavior), with
+   full JSON examples.
 6. [Authoring Rolling Stock](06-authoring-rolling-stock.md) — **the JSON guide** for both
    classes: entity files, shapes, seats (locos) vs. no seats (cargo), storage hookup.
 7. [The Coupling JSON Contract](07-coupling-json-contract.md) — a focused reference for
