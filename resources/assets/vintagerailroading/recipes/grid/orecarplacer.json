@@ -1,0 +1,28 @@
+{
+  "ingredientPattern": "SPS,PGP,WSW",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    },
+    "W": {
+      "type": "item",
+      "code": "vintagerailroading:ironwheelset"
+    },
+    "S": {
+      "type": "item",
+      "code": "game:ingot-steel"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:orecarplacer",
+    "quantity": 1
+  }
+}

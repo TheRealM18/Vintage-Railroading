@@ -1,0 +1,32 @@
+{
+  "ingredientPattern": "QQQ,CGC,WPW",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    },
+    "W": {
+      "type": "item",
+      "code": "vintagerailroading:ironwheelset"
+    },
+    "Q": {
+      "type": "item",
+      "code": "game:glass-plain"
+    },
+    "C": {
+      "type": "item",
+      "code": "game:ingot-copper"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:passengercarplacer",
+    "quantity": 1
+  }
+}

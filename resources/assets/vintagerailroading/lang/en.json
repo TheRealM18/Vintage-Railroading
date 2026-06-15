@@ -26,5 +26,19 @@
   "game:tabname-vrrall": "VRR All",
   "game:tabname-vrrcargo": "VRR Cargo",
   "game:tabname-vrrtrains": "VRR Trains",
-  "game:tabname-vrrother": "VRR Other"
+  "game:tabname-vrrother": "VRR Other",
+  "vintagerailroading:item-orecarplacer": "Ore Car",
+  "vintagerailroading:item-creature-orecar": "Ore Car",
+  "vintagerailroading:item-dirtcarplacer": "Dirt Car",
+  "vintagerailroading:item-creature-dirtcar": "Dirt Car",
+  "vintagerailroading:item-stonecarplacer": "Stone Car",
+  "vintagerailroading:item-creature-stonecar": "Stone Car",
+  "vintagerailroading:item-organicscarplacer": "Organics Car",
+  "vintagerailroading:item-creature-organicscar": "Organics Car",
+  "vintagerailroading:item-freezercarplacer": "Freezer Car",
+  "vintagerailroading:item-creature-freezercar": "Freezer Car",
+  "vintagerailroading:item-livestockcarplacer": "Livestock Car",
+  "vintagerailroading:item-creature-livestockcar": "Livestock Car",
+  "vintagerailroading:item-passengercarplacer": "Passenger Car",
+  "vintagerailroading:item-creature-passengercar": "Passenger Car"
 }

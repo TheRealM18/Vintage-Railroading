@@ -1,0 +1,22 @@
+{
+  "code": "orecarplacer",
+  "class": "ItemTrainPlacer",
+  "maxstacksize": 1,
+  "attributes": {
+    "entityCode": "orecar"
+  },
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrtrains": [
+      "*"
+    ]
+  },
+  "texture": {
+    "base": "vintagerailroading:item/orecar"
+  }
+}

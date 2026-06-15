@@ -1,0 +1,22 @@
+{
+  "code": "organicscarplacer",
+  "class": "ItemTrainPlacer",
+  "maxstacksize": 1,
+  "attributes": {
+    "entityCode": "organicscar"
+  },
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrtrains": [
+      "*"
+    ]
+  },
+  "texture": {
+    "base": "vintagerailroading:item/organicscar"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "code": "livestockcarplacer",
+  "class": "ItemTrainPlacer",
+  "maxstacksize": 1,
+  "attributes": {
+    "entityCode": "livestockcar"
+  },
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrtrains": [
+      "*"
+    ]
+  },
+  "texture": {
+    "base": "vintagerailroading:item/livestockcar"
+  }
+}

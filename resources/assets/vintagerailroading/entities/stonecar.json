@@ -1,5 +1,5 @@
 {
-  "code": "coalcart",
+  "code": "stonecar",
   "class": "EntityCargo",
   "tags": [
     "inanimate",
@@ -8,7 +8,8 @@
   "attributes": {
     "shouldSwivelFromMotion": false,
     "speedMultiplier": 1,
-    "swimmingOffsetY": 0
+    "swimmingOffsetY": 0,
+    "wheelbase": 4.0
   },
   "hitboxSize": {
     "x": 3.5,
@@ -40,7 +41,7 @@
   "client": {
     "renderer": "Shape",
     "shape": {
-      "base": "vintagerailroading:entity/coalcart"
+      "base": "vintagerailroading:entity/stonecar"
     },
     "textures": {
       "iron": {
@@ -50,13 +51,16 @@
         "base": "game:block/stone/rock/basalt1"
       },
       "metal": {
-        "base": "game:block/metal/ingot/iron"
-      },
-      "coal": {
-        "base": "game:block/stone/rock/basalt1"
+        "base": "game:block/metal/plate/iron"
       },
       "wood": {
-        "base": "game:block/stone/rock/basalt1"
+        "base": "game:block/wood/planks/pine1"
+      },
+      "red": {
+        "base": "game:block/stone/rock/andesite1"
+      },
+      "stone": {
+        "base": "game:block/stone/rock/andesite1"
       }
     },
     "behaviors": [
@@ -70,8 +74,12 @@
         "code": "interpolateposition"
       },
       {
-        "code": "fuelstorage",
-        "quantitySlots": 16
+        "code": "genericstorage",
+        "quantitySlots": 16,
+        "acceptCategories": [
+          "stone"
+        ],
+        "maxStackSize": 128
       }
     ]
   },
@@ -84,8 +92,12 @@
         "code": "passivephysicsmultibox"
       },
       {
-        "code": "fuelstorage",
-        "quantitySlots": 16
+        "code": "genericstorage",
+        "quantitySlots": 16,
+        "acceptCategories": [
+          "stone"
+        ],
+        "maxStackSize": 128
       }
     ]
   }

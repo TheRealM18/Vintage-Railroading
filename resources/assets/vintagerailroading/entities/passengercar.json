@@ -1,6 +1,7 @@
 {
-  "code": "logcar",
-  "class": "EntityCargo",
+  "code": "passengercar",
+  "class": "EntityTrain",
+  "_comment": "EntityTrain for the seatable machinery; maxSpeed 0 = no self-propulsion, moves only when coupled behind a loco.",
   "tags": [
     "inanimate",
     "vehicle"
@@ -8,7 +9,15 @@
   "attributes": {
     "shouldSwivelFromMotion": false,
     "speedMultiplier": 1,
-    "swimmingOffsetY": 0
+    "swimmingOffsetY": 0,
+    "mountAnimations": {
+      "idle": "sitflooridle",
+      "ready": "",
+      "forwards": "",
+      "backwards": ""
+    },
+    "maxSpeed": 0.0,
+    "wheelbase": 5.0
   },
   "hitboxSize": {
     "x": 3.5,
@@ -35,12 +44,34 @@
       "groundDragFactor": 1,
       "airDragFallingFactor": 0.5,
       "gravityFactor": 0.0
+    },
+    "creaturecarrier": {
+      "seats": [
+        {
+          "apName": "Seat-driver",
+          "controllable": false,
+          "bodyYawLimit": null,
+          "eyeHeight": 1
+        },
+        {
+          "apName": "Seat-passenger",
+          "controllable": false,
+          "bodyYawLimit": null,
+          "eyeHeight": 1
+        }
+      ]
+    },
+    "selectionboxes": {
+      "selectionBoxes": [
+        "Seat-driver",
+        "Seat-passenger"
+      ]
     }
   },
   "client": {
     "renderer": "Shape",
     "shape": {
-      "base": "vintagerailroading:entity/logcar"
+      "base": "vintagerailroading:entity/passengercar"
     },
     "textures": {
       "iron": {
@@ -53,13 +84,13 @@
         "base": "game:block/metal/plate/iron"
       },
       "wood": {
-        "base": "game:block/wood/planks/pine1"
+        "base": "game:block/wood/planks/walnut1"
       },
-      "log": {
-        "base": "game:block/wood/bark/pine-h"
+      "red": {
+        "base": "game:block/metal/plate/copper"
       },
-      "bark": {
-        "base": "game:block/wood/bark/pine-h"
+      "glass": {
+        "base": "game:block/glass/plain"
       }
     },
     "behaviors": [
@@ -73,11 +104,10 @@
         "code": "interpolateposition"
       },
       {
-        "code": "genericstorage",
-        "quantitySlots": 16,
-        "acceptCategories": [
-          "wood"
-        ]
+        "code": "selectionboxes"
+      },
+      {
+        "code": "creaturecarrier"
       }
     ]
   },
@@ -90,11 +120,10 @@
         "code": "passivephysicsmultibox"
       },
       {
-        "code": "genericstorage",
-        "quantitySlots": 16,
-        "acceptCategories": [
-          "wood"
-        ]
+        "code": "selectionboxes"
+      },
+      {
+        "code": "creaturecarrier"
       }
     ]
   }

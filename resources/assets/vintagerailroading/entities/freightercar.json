@@ -11,12 +11,12 @@
     "swimmingOffsetY": 0
   },
   "hitboxSize": {
-    "x": 2.2,
-    "y": 2.8
+    "x": 3.5,
+    "y": 3.0
   },
   "deadHitboxSize": {
-    "x": 2.2,
-    "y": 2.8
+    "x": 3.5,
+    "y": 3.0
   },
   "eyeHeight": 2.0,
   "canClimb": false,
@@ -24,12 +24,12 @@
     "passivephysicsmultibox": {
       "collisionBoxes": [
         {
-          "x1": -0.9,
+          "x1": -1.5,
           "y1": 0.0,
-          "z1": -1.2,
-          "x2": 0.9,
-          "y2": 2.2,
-          "z2": 1.2
+          "z1": -1.75,
+          "x2": 1.5,
+          "y2": 2.5,
+          "z2": 1.75
         }
       ],
       "groundDragFactor": 1,
@@ -40,13 +40,24 @@
   "client": {
     "renderer": "Shape",
     "shape": {
-      "base": "vintagerailroading:entity/freightercar" },
+      "base": "vintagerailroading:entity/freightercar"
+    },
     "textures": {
-      "iron":  { "base": "game:block/metal/plate/iron" },
-      "dark":  { "base": "game:block/stone/rock/basalt1" },
-      "metal": { "base": "game:block/metal/plate/iron" },
-      "wood":  { "base": "game:block/wood/planks/pine1" },
-      "red": { "base": "vintagerailroading:block/redpaint" }
+      "iron": {
+        "base": "game:block/metal/plate/iron"
+      },
+      "dark": {
+        "base": "game:block/stone/rock/basalt1"
+      },
+      "metal": {
+        "base": "game:block/metal/plate/iron"
+      },
+      "wood": {
+        "base": "game:block/wood/planks/pine1"
+      },
+      "red": {
+        "base": "vintagerailroading:block/redpaint"
+      }
     },
     "behaviors": [
       {

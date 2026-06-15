@@ -496,7 +496,7 @@
      }
     },
     {
-     "name": "deck",
+     "name": "floor",
      "from": [
       -39,
       6,
@@ -504,12 +504,12 @@
      ],
      "to": [
       39,
-      9,
+      8,
       15
      ],
      "faces": {
       "north": {
-       "texture": "#wood",
+       "texture": "#metal",
        "uv": [
         0,
         0,
@@ -518,7 +518,7 @@
        ]
       },
       "east": {
-       "texture": "#wood",
+       "texture": "#metal",
        "uv": [
         0,
         0,
@@ -527,7 +527,7 @@
        ]
       },
       "south": {
-       "texture": "#wood",
+       "texture": "#metal",
        "uv": [
         0,
         0,
@@ -536,7 +536,7 @@
        ]
       },
       "west": {
-       "texture": "#wood",
+       "texture": "#metal",
        "uv": [
         0,
         0,
@@ -545,7 +545,7 @@
        ]
       },
       "up": {
-       "texture": "#wood",
+       "texture": "#metal",
        "uv": [
         0,
         0,
@@ -554,7 +554,7 @@
        ]
       },
       "down": {
-       "texture": "#wood",
+       "texture": "#metal",
        "uv": [
         0,
         0,
@@ -565,16 +565,16 @@
      }
     },
     {
-     "name": "stake_n0",
+     "name": "wall_n",
      "from": [
-      -31.5,
-      9,
+      -39,
+      6,
       -15
      ],
      "to": [
-      -28.5,
-      24,
-      -13
+      39,
+      28,
+      -12
      ],
      "faces": {
       "north": {
@@ -634,15 +634,15 @@
      }
     },
     {
-     "name": "stake_s0",
+     "name": "wall_s",
      "from": [
-      -31.5,
-      9,
-      13
+      -39,
+      6,
+      12
      ],
      "to": [
-      -28.5,
-      24,
+      39,
+      28,
       15
      ],
      "faces": {
@@ -703,84 +703,15 @@
      }
     },
     {
-     "name": "stake_n1",
+     "name": "wall_w",
      "from": [
-      -1.5,
-      9,
+      -39,
+      6,
       -15
      ],
      "to": [
-      1.5,
-      24,
-      -13
-     ],
-     "faces": {
-      "north": {
-       "texture": "#metal",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "east": {
-       "texture": "#metal",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "south": {
-       "texture": "#metal",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "west": {
-       "texture": "#metal",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "up": {
-       "texture": "#metal",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "down": {
-       "texture": "#metal",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      }
-     }
-    },
-    {
-     "name": "stake_s1",
-     "from": [
-      -1.5,
-      9,
-      13
-     ],
-     "to": [
-      1.5,
-      24,
+      -36,
+      28,
       15
      ],
      "faces": {
@@ -841,84 +772,15 @@
      }
     },
     {
-     "name": "stake_n2",
+     "name": "wall_e",
      "from": [
-      28.5,
-      9,
+      36,
+      6,
       -15
      ],
      "to": [
-      31.5,
-      24,
-      -13
-     ],
-     "faces": {
-      "north": {
-       "texture": "#metal",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "east": {
-       "texture": "#metal",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "south": {
-       "texture": "#metal",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "west": {
-       "texture": "#metal",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "up": {
-       "texture": "#metal",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "down": {
-       "texture": "#metal",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      }
-     }
-    },
-    {
-     "name": "stake_s2",
-     "from": [
-      28.5,
-      9,
-      13
-     ],
-     "to": [
-      31.5,
-      24,
+      39,
+      28,
       15
      ],
      "faces": {
@@ -979,20 +841,20 @@
      }
     },
     {
-     "name": "logs_lower",
+     "name": "load",
      "from": [
       -36,
-      9,
+      8,
       -12
      ],
      "to": [
       36,
-      17,
+      26,
       12
      ],
      "faces": {
       "north": {
-       "texture": "#log",
+       "texture": "#stone",
        "uv": [
         0,
         0,
@@ -1001,7 +863,7 @@
        ]
       },
       "east": {
-       "texture": "#log",
+       "texture": "#stone",
        "uv": [
         0,
         0,
@@ -1010,7 +872,7 @@
        ]
       },
       "south": {
-       "texture": "#log",
+       "texture": "#stone",
        "uv": [
         0,
         0,
@@ -1019,7 +881,7 @@
        ]
       },
       "west": {
-       "texture": "#log",
+       "texture": "#stone",
        "uv": [
         0,
         0,
@@ -1028,7 +890,7 @@
        ]
       },
       "up": {
-       "texture": "#log",
+       "texture": "#stone",
        "uv": [
         0,
         0,
@@ -1037,76 +899,7 @@
        ]
       },
       "down": {
-       "texture": "#log",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      }
-     }
-    },
-    {
-     "name": "logs_upper",
-     "from": [
-      -34,
-      17,
-      -9
-     ],
-     "to": [
-      34,
-      23,
-      9
-     ],
-     "faces": {
-      "north": {
-       "texture": "#log",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "east": {
-       "texture": "#log",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "south": {
-       "texture": "#log",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "west": {
-       "texture": "#log",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "up": {
-       "texture": "#log",
-       "uv": [
-        0,
-        0,
-        8,
-        8
-       ]
-      },
-      "down": {
-       "texture": "#log",
+       "texture": "#stone",
        "uv": [
         0,
         0,

@@ -1,0 +1,22 @@
+{
+  "code": "freezercarplacer",
+  "class": "ItemTrainPlacer",
+  "maxstacksize": 1,
+  "attributes": {
+    "entityCode": "freezercar"
+  },
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrtrains": [
+      "*"
+    ]
+  },
+  "texture": {
+    "base": "vintagerailroading:item/freezercar"
+  }
+}

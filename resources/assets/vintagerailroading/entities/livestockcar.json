@@ -1,0 +1,141 @@
+{
+  "code": "livestockcar",
+  "class": "EntityTrain",
+  "_comment": "EntityTrain class so creaturecarrier seats work (EntityCargo NREs in CreateSeat). maxSpeed 0 = coupled-only. Seats hold live animals, boat-style, instead of an inventory.",
+  "tags": [
+    "inanimate",
+    "vehicle"
+  ],
+  "attributes": {
+    "shouldSwivelFromMotion": false,
+    "speedMultiplier": 1,
+    "swimmingOffsetY": 0,
+    "mountAnimations": {
+      "idle": "sitflooridle",
+      "ready": "",
+      "forwards": "",
+      "backwards": ""
+    },
+    "maxSpeed": 0.0,
+    "wheelbase": 5.0
+  },
+  "hitboxSize": {
+    "x": 3.5,
+    "y": 3.0
+  },
+  "deadHitboxSize": {
+    "x": 3.5,
+    "y": 3.0
+  },
+  "eyeHeight": 1.5,
+  "canClimb": false,
+  "behaviorConfigs": {
+    "passivephysicsmultibox": {
+      "collisionBoxes": [
+        {
+          "x1": -1.5,
+          "y1": 0.0,
+          "z1": -1.75,
+          "x2": 1.5,
+          "y2": 2.5,
+          "z2": 1.75
+        }
+      ],
+      "groundDragFactor": 1,
+      "airDragFallingFactor": 0.5,
+      "gravityFactor": 0.0
+    },
+    "creaturecarrier": {
+      "seats": [
+        {
+          "apName": "Seat-pen1",
+          "controllable": false,
+          "bodyYawLimit": null,
+          "eyeHeight": 0.6
+        },
+        {
+          "apName": "Seat-pen2",
+          "controllable": false,
+          "bodyYawLimit": null,
+          "eyeHeight": 0.6
+        },
+        {
+          "apName": "Seat-pen3",
+          "controllable": false,
+          "bodyYawLimit": null,
+          "eyeHeight": 0.6
+        },
+        {
+          "apName": "Seat-pen4",
+          "controllable": false,
+          "bodyYawLimit": null,
+          "eyeHeight": 0.6
+        }
+      ]
+    },
+    "selectionboxes": {
+      "selectionBoxes": [
+        "Seat-pen1",
+        "Seat-pen2",
+        "Seat-pen3",
+        "Seat-pen4"
+      ]
+    }
+  },
+  "client": {
+    "renderer": "Shape",
+    "shape": {
+      "base": "vintagerailroading:entity/livestockcar"
+    },
+    "textures": {
+      "iron": {
+        "base": "game:block/metal/plate/iron"
+      },
+      "dark": {
+        "base": "game:block/stone/rock/basalt1"
+      },
+      "metal": {
+        "base": "game:block/metal/plate/iron"
+      },
+      "wood": {
+        "base": "game:block/wood/planks/acacia1"
+      },
+      "red": {
+        "base": "game:block/wood/planks/acacia1"
+      }
+    },
+    "behaviors": [
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
+      {
+        "code": "interpolateposition"
+      },
+      {
+        "code": "selectionboxes"
+      },
+      {
+        "code": "creaturecarrier"
+      }
+    ]
+  },
+  "server": {
+    "behaviors": [
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
+      {
+        "code": "selectionboxes"
+      },
+      {
+        "code": "creaturecarrier"
+      }
+    ]
+  }
+}

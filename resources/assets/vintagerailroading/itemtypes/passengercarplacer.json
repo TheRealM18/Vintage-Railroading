@@ -1,0 +1,22 @@
+{
+  "code": "passengercarplacer",
+  "class": "ItemTrainPlacer",
+  "maxstacksize": 1,
+  "attributes": {
+    "entityCode": "passengercar"
+  },
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrtrains": [
+      "*"
+    ]
+  },
+  "texture": {
+    "base": "vintagerailroading:item/passengercar"
+  }
+}

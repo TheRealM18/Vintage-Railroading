@@ -1,0 +1,28 @@
+{
+  "ingredientPattern": "BPB,PGP,WBW",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    },
+    "W": {
+      "type": "item",
+      "code": "vintagerailroading:ironwheelset"
+    },
+    "B": {
+      "type": "item",
+      "code": "game:brick-fire"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:dirtcarplacer",
+    "quantity": 1
+  }
+}

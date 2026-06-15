@@ -1,0 +1,28 @@
+{
+  "ingredientPattern": "TPT,PGP,WTW",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    },
+    "W": {
+      "type": "item",
+      "code": "vintagerailroading:ironwheelset"
+    },
+    "T": {
+      "type": "item",
+      "code": "game:stone-andesite"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:stonecarplacer",
+    "quantity": 1
+  }
+}

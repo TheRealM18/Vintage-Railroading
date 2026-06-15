@@ -1,0 +1,28 @@
+{
+  "ingredientPattern": "LLL,PGP,WLW",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    },
+    "W": {
+      "type": "item",
+      "code": "vintagerailroading:ironwheelset"
+    },
+    "L": {
+      "type": "item",
+      "code": "game:plank-*"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:organicscarplacer",
+    "quantity": 1
+  }
+}
