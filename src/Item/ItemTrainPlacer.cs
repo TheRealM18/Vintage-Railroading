@@ -31,13 +31,13 @@ namespace VintageRailroading.Items
             // Server does the spawn; client just reports handled.
             if (api.Side == EnumAppSide.Server)
             {
-                TrySpawn(byEntity, blockSel);
+                TrySpawn(slot, byEntity, blockSel);
             }
 
             handling = EnumHandHandling.Handled;
         }
 
-        private void TrySpawn(EntityAgent byEntity, BlockSelection blockSel)
+        private void TrySpawn(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel)
         {
             var sapi = api as ICoreServerAPI;
             if (sapi == null) return;
@@ -109,6 +109,19 @@ namespace VintageRailroading.Items
             // (e.g. "coalcartplacer") in a synced attribute the entity reads back on pickup.
             entity.WatchedAttributes.SetString("vrrPlacerCode", this.Code?.Path ?? "trainplacer");
             entity.WatchedAttributes.MarkPathDirty("vrrPlacerCode");
+
+            // CONSUME one placer item now that the vehicle is successfully placed. Skipped in
+            // creative mode (matching VS block/item placement convention). Done only on the
+            // success path so a failed placement above never eats the item.
+            var splayer = (byEntity as EntityPlayer)?.Player as IServerPlayer;
+            bool creative = splayer?.WorldData?.CurrentGameMode == EnumGameMode.Creative;
+            VrrDebug.Log(sapi, "TrainPlacer consume check: player={0} creative={1} slotEmpty={2} stackSize={3}",
+                splayer != null, creative, slot == null || slot.Empty, slot?.StackSize ?? -1);
+            if (!creative && slot != null && !slot.Empty)
+            {
+                slot.TakeOut(1);
+                slot.MarkDirty();
+            }
 
             SendMsg(byEntity, $"Placed '{entityCode}' on segment #{bestSeg} at {bestDist:0.0}m. Right-click to ride/load, or use a Coupler tool to link it behind a loco.");
         }

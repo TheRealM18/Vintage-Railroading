@@ -69,6 +69,12 @@ namespace VintageRailroading.Entities
         private long _geomForSegId = -1;
         private float _diagAccum;
 
+        // Distance (metres) between front and rear trucks, from entity JSON
+        // `attributes.wheelbase`. Drives the two-truck body pose (see ApplyPoseFromDistance)
+        // so a long cargo car bridges slope/curve transitions instead of snapping to the
+        // single centre tangent. 0 = legacy single-point pose.
+        private double _wheelbase = 0.0;
+
         // Client render-frame hook. interpolateposition (re-enabled in the JSON) smooths
         // the SYNCED transform between server ticks, but it lerps linearly in 3D and would
         // chord across curves. We neutralise that by re-projecting Pos onto the spline on
@@ -87,6 +93,9 @@ namespace VintageRailroading.Entities
         {
             requirePosesOnServer = true;
             base.Initialize(properties, api, inChunkIndex3d);
+
+            if (properties?.Attributes != null)
+                _wheelbase = properties.Attributes["wheelbase"].AsDouble(0.0);
 
             var mgr = api.ModLoader.GetModSystem<TrackNetworkManager>();
             _network = mgr?.Network;
@@ -313,10 +322,38 @@ namespace VintageRailroading.Entities
         }
 
         /// <summary>Project a track distance onto the current segment's curve and set Pos
-        /// (position, yaw, grade pitch). Zeroes motion so physics can't drift us off-rail.</summary>
+        /// (position, yaw, grade pitch). Zeroes motion so physics can't drift us off-rail.
+        /// With a non-zero wheelbase the body is posed from the line between its front and
+        /// rear trucks (each walked along the network with Offset so segment crossings are
+        /// handled), fixing the long-car angle jitter on slope/curve transitions.</summary>
         private void ApplyPoseFromDistance(double dist, Action<string> Log)
         {
             if (_geom == null) return;
+
+            if (_wheelbase > 0.01 && _network != null)
+            {
+                double half = _wheelbase * 0.5;
+                var front = _network.Offset(SegmentId, dist, +half, SegLength, out bool _);
+                var rear  = _network.Offset(SegmentId, dist, -half, SegLength, out bool _);
+                var fGeom = _network.BuildGeometry(front.segId);
+                var rGeom = _network.BuildGeometry(rear.segId);
+                if (fGeom != null && rGeom != null)
+                {
+                    var pf = fGeom.PositionAtDistance(front.distance);
+                    var pr = rGeom.PositionAtDistance(rear.distance);
+                    Pos.SetPos((pf.X + pr.X) * 0.5, (pf.Y + pr.Y) * 0.5, (pf.Z + pr.Z) * 0.5);
+                    double bx = pf.X - pr.X, by = pf.Y - pr.Y, bz = pf.Z - pr.Z;
+                    double horiz = Math.Sqrt(bx * bx + bz * bz);
+                    if (horiz > 1e-6)
+                    {
+                        Pos.Yaw = (float)Math.Atan2(bx, bz);
+                        Pos.Pitch = (float)Math.Atan2(-by, horiz);
+                    }
+                    Pos.Motion.Set(0, 0, 0);
+                    return;
+                }
+            }
+
             var p = _geom.PositionAtDistance(dist);
             var h = _geom.HeadingAtDistance(dist);
             Pos.SetPos(p.X, p.Y, p.Z);

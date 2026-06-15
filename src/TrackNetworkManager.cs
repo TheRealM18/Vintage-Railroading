@@ -84,7 +84,7 @@ namespace VintageRailroading
             }
             catch (Exception e)
             {
-                _sapi.Logger.Error("[vintagerailroading] failed to send track network: " + e.Message);
+                VrrDebug.LogError(_sapi, "failed to send track network: {0}", e.Message);
             }
         }
 
@@ -99,7 +99,7 @@ namespace VintageRailroading
             }
             catch (Exception e)
             {
-                _sapi.Logger.Error("[vintagerailroading] failed to broadcast track network: " + e.Message);
+                VrrDebug.LogError(_sapi, "failed to broadcast track network: {0}", e.Message);
             }
         }
 
@@ -114,7 +114,7 @@ namespace VintageRailroading
             }
             catch (Exception e)
             {
-                _capi.Logger.Warning("[vintagerailroading] failed to apply synced track network: " + e.Message);
+                VrrDebug.LogError(_capi, "failed to apply synced track network: {0}", e.Message);
             }
         }
 
@@ -133,7 +133,7 @@ namespace VintageRailroading
                 }
                 catch (Exception e)
                 {
-                    _sapi.Logger.Warning("[vintagerailroading] failed to load track network, starting fresh: " + e.Message);
+                    VrrDebug.LogError(_sapi, "failed to load track network, starting fresh: {0}", e.Message);
                     Network = new TrackNetwork();
                 }
             }
@@ -149,7 +149,7 @@ namespace VintageRailroading
             }
             catch (Exception e)
             {
-                _sapi.Logger.Error("[vintagerailroading] failed to save track network: " + e.Message);
+                VrrDebug.LogError(_sapi, "failed to save track network: {0}", e.Message);
             }
         }
     }

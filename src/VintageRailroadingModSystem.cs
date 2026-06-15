@@ -90,7 +90,7 @@ namespace VintageRailroading
         {
             VrrDebug.Enabled = !VrrDebug.Enabled;
             return TextCommandResult.Success(VrrDebug.Enabled
-                ? "VRR debug logging ON — diagnostic [vrr] lines will print to the log. /vrrdebug again to turn off."
+                ? "VRR debug logging ON — diagnostic [vrr] lines now write to 'vrr-debug.log' in your VS Logs folder. /vrrdebug again to turn off."
                 : "VRR debug logging OFF.");
         }
 
@@ -229,11 +229,22 @@ namespace VintageRailroading
             // over-steep placement in the result message ("[CLAMPED to 10%]") so the
             // player knows to place the end at a gentler height. It does not bend the
             // geometry (that would require moving an endpoint).
+            // VERTICAL (incline/decline) grade limit: rise/run, independent of yaw.
+            // ENFORCED (not advisory): if the player places the end too high/low for the
+            // horizontal run, we REJECT the segment and tell them the minimum run needed,
+            // exactly like the yaw-rate check above. This is what actually keeps slopes
+            // gentle — the old advisory clamp left the geometry as steep as placed and only
+            // printed a warning. Lowered to 5% so up/down grades are noticeably less steep.
             double grade = dy / horiz;
-            const double MaxGrade = 0.1;
-            bool clamped = false;
-            if (grade > MaxGrade) { grade = MaxGrade; clamped = true; }
-            else if (grade < -MaxGrade) { grade = -MaxGrade; clamped = true; }
+            const double MaxGrade = 0.05; // 5% — gentler than the old 10%
+            if (Math.Abs(grade) > MaxGrade)
+            {
+                double minRun = Math.Abs(dy) / MaxGrade;
+                return LaySegmentResult.Fail(
+                    $"Slope too steep — {grade * 100.0:+0.#;-0.#}% grade over {horiz:0.0}m. " +
+                    $"For a {dy:+0.0;-0.0}m rise you need at least {minRun:0.0}m of horizontal run " +
+                    $"(max grade {MaxGrade * 100.0:0}%). Move the end point further away or less high/low.");
+            }
 
             // STRAIGHT-SEGMENT TANGENTS: both endpoint tangents are set to the chord
             // direction (a -> b). This makes the Hermite curve a straight line between
@@ -349,7 +360,7 @@ namespace VintageRailroading
             double gradePct = grade * 100.0;
             string gradeInfo = Math.Abs(dy) < 0.05
                 ? " grade=flat"
-                : $" grade={gradePct:+0.#;-0.#}% (rise {dy:+0.0;-0.0}m)" + (clamped ? " [CLAMPED to 10%]" : "");
+                : $" grade={gradePct:+0.#;-0.#}% (rise {dy:+0.0;-0.0}m)";
             string bankInfo = Math.Abs(bankAngle) < 0.001
                 ? " bank=flat"
                 : $" bank={bankAngle * 180.0 / Math.PI:+0.0;-0.0}° ({(bankAngle > 0 ? "left" : "right")} side raised)";

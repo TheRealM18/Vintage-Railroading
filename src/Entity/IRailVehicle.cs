@@ -45,20 +45,21 @@ namespace VintageRailroading.Entities
     /// </summary>
     public static class RailVehicleHelper
     {
-        // Fallback map: entity code -> placer item code, used only when an entity has no
-        // stamped "vrrPlacerCode" (e.g. spawned via creative or before the stamp existed).
-        // Keep in sync with the placer itemtypes' attributes.entityCode.
+        // Fallback derivation: entity code -> placer item code, used only when an entity has
+        // no stamped "vrrPlacerCode" (e.g. spawned via creative or before the stamp existed).
+        //
+        // This is convention-based rather than a hardcoded case list: the placer item for any
+        // car "<code>" is "<code>placer". So a new car type needs NO C# change here — just an
+        // entities/<code>.json and an itemtypes placer whose code is "<code>placer" with
+        // attributes.entityCode = "<code>". ResolvePlacerItem still validates the result
+        // against the registry and falls back to the train placer if it does not exist, so an
+        // unconventional name simply degrades gracefully instead of erroring.
         private static string PlacerForEntityCode(string entityCode)
         {
-            switch (entityCode)
-            {
-                case "coalcart": return "coalcartplacer";
-                case "logcar":   return "logcarplacer";
-                case "tankcar":  return "tankcarplacer";
-                case "genericcar":    return "genericcarplacer";
-                case "train":    return "trainplacer";
-                default:         return "trainplacer";
-            }
+            if (string.IsNullOrEmpty(entityCode)) return "trainplacer";
+            // Avoid producing "trainplacerplacer" etc. if the code already ends in "placer".
+            if (entityCode.EndsWith("placer")) return entityCode;
+            return entityCode + "placer";
         }
 
         /// <summary>

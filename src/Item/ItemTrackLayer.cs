@@ -43,12 +43,12 @@ namespace VintageRailroading.Items
             // Server does the work; client just reports handled so the arm swings.
             if (api.Side == EnumAppSide.Server)
             {
-                TryLay(byEntity, blockSel);
+                TryLay(slot, byEntity, blockSel);
             }
             handling = EnumHandHandling.Handled;
         }
 
-        private void TryLay(EntityAgent byEntity, BlockSelection blockSel)
+        private void TryLay(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel)
         {
             var sapi = api as ICoreServerAPI;
             if (sapi == null) return;
@@ -103,7 +103,27 @@ namespace VintageRailroading.Items
             // continuous track. Snapping will fuse the next segment onto this node.
             _pendingByPlayer[uid] = result.EndPos;
             _pendingYawByPlayer[uid] = yaw;
-            SendMsg(sp, result.Message + " (chaining — click again to continue, sneak-click to stop)");
+
+            // CONSUME one rail item per segment actually laid (skip in creative). Done only
+            // on the Ok path, so setting point A (first click) and failed placements are free.
+            bool creative = sp.WorldData?.CurrentGameMode == EnumGameMode.Creative;
+            if (!creative)
+            {
+                slot.TakeOut(1);
+                slot.MarkDirty();
+            }
+
+            // If the stack is now empty, the chain can't continue — clear the pending start
+            // so the player isn't left mid-chain holding nothing.
+            string tail = (!creative && slot.Empty)
+                ? " (out of rail — chain ended)"
+                : " (chaining — click again to continue, sneak-click to stop)";
+            if (!creative && slot.Empty)
+            {
+                _pendingByPlayer.Remove(uid);
+                _pendingYawByPlayer.Remove(uid);
+            }
+            SendMsg(sp, result.Message + tail);
         }
 
         private void SendMsg(IServerPlayer sp, string msg)

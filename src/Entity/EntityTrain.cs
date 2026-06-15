@@ -60,6 +60,14 @@ namespace VintageRailroading.Entities
         private double _maxSpeed = 18.0;
         private double MaxSpeed => _maxSpeed;
 
+        // Distance (metres) between the front and rear trucks/bogies of this vehicle, read
+        // from entity JSON `attributes.wheelbase`. The body pose is derived from where these
+        // two points sit on the curve rather than the single tangent at the car's centre, so
+        // a LONG car bridges slope/curve transitions smoothly instead of snapping to the
+        // instantaneous tangent (the "extended cars angle while driving" bug). 0 = use the
+        // legacy single-point tangent (good enough for a short/point-like vehicle).
+        private double _wheelbase = 0.0;
+
         private TrackNetwork _network;
         private TrackSegment _geom;
         private long _geomForSegId = -1;
@@ -83,6 +91,7 @@ namespace VintageRailroading.Entities
             if (properties?.Attributes != null)
             {
                 _maxSpeed = properties.Attributes["maxSpeed"].AsDouble(6.0);
+                _wheelbase = properties.Attributes["wheelbase"].AsDouble(0.0);
             }
 
             // Log behavior codes only (no JSON braces — they break the logger's
@@ -394,10 +403,51 @@ namespace VintageRailroading.Entities
 
         /// <summary>Project a track distance onto the current segment's curve and set
         /// Pos (position, yaw, grade pitch). Zeroes motion so inherited boat physics
-        /// can't shove us off the spline.</summary>
+        /// can't shove us off the spline.
+        ///
+        /// For a vehicle with a non-zero wheelbase, the body is posed from the LINE between
+        /// its front and rear truck positions (each found by walking +/- half the wheelbase
+        /// along the network with Offset, so it crosses segment boundaries correctly). This
+        /// is what stops a long car from snapping to the instantaneous centre tangent and
+        /// jittering its angle across slope/curve transitions. A zero wheelbase falls back
+        /// to the legacy single-point tangent.</summary>
         private void ApplyPoseFromDistance(double dist, Action<string> Log)
         {
             if (_geom == null) return;
+
+            if (_wheelbase > 0.01 && _network != null)
+            {
+                double half = _wheelbase * 0.5;
+                var front = _network.Offset(SegmentId, dist, +half, SegLength, out bool _);
+                var rear  = _network.Offset(SegmentId, dist, -half, SegLength, out bool _);
+
+                var fGeom = _network.BuildGeometry(front.segId);
+                var rGeom = _network.BuildGeometry(rear.segId);
+                if (fGeom != null && rGeom != null)
+                {
+                    var pf = fGeom.PositionAtDistance(front.distance);
+                    var pr = rGeom.PositionAtDistance(rear.distance);
+
+                    // Body sits at the midpoint of the two trucks.
+                    Pos.SetPos((pf.X + pr.X) * 0.5, (pf.Y + pr.Y) * 0.5, (pf.Z + pr.Z) * 0.5);
+
+                    // Orientation comes from rear->front, the body's true resting line on
+                    // the rail, instead of the curve tangent at a single point.
+                    double bx = pf.X - pr.X, by = pf.Y - pr.Y, bz = pf.Z - pr.Z;
+                    double horiz = Math.Sqrt(bx * bx + bz * bz);
+                    if (horiz > 1e-6)
+                    {
+                        Pos.Yaw = (float)Math.Atan2(bx, bz);
+                        // Same sign convention as PitchFromHeading: VS pitch is +nose-DOWN,
+                        // so a rising body (by > 0) maps to a negative pitch to nose up.
+                        Pos.Pitch = (float)Math.Atan2(-by, horiz);
+                    }
+                    Pos.Motion.Set(0, 0, 0);
+                    return;
+                }
+            }
+
+            // Legacy single-point pose (zero wheelbase, or geometry not ready).
             var p = _geom.PositionAtDistance(dist);
             var h = _geom.HeadingAtDistance(dist);
             Pos.SetPos(p.X, p.Y, p.Z);
