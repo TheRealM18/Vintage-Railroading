@@ -26,8 +26,8 @@ namespace VintageRailroading.Entities
     /// locomotive with a Coupler tool and it tracks CouplingGap metres behind, around curves,
     /// grades, and junctions, exactly like a coupled EntityTrain does.
     ///
-    /// Storage: add a wood/fuel storage behavior in the JSON (e.g.
-    ///   { "code": "woodstorage", "quantitySlots": 16 }
+    /// Storage: add a storage behavior in the JSON (e.g.
+    ///   { "code": "genericstorage", "quantitySlots": 16 }
     /// ) and empty-hand right-click opens it. Because there is no seat to compete with,
     /// no interaction-priority juggling is needed: the only thing right-click does is
     /// open storage (or pick up with a wrench).
@@ -138,9 +138,6 @@ namespace VintageRailroading.Entities
                 var plr = (byEntity as EntityPlayer)?.Player;
                 if (plr != null)
                 {
-                    var wood = GetBehavior<EntityBehaviorWoodStorage>();
-                    if (wood != null && wood.OpenFor(plr)) return;
-
                     var fuel = GetBehavior<EntityBehaviorFuelStorage>();
                     if (fuel != null && fuel.OpenFor(plr)) return;
 
@@ -177,7 +174,6 @@ namespace VintageRailroading.Entities
             // Drop any stored contents FIRST (before despawn) so cargo is never voided.
             // Cover every storage behavior a cargo car might carry.
             VrrDebug.Log(World, "Cargo pickup: dropping contents before despawn (entity {0})", EntityId);
-            GetBehavior<EntityBehaviorWoodStorage>()?.DropContents();
             GetBehavior<EntityBehaviorFuelStorage>()?.DropContents();
             GetBehavior<EntityBehaviorFluidStorage>()?.DropContents();
             GetBehavior<EntityBehaviorGenericStorage>()?.DropContents();

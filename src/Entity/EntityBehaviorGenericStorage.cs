@@ -245,7 +245,7 @@ namespace VintageRailroading.Entities
             }
         }
 
-        // Wood matcher mirroring the old dedicated woodstorage behavior: an "isWood"
+        // Wood matcher: an "isWood" collectible attribute overrides everything; otherwise the
         // collectible attribute overrides everything; otherwise the code path must contain a
         // wood token and none of the exclusion tokens (so a wooden axe/bucket/door is NOT
         // accepted as raw wood cargo).

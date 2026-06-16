@@ -40,7 +40,6 @@ namespace VintageRailroading
             api.RegisterEntity("EntityTrain", typeof(EntityTrain));
             api.RegisterEntity("EntityCargo", typeof(EntityCargo));
             api.RegisterEntityBehaviorClass("fuelstorage", typeof(VintageRailroading.Entities.EntityBehaviorFuelStorage));
-            api.RegisterEntityBehaviorClass("woodstorage", typeof(VintageRailroading.Entities.EntityBehaviorWoodStorage));
             api.RegisterEntityBehaviorClass("fluidstorage", typeof(VintageRailroading.Entities.EntityBehaviorFluidStorage));
             api.RegisterEntityBehaviorClass("fuelconsumer", typeof(VintageRailroading.Entities.EntityBehaviorFuelConsumer));
             api.RegisterEntityBehaviorClass("genericstorage", typeof(VintageRailroading.Entities.EntityBehaviorGenericStorage));
