@@ -1,0 +1,40 @@
+{
+  "ingredientPattern": "CBF,IPI,WGW",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "C": {
+      "type": "item",
+      "code": "vintagerailroading:cabframe"
+    },
+    "B": {
+      "type": "item",
+      "code": "vintagerailroading:boiler"
+    },
+    "F": {
+      "type": "item",
+      "code": "vintagerailroading:firebox"
+    },
+    "I": {
+      "type": "item",
+      "code": "game:ingot-iron"
+    },
+    "P": {
+      "type": "item",
+      "code": "vintagerailroading:steampiston"
+    },
+    "W": {
+      "type": "item",
+      "code": "vintagerailroading:ironwheelset"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:locotankplacer",
+    "quantity": 1
+  }
+}

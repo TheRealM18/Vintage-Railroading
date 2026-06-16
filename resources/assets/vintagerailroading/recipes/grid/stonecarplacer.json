@@ -1,5 +1,5 @@
 {
-  "ingredientPattern": "TPT,PGP,WTW",
+  "ingredientPattern": "SPS,PGP,WSW",
   "width": 3,
   "height": 3,
   "ingredients": {
@@ -15,9 +15,9 @@
       "type": "item",
       "code": "vintagerailroading:ironwheelset"
     },
-    "T": {
+    "S": {
       "type": "item",
-      "code": "game:stone-andesite"
+      "code": "game:charcoal"
     }
   },
   "output": {

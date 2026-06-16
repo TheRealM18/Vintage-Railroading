@@ -1,9 +1,9 @@
 {
-  "code": "dirtcarplacer",
+  "code": "locoexpressplacer",
   "class": "ItemTrainPlacer",
   "maxstacksize": 1,
   "attributes": {
-    "entityCode": "dirtcar"
+    "entityCode": "locoexpress"
   },
   "creativeinventory": {
     "general": [
@@ -12,11 +12,11 @@
     "vrrall": [
       "*"
     ],
-    "vrrcargo": [
+    "vrrtrains": [
       "*"
     ]
   },
   "texture": {
-    "base": "vintagerailroading:item/dirtcar"
+    "base": "vintagerailroading:item/locoexpress"
   }
 }

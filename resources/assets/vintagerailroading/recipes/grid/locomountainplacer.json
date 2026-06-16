@@ -1,0 +1,32 @@
+{
+  "ingredientPattern": "FBF,PPP,WSW",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "F": {
+      "type": "item",
+      "code": "vintagerailroading:firebox"
+    },
+    "B": {
+      "type": "item",
+      "code": "vintagerailroading:boiler"
+    },
+    "P": {
+      "type": "item",
+      "code": "vintagerailroading:steampiston"
+    },
+    "W": {
+      "type": "item",
+      "code": "vintagerailroading:ironwheelset"
+    },
+    "S": {
+      "type": "item",
+      "code": "vinteng:metalgear-steel"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:locomountainplacer",
+    "quantity": 1
+  }
+}

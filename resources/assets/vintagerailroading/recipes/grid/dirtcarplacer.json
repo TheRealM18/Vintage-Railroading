@@ -1,5 +1,5 @@
 {
-  "ingredientPattern": "BPB,PGP,WBW",
+  "ingredientPattern": "IPI,PGP,WIW",
   "width": 3,
   "height": 3,
   "ingredients": {
@@ -15,9 +15,9 @@
       "type": "item",
       "code": "vintagerailroading:ironwheelset"
     },
-    "B": {
+    "I": {
       "type": "item",
-      "code": "game:brick-fire"
+      "code": "game:ingot-iron"
     }
   },
   "output": {

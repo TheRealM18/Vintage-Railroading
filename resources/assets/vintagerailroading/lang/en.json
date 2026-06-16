@@ -40,5 +40,15 @@
   "vintagerailroading:item-livestockcarplacer": "Livestock Car",
   "vintagerailroading:item-creature-livestockcar": "Livestock Car",
   "vintagerailroading:item-passengercarplacer": "Passenger Car",
-  "vintagerailroading:item-creature-passengercar": "Passenger Car"
+  "vintagerailroading:item-creature-passengercar": "Passenger Car",
+  "vintagerailroading:item-locoswitcherplacer": "Yard Switcher",
+  "vintagerailroading:item-creature-locoswitcher": "Yard Switcher",
+  "vintagerailroading:item-locotankplacer": "Tank Engine",
+  "vintagerailroading:item-creature-locotank": "Tank Engine",
+  "vintagerailroading:item-locoroadplacer": "Road Engine",
+  "vintagerailroading:item-creature-locoroad": "Road Engine",
+  "vintagerailroading:item-locoexpressplacer": "Express Engine",
+  "vintagerailroading:item-creature-locoexpress": "Express Engine",
+  "vintagerailroading:item-locomountainplacer": "Heavy Mountain",
+  "vintagerailroading:item-creature-locomountain": "Heavy Mountain"
 }

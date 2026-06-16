@@ -1,7 +1,7 @@
 {
-  "code": "passengercar",
+  "code": "locoroad",
   "class": "EntityTrain",
-  "_comment": "EntityTrain for the seatable machinery; maxSpeed 0 = no self-propulsion, moves only when coupled behind a loco.",
+  "_comment": "EntityTrain extends EntityBoat; needs boat attributes (mountAnimations etc.) that EntityBoat.Initialize reads",
   "tags": [
     "inanimate",
     "vehicle"
@@ -16,29 +16,28 @@
       "forwards": "",
       "backwards": ""
     },
-    "maxSpeed": 0.0,
-    "wheelbase": 5.0
+    "maxSpeed": 8.0
   },
   "hitboxSize": {
-    "x": 5.25,
-    "y": 2.19
+    "x": 3.0,
+    "y": 4.5
   },
   "deadHitboxSize": {
-    "x": 5.25,
-    "y": 2.19
+    "x": 3.0,
+    "y": 4.5
   },
-  "eyeHeight": 2.0,
+  "eyeHeight": 2.5,
   "canClimb": false,
   "behaviorConfigs": {
     "passivephysicsmultibox": {
       "collisionBoxes": [
         {
-          "x1": -2.62,
-          "y1": 0.0,
-          "z1": -1.12,
-          "x2": 2.62,
-          "y2": 2.19,
-          "z2": 1.12
+          "x1": -1.0,
+          "y1": 0,
+          "z1": -1.5,
+          "x2": 1.0,
+          "y2": 2.5,
+          "z2": 1.5
         }
       ],
       "groundDragFactor": 1,
@@ -49,13 +48,7 @@
       "seats": [
         {
           "apName": "Seat-driver",
-          "controllable": false,
-          "bodyYawLimit": null,
-          "eyeHeight": 1
-        },
-        {
-          "apName": "Seat-passenger",
-          "controllable": false,
+          "controllable": true,
           "bodyYawLimit": null,
           "eyeHeight": 1
         }
@@ -63,31 +56,27 @@
     },
     "selectionboxes": {
       "selectionBoxes": [
-        "Seat-driver",
-        "Seat-passenger"
+        "Seat-driver"
       ]
     }
   },
   "client": {
     "renderer": "Shape",
     "shape": {
-      "base": "vintagerailroading:entity/passengercar"
+      "base": "vintagerailroading:entity/loco_road"
     },
     "textures": {
       "iron": {
-        "base": "game:block/metal/plate/iron"
+        "base": "game:block/metal/ingot/iron"
       },
       "dark": {
         "base": "game:block/stone/rock/basalt1"
       },
-      "metal": {
+      "red": {
         "base": "game:block/metal/plate/iron"
       },
-      "wood": {
-        "base": "game:block/wood/planks/walnut1"
-      },
-      "red": {
-        "base": "game:block/metal/plate/copper"
+      "metal": {
+        "base": "game:block/metal/plate/iron"
       },
       "glass": {
         "base": "game:block/glass/plain"
@@ -108,6 +97,11 @@
       },
       {
         "code": "creaturecarrier"
+      },
+      {
+        "code": "fuelconsumer",
+        "burnRatePerSecond": 1.4,
+        "fireboxSeconds": 0
       }
     ]
   },
@@ -124,6 +118,11 @@
       },
       {
         "code": "creaturecarrier"
+      },
+      {
+        "code": "fuelconsumer",
+        "burnRatePerSecond": 1.4,
+        "fireboxSeconds": 0
       }
     ]
   }

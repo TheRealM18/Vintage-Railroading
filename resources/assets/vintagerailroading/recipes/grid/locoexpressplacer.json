@@ -1,0 +1,40 @@
+{
+  "ingredientPattern": "CBF,PEP,SGS",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "C": {
+      "type": "item",
+      "code": "vintagerailroading:cabframe"
+    },
+    "B": {
+      "type": "item",
+      "code": "vintagerailroading:boiler"
+    },
+    "F": {
+      "type": "item",
+      "code": "vintagerailroading:firebox"
+    },
+    "P": {
+      "type": "item",
+      "code": "vintagerailroading:steampiston"
+    },
+    "E": {
+      "type": "item",
+      "code": "game:ingot-copper"
+    },
+    "S": {
+      "type": "item",
+      "code": "game:ingot-steel"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-steel"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:locoexpressplacer",
+    "quantity": 1
+  }
+}

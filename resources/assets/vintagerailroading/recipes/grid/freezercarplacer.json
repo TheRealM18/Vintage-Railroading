@@ -16,8 +16,8 @@
       "code": "vintagerailroading:ironwheelset"
     },
     "Q": {
-      "type": "item",
-      "code": "game:glass-plain"
+      "type": "block",
+      "code": "game:glass-*"
     },
     "C": {
       "type": "item",

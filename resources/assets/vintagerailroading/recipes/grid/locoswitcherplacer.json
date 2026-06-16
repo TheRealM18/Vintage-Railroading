@@ -1,0 +1,36 @@
+{
+  "ingredientPattern": "IFI,PCP,WGW",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "I": {
+      "type": "item",
+      "code": "game:ingot-iron"
+    },
+    "F": {
+      "type": "item",
+      "code": "vintagerailroading:firebox"
+    },
+    "P": {
+      "type": "item",
+      "code": "vintagerailroading:steampiston"
+    },
+    "C": {
+      "type": "item",
+      "code": "vintagerailroading:cabframe"
+    },
+    "W": {
+      "type": "item",
+      "code": "vintagerailroading:ironwheelset"
+    },
+    "G": {
+      "type": "item",
+      "code": "vinteng:metalgear-iron"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:locoswitcherplacer",
+    "quantity": 1
+  }
+}

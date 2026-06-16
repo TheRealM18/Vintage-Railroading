@@ -12,12 +12,12 @@
     "wheelbase": 4.0
   },
   "hitboxSize": {
-    "x": 3.5,
-    "y": 3.0
+    "x": 5.25,
+    "y": 0.81
   },
   "deadHitboxSize": {
-    "x": 3.5,
-    "y": 3.0
+    "x": 5.25,
+    "y": 0.81
   },
   "eyeHeight": 2.0,
   "canClimb": false,
@@ -25,12 +25,12 @@
     "passivephysicsmultibox": {
       "collisionBoxes": [
         {
-          "x1": -1.5,
+          "x1": -2.62,
           "y1": 0.0,
-          "z1": -1.75,
-          "x2": 1.5,
-          "y2": 2.5,
-          "z2": 1.75
+          "z1": -1.12,
+          "x2": 2.62,
+          "y2": 0.81,
+          "z2": 1.12
         }
       ],
       "groundDragFactor": 1,
