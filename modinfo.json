@@ -1,0 +1,12 @@
+{
+  "type": "code",
+  "modid": "vintagerailroading",
+  "name": "Vintage Railroading",
+  "authors": [ "TheRealM18" ],
+  "description": "Free-form, multi-gauge railroads for Vintage Story.",
+  "version": "0.2.1",
+  "dependencies": {
+    "game": "",
+    "vintageengineering": ""
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "code": "tankcar",
+  "class": "EntityCargo",
+  "tags": [
+    "inanimate",
+    "vehicle"
+  ],
+  "attributes": {
+    "shouldSwivelFromMotion": false,
+    "speedMultiplier": 1,
+    "swimmingOffsetY": 0,
+    "mountAnimations": {
+      "idle": "sitflooridle",
+      "ready": "",
+      "forwards": "",
+      "backwards": ""
+    }
+  },
+  "hitboxSize": {
+    "x": 5.25,
+    "y": 2.81
+  },
+  "deadHitboxSize": {
+    "x": 5.25,
+    "y": 2.81
+  },
+  "eyeHeight": 2.0,
+  "canClimb": false,
+  "behaviorConfigs": {
+    "passivephysicsmultibox": {
+      "collisionBoxes": [
+        {
+          "x1": -2.62,
+          "y1": 0.0,
+          "z1": -1.12,
+          "x2": 2.62,
+          "y2": 2.81,
+          "z2": 1.12
+        }
+      ],
+      "groundDragFactor": 1,
+      "airDragFallingFactor": 0.5,
+      "gravityFactor": 0.0
+    }
+  },
+  "client": {
+    "renderer": "Shape",
+    "shape": {
+      "base": "vintagerailroading:entity/tankcar"
+    },
+    "textures": {
+      "yellow": {
+        "base": "game:block/metal/plate/gold"
+      },
+      "dark": {
+        "base": "game:block/stone/rock/basalt1"
+      },
+      "metal": {
+        "base": "game:block/metal/plate/iron"
+      },
+      "red": {
+        "base": "game:block/metal/plate/copper"
+      },
+      "iron": {
+        "base": "game:block/stone/rock/basalt1"
+      }
+    },
+    "behaviors": [
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
+      {
+        "code": "interpolateposition"
+      },
+      {
+        "code": "fluidstorage",
+        "capacityLitres": 200
+      }
+    ]
+  },
+  "server": {
+    "behaviors": [
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "passivephysicsmultibox"
+      },
+      {
+        "code": "fluidstorage",
+        "capacityLitres": 200
+      }
+    ]
+  }
+}
