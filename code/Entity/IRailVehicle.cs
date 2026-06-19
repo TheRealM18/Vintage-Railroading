@@ -68,18 +68,18 @@ namespace VintageRailroading.Entities
         /// the entity's own code; finally falls back to the train placer. Returns null only
         /// if even the train placer item is missing from the registry.
         /// </summary>
-        public static Item ResolvePlacerItem(Vintagestory.API.Common.Entities.Entity entity)
+        public static Item? ResolvePlacerItem(Vintagestory.API.Common.Entities.Entity entity)
         {
             var world = entity?.World;
             if (world == null) return null;
 
             // 1) exact stamp from when it was placed
-            string code = entity.WatchedAttributes?.GetString("vrrPlacerCode", null);
+            string? code = entity?.WatchedAttributes?.GetString("vrrPlacerCode", null);
 
             // 2) derive from the entity's code (e.g. "coalcart" -> "coalcartplacer")
             if (string.IsNullOrEmpty(code))
             {
-                string entityCode = entity.Code?.Path ?? "train";
+                string entityCode = entity?.Code?.Path ?? "train";
                 code = PlacerForEntityCode(entityCode);
             }
 

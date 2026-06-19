@@ -80,6 +80,26 @@
           "dirt"
         ],
         "maxStackSize": 128
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/soil/highfertility-normal"
+          },
+          {
+            "name": "oak",
+            "key": "red",
+            "texture": "game:block/wood/planks/oak1"
+          },
+          {
+            "name": "walnut",
+            "key": "red",
+            "texture": "game:block/wood/planks/walnut1"
+          }
+        ]
       }
     ]
   },
@@ -98,6 +118,26 @@
           "dirt"
         ],
         "maxStackSize": 128
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/soil/highfertility-normal"
+          },
+          {
+            "name": "oak",
+            "key": "red",
+            "texture": "game:block/wood/planks/oak1"
+          },
+          {
+            "name": "walnut",
+            "key": "red",
+            "texture": "game:block/wood/planks/walnut1"
+          }
+        ]
       }
     ]
   }

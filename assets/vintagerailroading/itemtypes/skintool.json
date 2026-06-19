@@ -1,0 +1,19 @@
+{
+  "code": "skintool",
+  "class": "ItemSkinTool",
+  "maxstacksize": 1,
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "vrrall": [
+      "*"
+    ],
+    "vrrother": [
+      "*"
+    ]
+  },
+  "texture": {
+    "base": "vintagerailroading:item/skintool"
+  }
+}

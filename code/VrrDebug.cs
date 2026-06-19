@@ -37,19 +37,19 @@ namespace VintageRailroading
         private static readonly object _lock = new object();
 
         // Resolved once: full path to the log file inside the game's Logs directory.
-        private static string _path;
+        private static string? _path;
         // Whether we've truncated the file this process yet (fresh start per launch).
         private static bool _truncated;
 
         /// <summary>Log a formatted debug line, but only when debug mode is enabled.</summary>
-        public static void Log(ICoreAPI api, string message, params object[] args)
+        public static void Log(ICoreAPI api, string message, params object?[] args)
         {
             if (!Enabled) return;
             Write(SideTag(api?.Side), Format(message, args));
         }
 
         /// <summary>Overload for code that only has a World reference.</summary>
-        public static void Log(IWorldAccessor world, string message, params object[] args)
+        public static void Log(IWorldAccessor world, string message, params object?[] args)
         {
             if (!Enabled) return;
             Write(SideTag(world?.Side), Format(message, args));
@@ -61,7 +61,7 @@ namespace VintageRailroading
         /// loss) that must never be silently dropped just because verbose debug is off. Still
         /// file-only (never console), and still crash-safe. Prefixed so it's greppable.
         /// </summary>
-        public static void LogError(ICoreAPI api, string message, params object[] args)
+        public static void LogError(ICoreAPI api, string message, params object?[] args)
         {
             Write(SideTag(api?.Side), "ERROR " + Format(message, args));
         }
@@ -123,7 +123,7 @@ namespace VintageRailroading
             return "???";
         }
 
-        private static string Format(string message, object[] args)
+        private static string Format(string message, object?[] args)
         {
             if (args == null || args.Length == 0) return message;
             try { return string.Format(message, args); }

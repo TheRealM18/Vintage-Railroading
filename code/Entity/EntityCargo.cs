@@ -64,8 +64,8 @@ namespace VintageRailroading.Entities
             set => WatchedAttributes.SetDouble("vrrGap", value);
         }
 
-        private TrackNetwork _network;
-        private TrackSegment _geom;
+        private TrackNetwork _network = null!;
+        private TrackSegment? _geom;
         private long _geomForSegId = -1;
         private float _diagAccum;
 
@@ -80,7 +80,7 @@ namespace VintageRailroading.Entities
         // chord across curves. We neutralise that by re-projecting Pos onto the spline on
         // every render frame, AFTER interpolation has run — so the curve is always the
         // final word and corners are never cut. _capi/_renderReg manage that callback.
-        private Vintagestory.API.Client.ICoreClientAPI _capi;
+        private Vintagestory.API.Client.ICoreClientAPI? _capi;
         private bool _renderReg;
 
         // CLIENT-SIDE DEAD RECKONING — identical scheme to EntityTrain: integrate the
@@ -98,7 +98,7 @@ namespace VintageRailroading.Entities
                 _wheelbase = properties.Attributes["wheelbase"].AsDouble(0.0);
 
             var mgr = api.ModLoader.GetModSystem<TrackNetworkManager>();
-            _network = mgr?.Network;
+            _network = mgr?.Network!;
             VrrDebug.Log(api, "EntityCargo init. network={0}",
                 _network != null ? "OK" : "NULL");
 
@@ -155,7 +155,7 @@ namespace VintageRailroading.Entities
         private static bool IsWrench(ItemSlot slot)
         {
             if (slot == null || slot.Empty) return false;
-            string path = slot.Itemstack?.Collectible?.Code?.Path;
+            string? path = slot.Itemstack?.Collectible?.Code?.Path;
             return path != null && path.Contains("wrench");
         }
 
@@ -322,7 +322,7 @@ namespace VintageRailroading.Entities
         /// With a non-zero wheelbase the body is posed from the line between its front and
         /// rear trucks (each walked along the network with Offset so segment crossings are
         /// handled), fixing the long-car angle jitter on slope/curve transitions.</summary>
-        private void ApplyPoseFromDistance(double dist, Action<string> Log)
+        private void ApplyPoseFromDistance(double dist, Action<string>? Log)
         {
             if (_geom == null) return;
 
@@ -362,7 +362,7 @@ namespace VintageRailroading.Entities
         {
             if (_network == null)
             {
-                _network = Api?.ModLoader?.GetModSystem<TrackNetworkManager>()?.Network;
+                _network = Api?.ModLoader?.GetModSystem<TrackNetworkManager>()?.Network!;
                 if (_network == null) return;
             }
             if (_geomForSegId == SegmentId && _geom != null) return;
@@ -434,7 +434,7 @@ namespace VintageRailroading.Entities
     /// </summary>
     public class CargoRenderUpdater : Vintagestory.API.Client.IRenderer
     {
-        private EntityCargo _cargo;
+        private EntityCargo? _cargo;
 
         // VERIFY: IRenderer requires RenderOrder and RenderRange. 0.0 / 999 are safe
         // generic values; adjust if your build complains about missing members.

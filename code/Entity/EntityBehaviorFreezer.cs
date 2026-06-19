@@ -117,7 +117,7 @@ namespace VintageRailroading.Entities
                     transArr[i] -= hold;
                     if (transArr[i] < 0) transArr[i] = 0;
                 }
-                slot.MarkDirty();
+                slot?.MarkDirty();
             }
         }
 
@@ -129,7 +129,7 @@ namespace VintageRailroading.Entities
             var world = entity.World;
             if (world == null) return sources;
 
-            var near = world.GetEntitiesAround(entity.ServerPos.XYZ, 64f, 64f,
+            var near = world.GetEntitiesAround(entity.Pos.XYZ, 64f, 64f,
                 e => e is IRailVehicle && e.Alive && e != entity);
             if (near == null) return sources;
 
@@ -148,7 +148,7 @@ namespace VintageRailroading.Entities
         /// cars BEHIND it), a freezer should accept a tender anywhere in the same consist, so
         /// we also accept the case where THIS car's chain leads to `rv`.
         /// </summary>
-        private bool ChainConnectsToMe(IRailVehicle rv)
+        private bool ChainConnectsToMe(IRailVehicle? rv)
         {
             if (rv == null) return false;
             var world = entity.World;

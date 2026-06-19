@@ -68,8 +68,8 @@ namespace VintageRailroading.Entities
         // legacy single-point tangent (good enough for a short/point-like vehicle).
         private double _wheelbase = 0.0;
 
-        private TrackNetwork _network;
-        private TrackSegment _geom;
+        private TrackNetwork _network = null!;
+        private TrackSegment? _geom;
         private long _geomForSegId = -1;
         private float _diagAccum;
 
@@ -117,7 +117,7 @@ namespace VintageRailroading.Entities
             VrrDebug.Log(api, "base.Initialize returned OK.");
 
             var mgr = api.ModLoader.GetModSystem<TrackNetworkManager>();
-            _network = mgr?.Network;
+            _network = mgr?.Network!;
             VrrDebug.Log(api, "Initialize complete. network={0}", _network != null ? "OK" : "NULL");
         }
 
@@ -161,7 +161,7 @@ namespace VintageRailroading.Entities
         private static bool IsWrench(ItemSlot slot)
         {
             if (slot == null || slot.Empty) return false;
-            string path = slot.Itemstack?.Collectible?.Code?.Path;
+            string? path = slot.Itemstack?.Collectible?.Code?.Path;
             return path != null && path.Contains("wrench");
         }
 
@@ -283,7 +283,7 @@ namespace VintageRailroading.Entities
                         wantsToMove, hasPower, fuel != null, fuel != null ? fuel.FireboxSeconds : 0);
 
                     double target = 0;
-                    if (wantsToMove && hasPower)
+                    if (wantsToMove && hasPower && controls != null)
                     {
                         if (controls.Forward) target = MaxSpeed;
                         else if (controls.Backward) target = -MaxSpeed;
@@ -361,7 +361,7 @@ namespace VintageRailroading.Entities
         {
             double newDist = Distance + Speed * dt;
 
-            if (newDist >= _geom.Length)
+            if (_geom != null && newDist >= _geom.Length)
             {
                 double overshoot = newDist - _geom.Length;
                 var next = _network?.NextSegment(SegmentId, leavingEnd: true);
@@ -479,7 +479,7 @@ namespace VintageRailroading.Entities
         // IMPORTANT: GetInterface<IMountable>() returns the FIRST IMountable, which is
         // EntityBoat's own (empty) mount — NOT the creaturecarrier seat the player is
         // actually in. We must search ALL mountables for one that AnyMounted().
-        private EntityControls GetControllingControls()
+        private EntityControls? GetControllingControls()
         {
             foreach (var mountable in GetInterfaces<IMountable>())
             {
@@ -504,7 +504,7 @@ namespace VintageRailroading.Entities
             {
                 // Network may not be populated yet (esp. client-side before the
                 // TrackNetworkManager has synced). Try to (re)acquire it.
-                _network = Api?.ModLoader?.GetModSystem<TrackNetworkManager>()?.Network;
+                _network = Api?.ModLoader?.GetModSystem<TrackNetworkManager>()?.Network!;
                 if (_network == null) return;
             }
             if (_geomForSegId == SegmentId && _geom != null) return;

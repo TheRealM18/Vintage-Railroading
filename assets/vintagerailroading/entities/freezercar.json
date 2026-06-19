@@ -85,6 +85,26 @@
         "code": "freezer",
         "burnRatePerSecond": 0.25,
         "preserveFactor": 0.0
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/tinbronze"
+          },
+          {
+            "name": "steel",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          },
+          {
+            "name": "copper",
+            "key": "red",
+            "texture": "game:block/metal/plate/copper"
+          }
+        ]
       }
     ]
   },
@@ -108,6 +128,26 @@
         "code": "freezer",
         "burnRatePerSecond": 0.25,
         "preserveFactor": 0.0
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/tinbronze"
+          },
+          {
+            "name": "steel",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          },
+          {
+            "name": "copper",
+            "key": "red",
+            "texture": "game:block/metal/plate/copper"
+          }
+        ]
       }
     ]
   }

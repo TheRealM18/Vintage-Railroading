@@ -78,6 +78,26 @@
       {
         "code": "fluidstorage",
         "capacityLitres": 200
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "yellow",
+            "texture": "game:block/metal/plate/gold"
+          },
+          {
+            "name": "copper",
+            "key": "yellow",
+            "texture": "game:block/metal/plate/copper"
+          },
+          {
+            "name": "steel",
+            "key": "yellow",
+            "texture": "game:block/metal/plate/iron"
+          }
+        ]
       }
     ]
   },
@@ -92,6 +112,26 @@
       {
         "code": "fluidstorage",
         "capacityLitres": 200
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "yellow",
+            "texture": "game:block/metal/plate/gold"
+          },
+          {
+            "name": "copper",
+            "key": "yellow",
+            "texture": "game:block/metal/plate/copper"
+          },
+          {
+            "name": "steel",
+            "key": "yellow",
+            "texture": "game:block/metal/plate/iron"
+          }
+        ]
       }
     ]
   }

@@ -80,6 +80,26 @@
           "ore"
         ],
         "maxStackSize": 128
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/stone/rock/granite1"
+          },
+          {
+            "name": "steel",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          },
+          {
+            "name": "copper",
+            "key": "red",
+            "texture": "game:block/metal/plate/copper"
+          }
+        ]
       }
     ]
   },
@@ -98,6 +118,26 @@
           "ore"
         ],
         "maxStackSize": 128
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/stone/rock/granite1"
+          },
+          {
+            "name": "steel",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          },
+          {
+            "name": "copper",
+            "key": "red",
+            "texture": "game:block/metal/plate/copper"
+          }
+        ]
       }
     ]
   }

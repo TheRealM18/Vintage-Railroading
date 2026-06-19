@@ -1,0 +1,20 @@
+{
+  "ingredientPattern": "_C_,_S_,_S_",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "C": {
+      "type": "item",
+      "code": "game:ingot-copper"
+    },
+    "S": {
+      "type": "item",
+      "code": "game:stick"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "vintagerailroading:skintool",
+    "quantity": 1
+  }
+}

@@ -1,4 +1,5 @@
 using Vintagestory.API.Common;
+using System.Linq;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Client;
 using Vintagestory.API.Datastructures;
@@ -41,16 +42,16 @@ namespace VintageRailroading.Entities
         private const int    GuiColumns   = 4;
 
         // ── State ─────────────────────────────────────────────────────────────────
-        private InventoryGeneric _inv;
-        private GuiDialog        _dialog;
+        private InventoryGeneric _inv = null!;
+        private GuiDialog?       _dialog;
 
         // FILTER (optional, from JSON). When either list is non-empty the inventory only
         // accepts stacks whose item/block code matches. `acceptCodes` matches full codes or
         // wildcard patterns (e.g. "game:ore-*"); `acceptCategories` matches against a small
         // set of convenience groups resolved in MatchesFilter. Empty/absent = accept all,
         // so existing cars are unchanged.
-        private string[] _acceptCodes;
-        private string[] _acceptCategories;
+        private string[]? _acceptCodes;
+        private string[]? _acceptCategories;
         // CAPACITY (optional). Overrides the per-slot max stack size so a car can hold more
         // (or less) per slot than the item's own default. 0 = use the item default.
         private int _maxStackSize;
@@ -71,8 +72,8 @@ namespace VintageRailroading.Entities
             if (slots <= 0) slots = DefaultSlots;
 
             // Optional filter + capacity config (absent => behaves exactly as before).
-            _acceptCodes      = attributes?["acceptCodes"].AsArray<string>(null);
-            _acceptCategories = attributes?["acceptCategories"].AsArray<string>(null);
+            _acceptCodes      = attributes?["acceptCodes"].AsArray<string>(null)?.Where(x => x != null).Select(x => x!).ToArray();
+            _acceptCategories = attributes?["acceptCategories"].AsArray<string>(null)?.Where(x => x != null).Select(x => x!).ToArray();
             _maxStackSize     = attributes?["maxStackSize"].AsInt(0) ?? 0;
 
             bool filtered = (_acceptCodes != null && _acceptCodes.Length > 0)
@@ -148,7 +149,7 @@ namespace VintageRailroading.Entities
 
             // GuiDialogBlockEntityInventory needs a BlockPos for network routing;
             // we use the block position directly under the entity.
-            BlockPos pos = entity.ServerPos.AsBlockPos;
+            BlockPos pos = entity.Pos.AsBlockPos;
             _dialog = new GuiDialogBlockEntityInventory(GuiTitle, _inv, pos, GuiColumns, capi);
             _dialog.OnClosed += () => _inv.Close(player);
             _dialog.TryOpen();
@@ -167,7 +168,7 @@ namespace VintageRailroading.Entities
             // Drop slot-by-slot so we can log and so a stuck DropAll can't silently void
             // cargo. Spawn each stack at the entity position.
             int dropped = 0;
-            var pos = entity.ServerPos.XYZ;
+            var pos = entity.Pos.XYZ;
             foreach (var slot in _inv)
             {
                 if (slot?.Itemstack == null) continue;
@@ -196,7 +197,7 @@ namespace VintageRailroading.Entities
 
             if (hasCodes)
             {
-                foreach (var pat in _acceptCodes)
+                foreach (var pat in _acceptCodes!)
                 {
                     if (string.IsNullOrEmpty(pat)) continue;
                     if (WildcardMatch(pat, code)) return true;
@@ -205,7 +206,7 @@ namespace VintageRailroading.Entities
 
             if (hasCats)
             {
-                foreach (var cat in _acceptCategories)
+                foreach (var cat in _acceptCategories!)
                 {
                     if (MatchesCategory(cat, stack, code)) return true;
                 }
@@ -262,7 +263,7 @@ namespace VintageRailroading.Entities
         {
             var attrs = stack.Collectible?.Attributes;
             if (attrs != null && attrs["isWood"].Exists) return attrs["isWood"].AsBool(false);
-            string path = stack.Collectible?.Code?.Path?.ToLowerInvariant();
+            string? path = stack.Collectible?.Code?.Path?.ToLowerInvariant();
             if (string.IsNullOrEmpty(path)) return false;
             foreach (var bad in NotWoodTokens) if (path.Contains(bad)) return false;
             foreach (var tok in WoodTokens) if (path.Contains(tok)) return true;

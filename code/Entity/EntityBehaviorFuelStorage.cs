@@ -17,7 +17,7 @@ namespace VintageRailroading.Entities
     {
         public ItemSlotFuelOnly(InventoryBase inventory) : base(inventory) { }
 
-        public static bool IsFuel(ItemStack stack)
+        public static bool IsFuel(ItemStack? stack)
         {
             if (stack?.Collectible == null) return false;
             var cp = stack.Collectible.CombustibleProps;
@@ -52,8 +52,8 @@ namespace VintageRailroading.Entities
     /// </summary>
     public class EntityBehaviorFuelStorage : EntityBehavior
     {
-        private InventoryGeneric _inv;
-        private GuiDialog _dialog;
+        private InventoryGeneric _inv = null!;
+        private GuiDialog? _dialog;
         private int _slots = 16;
 
         public EntityBehaviorFuelStorage(Entity entity) : base(entity) { }
@@ -112,7 +112,7 @@ namespace VintageRailroading.Entities
             if (_dialog != null && _dialog.IsOpened()) { _dialog.TryClose(); return true; }
 
             _inv.Open(player);
-            BlockPos pos = entity.ServerPos.AsBlockPos;
+            BlockPos pos = entity.Pos.AsBlockPos;
             _dialog = new GuiDialogBlockEntityInventory("Fuel Storage", _inv, pos, 8, capi);
             _dialog.OnClosed += () => { _inv.Close(player); };
             _dialog.TryOpen();
@@ -133,7 +133,7 @@ namespace VintageRailroading.Entities
             // Drop slot-by-slot so we can log and so a stuck DropAll can't silently void
             // cargo. Spawn each stack at the entity position.
             int dropped = 0;
-            var pos = entity.ServerPos.XYZ;
+            var pos = entity.Pos.XYZ;
             foreach (var slot in _inv)
             {
                 if (slot?.Itemstack == null) continue;

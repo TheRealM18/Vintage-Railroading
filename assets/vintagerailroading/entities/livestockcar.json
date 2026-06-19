@@ -119,6 +119,26 @@
       },
       {
         "code": "creaturecarrier"
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/wood/planks/acacia1"
+          },
+          {
+            "name": "oak",
+            "key": "red",
+            "texture": "game:block/wood/planks/oak1"
+          },
+          {
+            "name": "ebony",
+            "key": "red",
+            "texture": "game:block/wood/planks/ebony1"
+          }
+        ]
       }
     ]
   },
@@ -135,6 +155,26 @@
       },
       {
         "code": "creaturecarrier"
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/wood/planks/acacia1"
+          },
+          {
+            "name": "oak",
+            "key": "red",
+            "texture": "game:block/wood/planks/oak1"
+          },
+          {
+            "name": "ebony",
+            "key": "red",
+            "texture": "game:block/wood/planks/ebony1"
+          }
+        ]
       }
     ]
   }

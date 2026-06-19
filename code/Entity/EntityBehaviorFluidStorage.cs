@@ -82,8 +82,8 @@ namespace VintageRailroading.Entities
     /// </summary>
     public class EntityBehaviorFluidStorage : EntityBehavior
     {
-        private InventoryGeneric _inv;
-        private GuiDialog _dialog;
+        private InventoryGeneric _inv = null!;
+        private GuiDialog? _dialog;
         private float _capacityLitres = 200f;
 
         public EntityBehaviorFluidStorage(Entity entity) : base(entity) { }
@@ -143,7 +143,7 @@ namespace VintageRailroading.Entities
 
             if (sneaking || !emptyHand)
             {
-                base.OnInteract(byEntity, itemslot, hitPosition, mode, ref handled);
+                base.OnInteract(byEntity, itemslot!, hitPosition, mode, ref handled);
                 return;
             }
 
@@ -153,7 +153,7 @@ namespace VintageRailroading.Entities
                 return;
             }
 
-            base.OnInteract(byEntity, itemslot, hitPosition, mode, ref handled);
+            base.OnInteract(byEntity, itemslot!, hitPosition, mode, ref handled);
         }
 
         /// <summary>Open the fluid tank for a player. Returns true if handled.</summary>
@@ -176,7 +176,7 @@ namespace VintageRailroading.Entities
             if (_dialog != null && _dialog.IsOpened()) { _dialog.TryClose(); return true; }
 
             _inv.Open(player);
-            BlockPos pos = entity.ServerPos.AsBlockPos;
+            BlockPos pos = entity.Pos.AsBlockPos;
             // One column — a single tank slot. Title shows capacity for clarity.
             _dialog = new GuiDialogBlockEntityInventory(
                 "Fluid Tank (" + (int)_capacityLitres + "L)", _inv, pos, 1, capi);
@@ -203,7 +203,7 @@ namespace VintageRailroading.Entities
             // Drop slot-by-slot so we can log and so a stuck DropAll can't silently void
             // cargo. Spawn each stack at the entity position.
             int dropped = 0;
-            var pos = entity.ServerPos.XYZ;
+            var pos = entity.Pos.XYZ;
             foreach (var slot in _inv)
             {
                 if (slot?.Itemstack == null) continue;

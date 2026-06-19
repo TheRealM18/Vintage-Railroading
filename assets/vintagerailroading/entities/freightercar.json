@@ -72,6 +72,26 @@
       {
         "code": "genericstorage",
         "quantitySlots": 8
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "vintagerailroading:block/redpaint"
+          },
+          {
+            "name": "bronze",
+            "key": "red",
+            "texture": "game:block/metal/plate/tinbronze"
+          },
+          {
+            "name": "iron",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          }
+        ]
       }
     ]
   },
@@ -86,6 +106,26 @@
       {
         "code": "genericstorage",
         "quantitySlots": 8
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "vintagerailroading:block/redpaint"
+          },
+          {
+            "name": "bronze",
+            "key": "red",
+            "texture": "game:block/metal/plate/tinbronze"
+          },
+          {
+            "name": "iron",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          }
+        ]
       }
     ]
   }

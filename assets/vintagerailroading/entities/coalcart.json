@@ -72,6 +72,26 @@
       {
         "code": "fuelstorage",
         "quantitySlots": 16
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          },
+          {
+            "name": "weathered",
+            "key": "red",
+            "texture": "game:block/metal/plate/rusty"
+          },
+          {
+            "name": "black",
+            "key": "red",
+            "texture": "game:block/stone/rock/basalt1"
+          }
+        ]
       }
     ]
   },
@@ -86,6 +106,26 @@
       {
         "code": "fuelstorage",
         "quantitySlots": 16
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          },
+          {
+            "name": "weathered",
+            "key": "red",
+            "texture": "game:block/metal/plate/rusty"
+          },
+          {
+            "name": "black",
+            "key": "red",
+            "texture": "game:block/stone/rock/basalt1"
+          }
+        ]
       }
     ]
   }

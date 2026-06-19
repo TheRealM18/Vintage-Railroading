@@ -44,9 +44,11 @@ namespace VintageRailroading
             api.RegisterEntityBehaviorClass("fuelconsumer", typeof(VintageRailroading.Entities.EntityBehaviorFuelConsumer));
             api.RegisterEntityBehaviorClass("genericstorage", typeof(VintageRailroading.Entities.EntityBehaviorGenericStorage));
             api.RegisterEntityBehaviorClass("freezer", typeof(VintageRailroading.Entities.EntityBehaviorFreezer));
+            api.RegisterEntityBehaviorClass("skinnable", typeof(VintageRailroading.Entities.EntityBehaviorSkinnable));
             api.RegisterItemClass("ItemTrainPlacer", typeof(VintageRailroading.Items.ItemTrainPlacer));
             api.RegisterItemClass("ItemTrackLayer", typeof(VintageRailroading.Items.ItemTrackLayer));
             api.RegisterItemClass("ItemCouplingTool", typeof(VintageRailroading.Items.ItemCouplingTool));
+            api.RegisterItemClass("ItemSkinTool", typeof(VintageRailroading.Items.ItemSkinTool));
         }
 
         public override void StartServerSide(ICoreServerAPI api)
@@ -104,7 +106,7 @@ namespace VintageRailroading
 
         private TextCommandResult OnVrrSwitch(ICoreServerAPI api, TextCommandCallingArgs args)
         {
-            EntityPlayer plr = args.Caller.Entity as EntityPlayer;
+            EntityPlayer? plr = args.Caller.Entity as EntityPlayer;
             if (plr == null) return TextCommandResult.Error("No player entity.");
 
             var network = api.ModLoader.GetModSystem<TrackNetworkManager>().Network;
@@ -141,7 +143,7 @@ namespace VintageRailroading
 
         private TextCommandResult OnVrrNode(ICoreServerAPI api, TextCommandCallingArgs args)
         {
-            EntityPlayer plr = args.Caller.Entity as EntityPlayer;
+            EntityPlayer? plr = args.Caller.Entity as EntityPlayer;
             if (plr == null) return TextCommandResult.Error("No player entity.");
 
             // Foot position (ground level), NOT eye height — track sits on the ground.
@@ -341,7 +343,7 @@ namespace VintageRailroading
                 _gauge.Id, snap);
 
             var pos = new BlockPos((int)Math.Floor(a.X), (int)Math.Floor(a.Y), (int)Math.Floor(a.Z));
-            Block block = api.World.GetBlock(new AssetLocation("vintagerailroading:railnode"));
+            Block? block = api.World.GetBlock(new AssetLocation("vintagerailroading:railnode"));
             if (block == null)
                 return LaySegmentResult.Fail("railnode block not found — is the asset loaded?");
 

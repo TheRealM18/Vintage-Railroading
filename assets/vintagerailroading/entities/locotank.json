@@ -102,6 +102,26 @@
         "code": "fuelconsumer",
         "burnRatePerSecond": 0.9,
         "fireboxSeconds": 0
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/tinbronze"
+          },
+          {
+            "name": "bronze",
+            "key": "red",
+            "texture": "game:block/metal/plate/tinbronze"
+          },
+          {
+            "name": "black",
+            "key": "red",
+            "texture": "game:block/stone/rock/basalt1"
+          }
+        ]
       }
     ]
   },
@@ -123,6 +143,26 @@
         "code": "fuelconsumer",
         "burnRatePerSecond": 0.9,
         "fireboxSeconds": 0
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/tinbronze"
+          },
+          {
+            "name": "bronze",
+            "key": "red",
+            "texture": "game:block/metal/plate/tinbronze"
+          },
+          {
+            "name": "black",
+            "key": "red",
+            "texture": "game:block/stone/rock/basalt1"
+          }
+        ]
       }
     ]
   }

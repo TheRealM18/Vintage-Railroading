@@ -78,6 +78,26 @@
         "acceptCategories": [
           "wood"
         ]
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          },
+          {
+            "name": "oak",
+            "key": "red",
+            "texture": "game:block/wood/planks/oak1"
+          },
+          {
+            "name": "ebony",
+            "key": "red",
+            "texture": "game:block/wood/planks/ebony1"
+          }
+        ]
       }
     ]
   },
@@ -94,6 +114,26 @@
         "quantitySlots": 16,
         "acceptCategories": [
           "wood"
+        ]
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          },
+          {
+            "name": "oak",
+            "key": "red",
+            "texture": "game:block/wood/planks/oak1"
+          },
+          {
+            "name": "ebony",
+            "key": "red",
+            "texture": "game:block/wood/planks/ebony1"
+          }
         ]
       }
     ]

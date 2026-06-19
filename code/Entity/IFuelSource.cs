@@ -68,9 +68,9 @@ namespace VintageRailroading.Entities
                 if (stack == null || !ItemSlotFuelOnly.IsFuel(stack)) continue;
 
                 // BurnDuration is per ITEM, in seconds. Take exactly one item.
-                double seconds = stack.Collectible.CombustibleProps.BurnDuration;
-                slot.TakeOut(1);
-                slot.MarkDirty();
+                double seconds = stack.Collectible?.CombustibleProps?.BurnDuration ?? 0;
+                slot?.TakeOut(1);
+                slot?.MarkDirty();
                 return seconds;
             }
             return 0;

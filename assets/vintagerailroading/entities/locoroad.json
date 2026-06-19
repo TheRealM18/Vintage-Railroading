@@ -102,6 +102,26 @@
         "code": "fuelconsumer",
         "burnRatePerSecond": 1.4,
         "fireboxSeconds": 0
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          },
+          {
+            "name": "rust",
+            "key": "red",
+            "texture": "game:block/metal/plate/rusty"
+          },
+          {
+            "name": "copper",
+            "key": "red",
+            "texture": "game:block/metal/plate/copper"
+          }
+        ]
       }
     ]
   },
@@ -123,6 +143,26 @@
         "code": "fuelconsumer",
         "burnRatePerSecond": 1.4,
         "fireboxSeconds": 0
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          },
+          {
+            "name": "rust",
+            "key": "red",
+            "texture": "game:block/metal/plate/rusty"
+          },
+          {
+            "name": "copper",
+            "key": "red",
+            "texture": "game:block/metal/plate/copper"
+          }
+        ]
       }
     ]
   }

@@ -92,7 +92,7 @@ namespace VintageRailroading.Render
         /// </summary>
         public static void Emit(ITerrainMeshPool mesher, MeshData railMesh, BlockPos anchor,
                                 double gaugeWidth, Station[] rails, Station[] ties,
-                                MeshData tieMesh = null)
+                                MeshData? tieMesh = null)
         {
             var tieBase = tieMesh ?? railMesh;
             double half = gaugeWidth * 0.5;

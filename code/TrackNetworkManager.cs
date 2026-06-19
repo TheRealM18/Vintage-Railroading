@@ -15,7 +15,7 @@ namespace VintageRailroading
     public class TrackNetworkPacket
     {
         [ProtoMember(1)]
-        public byte[] Data;
+        public byte[] Data = null!;
     }
 
     /// <summary>
@@ -34,10 +34,10 @@ namespace VintageRailroading
         private const string SaveKey = "vintagerailroading:network";
         private const string ChannelName = "vintagerailroading:tracknet";
 
-        private ICoreServerAPI _sapi;
-        private ICoreClientAPI _capi;
-        private IServerNetworkChannel _serverChannel;
-        private IClientNetworkChannel _clientChannel;
+        private ICoreServerAPI _sapi = null!;
+        private ICoreClientAPI _capi = null!;
+        private IServerNetworkChannel _serverChannel = null!;
+        private IClientNetworkChannel _clientChannel = null!;
 
         public TrackNetwork Network { get; private set; } = new TrackNetwork();
 

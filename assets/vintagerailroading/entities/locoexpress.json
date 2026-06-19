@@ -102,6 +102,26 @@
         "code": "fuelconsumer",
         "burnRatePerSecond": 2.0,
         "fireboxSeconds": 0
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/silver"
+          },
+          {
+            "name": "iron",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          },
+          {
+            "name": "gold",
+            "key": "red",
+            "texture": "game:block/metal/plate/gold"
+          }
+        ]
       }
     ]
   },
@@ -123,6 +143,26 @@
         "code": "fuelconsumer",
         "burnRatePerSecond": 2.0,
         "fireboxSeconds": 0
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/silver"
+          },
+          {
+            "name": "iron",
+            "key": "red",
+            "texture": "game:block/metal/plate/iron"
+          },
+          {
+            "name": "gold",
+            "key": "red",
+            "texture": "game:block/metal/plate/gold"
+          }
+        ]
       }
     ]
   }

@@ -111,7 +111,7 @@ namespace VintageRailroading.Entities
             // maintaining a separate consist registry for now.)
             // VERIFY: IWorldAccessor.GetEntitiesAround(Vec3d, float horRange, float vertRange,
             // ActionConsumable<Entity>) — same overload the old coupling commands used.
-            var near = world.GetEntitiesAround(entity.ServerPos.XYZ, 64f, 64f,
+            var near = world.GetEntitiesAround(entity.Pos.XYZ, 64f, 64f,
                 e => e is IRailVehicle && e.Alive && e != entity);
             if (near == null) return sources;
 
@@ -128,7 +128,7 @@ namespace VintageRailroading.Entities
         /// True if following `rv`'s LeaderEntityId chain reaches this locomotive's entity id
         /// within a sane number of hops (guards against cycles / broken links).
         /// </summary>
-        private bool ChainLeadsToMe(IRailVehicle rv, Entity startEnt)
+        private bool ChainLeadsToMe(IRailVehicle? rv, Entity startEnt)
         {
             if (rv == null) return false;
             var world = entity.World;

@@ -54,7 +54,7 @@ namespace VintageRailroading.Items
             // Clicked something that isn't a rail vehicle (air, block, animal): clear and bail.
             var targetEnt = entitySel?.Entity;
             var rail = targetEnt as IRailVehicle;
-            if (rail == null)
+            if (rail == null || targetEnt == null)
             {
                 if (_selectedByPlayer.Remove(uid))
                     Msg(sp, "Coupler: selection cleared.");

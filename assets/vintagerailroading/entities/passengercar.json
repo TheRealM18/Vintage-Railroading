@@ -108,6 +108,26 @@
       },
       {
         "code": "creaturecarrier"
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/copper"
+          },
+          {
+            "name": "bronze",
+            "key": "red",
+            "texture": "game:block/metal/plate/tinbronze"
+          },
+          {
+            "name": "gold",
+            "key": "red",
+            "texture": "game:block/metal/plate/gold"
+          }
+        ]
       }
     ]
   },
@@ -124,6 +144,26 @@
       },
       {
         "code": "creaturecarrier"
+      },
+      {
+        "code": "skinnable",
+        "skins": [
+          {
+            "name": "default",
+            "key": "red",
+            "texture": "game:block/metal/plate/copper"
+          },
+          {
+            "name": "bronze",
+            "key": "red",
+            "texture": "game:block/metal/plate/tinbronze"
+          },
+          {
+            "name": "gold",
+            "key": "red",
+            "texture": "game:block/metal/plate/gold"
+          }
+        ]
       }
     ]
   }

@@ -74,8 +74,8 @@ namespace VintageRailroading.Track
         [ProtoMember(4)] public long NextSegmentId = 1;
 
         // Not serialized — rebuilt from the lists.
-        private Dictionary<long, TrackNode> _nodeIdx;
-        private Dictionary<long, TrackSegmentData> _segIdx;
+        private Dictionary<long, TrackNode> _nodeIdx = null!;
+        private Dictionary<long, TrackSegmentData> _segIdx = null!;
 
         // Auto-join radius. Endpoints within this many blocks of an existing node
         // fuse onto it. Kept tight (0.75) so deliberately-parallel/close tracks stay
@@ -103,7 +103,7 @@ namespace VintageRailroading.Track
         public TrackNode FindOrCreateNode(double x, double y, double z, double snap = SnapDistance)
         {
             EnsureIndex();
-            TrackNode best = null;
+            TrackNode? best = null;
             double bestD = snap;
             foreach (var n in NodeList)
             {
@@ -216,7 +216,7 @@ namespace VintageRailroading.Track
             {
                 // Junction: honour the switch setting if it points at a valid exit,
                 // else fall back to the smoothest (best-aligned) branch.
-                NodeConnection picked = null;
+                NodeConnection? picked = null;
                 if (node.SelectedExit != 0)
                 {
                     foreach (var c in candidates)
@@ -312,10 +312,10 @@ namespace VintageRailroading.Track
         }
 
         /// <summary>Nearest junction node to a world point within maxDist, or null.</summary>
-        public TrackNode NearestJunction(double x, double y, double z, double maxDist)
+        public TrackNode? NearestJunction(double x, double y, double z, double maxDist)
         {
             EnsureIndex();
-            TrackNode best = null;
+            TrackNode? best = null;
             double bestD = maxDist;
             foreach (var n in NodeList)
             {
@@ -407,13 +407,13 @@ namespace VintageRailroading.Track
             return (segId, distance);
         }
 
-        public TrackNode GetNode(long id)
+        public TrackNode? GetNode(long id)
         {
             EnsureIndex();
             return _nodeIdx.TryGetValue(id, out var n) ? n : null;
         }
 
-        public TrackSegmentData GetSegment(long id)
+        public TrackSegmentData? GetSegment(long id)
         {
             EnsureIndex();
             return _segIdx.TryGetValue(id, out var s) ? s : null;
@@ -422,7 +422,7 @@ namespace VintageRailroading.Track
         /// <summary>Build runtime curve geometry (Layer 0 TrackSegment) for a stored
         /// segment id, so a train can sample positions/headings along it. Returns
         /// null if the segment or its nodes are missing.</summary>
-        public TrackSegment BuildGeometry(long segmentId)
+        public TrackSegment? BuildGeometry(long segmentId)
         {
             var seg = GetSegment(segmentId);
             if (seg == null) return null;
